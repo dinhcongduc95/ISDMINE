@@ -1,0 +1,65 @@
+﻿@model WebApplication1.Models.Test
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>Test</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Lession.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Lession.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.XmlContent)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.XmlContent)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TimeLimit)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TimeLimit)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PassMark)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PassMark)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

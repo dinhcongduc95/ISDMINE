@@ -1,0 +1,64 @@
+﻿@using System.Web.UI.WebControls
+@using WebApplication1.Models
+@model LoginViewModel
+@{
+    ViewBag.Title = "Log in";
+}
+
+
+
+        <section id="loginForm">
+            @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+            {
+                @Html.AntiForgeryToken()
+                <h4 style="text-align: center;">Use a local account to log in.</h4>
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <div class="form-group">
+                    @Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label" })
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(m => m.Email, new { @class = "form-control", @style="width: 92%"})
+                        @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(m => m.Password, new { @class = "col-md-2 control-label" })
+                    <div class="col-md-10">
+                        @Html.PasswordFor(m => m.Password, new { @class = "form-control", @style = "width: 92%" })
+                        @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <div class="checkbox">
+                            @Html.CheckBoxFor(m => m.RememberMe)
+                            @Html.LabelFor(m => m.RememberMe)
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" value="Log in" class="btn btn-default" />
+                    </div>
+                </div>
+                <p class="col-md-offset-2 col-md-10">
+                    @Html.ActionLink("Not an user yet? Register as a new user", "Register")
+                </p>
+                @* Enable this once you have account confirmation enabled for password reset functionality
+                    <p>
+                        @Html.ActionLink("Forgot your password?", "ForgotPassword")
+                    </p>*@
+            }
+        </section>
+<div class="col-md-4">
+    <section id="socialLoginForm">
+        @Html.Partial("_ExternalLoginsListPartial", new ExternalLoginListViewModel { ReturnUrl = ViewBag.ReturnUrl })
+    </section>
+</div>
+<div class="fb-post" data-href="https://www.facebook.com/akogijin/posts/1396806213681103:0" data-width="500" data-show-text="true"><blockquote cite="https://www.facebook.com/akogijin/posts/1396806213681103:0" class="fb-xfbml-parse-ignore">Được đăng bởi <a href="https://www.facebook.com/akogijin">Cam Huu Nguyen</a>&nbsp;<a href="https://www.facebook.com/akogijin/posts/1396806213681103:0">20 Tháng 9 2016</a></blockquote></div>
+<div class="fb-comments" data-href="https://www.facebook.com/akogijin/posts/1396806213681103:0" data-width="600px" data-numposts="10"></div>
+
+<a href="~/Content/ckfinder/ckfinder.html">~/Content/ckfinder/ckfinder.html</a>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

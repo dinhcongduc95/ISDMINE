@@ -1,0 +1,83 @@
+﻿@model WebApplication1.Models.Course
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Course</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Platform.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Platform.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Intrduction)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Intrduction)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TuitionFee)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TuitionFee)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.EntryTestXml)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EntryTestXml)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TimeLimit)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TimeLimit)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PassMark)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PassMark)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ImageLink)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ImageLink)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.CourseId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

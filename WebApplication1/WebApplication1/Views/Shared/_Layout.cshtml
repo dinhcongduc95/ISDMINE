@@ -1,0 +1,146 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>Agency - Start Bootstrap Theme</title>
+    <!-- jQuery -->
+    @Scripts.Render("~/Content/jquery/jquery.min.js")
+
+    <!-- Bootstrap Core JavaScript -->
+    @Scripts.Render("~/Content/bootstrap/js/bootstrap.min.js")
+    <!-- Bootstrap Core CSS -->
+    @Styles.Render("~/Content/bootstrap/css/bootstrap.min.css")
+    <!-- Custom Fonts -->
+    @Styles.Render("~/Content/font-awesome/css/font-awesome.min.css")
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
+    <link href='https://fonts.googleapis.com/css?family=Kaushan+Script' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700' rel='stylesheet' type='text/css'>
+    <!-- Theme CSS -->
+    @Styles.Render("~/Content/agency.css")
+
+    @Styles.Render("~/Content/shop-homepage.css")
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+<body id="page-top" class="index">
+    <div id="fb-root"></div>
+    <script>
+        (function (d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) return;
+            js = d.createElement(s); js.id = id;
+            js.src = "//connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v2.7&appId=1752161791724347";
+            fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));
+    </script>
+    <!-- Navigation -->
+    <nav id="mainNav" class="navbar navbar-default navbar-custom navbar-fixed-top" style="padding: 0;">
+        <div class="container">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header page-scroll">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span> Menu <i class="fa fa-bars"></i>
+                </button>
+                <a class="navbar-brand page-scroll" href="#page-top">PRODEV.VN</a>
+            </div>
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-right">
+                    <li @if (ViewBag.Title == "Homepage") { @Html.Raw("class='active'")  }>
+                        @Html.ActionLink("HOME", "Index", "Home")
+                    </li>
+                    <li @if (ViewBag.Title == "Class Schedule") { @Html.Raw("class='active'")  }>
+                        @Html.ActionLink("SCHEDULE", "ClassSchedule", "Intro", null, new { @class = "page-scroll" })
+                    </li>
+                    <li @if (ViewBag.Title == "Course List") { @Html.Raw("class='active'")  }>
+                        @Html.ActionLink("KHÓA HỌC", "CourseList", "Intro", null, new { @class = "page-scroll" })
+                    </li>
+                    <li>
+                        <a class="page-scroll" href="#team">TUTORIAL</a>
+                    </li>
+                    <li>
+                        @Html.Partial("~/Views/Shared/_LoginPartial.cshtml")
+                    </li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container-fluid -->
+        <div id="randomBanner" class="hidden">
+            <div class="runningBanner" style="width: 100%; background-color: grey; float: left">
+                <div class="collapseBtn">
+                    <div id="minusBtn">Thu nhỏ</div>
+                    <div id="plusBtn" class="hideBtn">Mở rộng</div>
+                </div>
+                <div class="floatingText">
+                    <div style="max-height:100px; list-style-type: none;">
+                        <div class="tech-slideshow">
+                            <div class="mover-1"><i class="fa fa-play-circle fa-2" aria-hidden="true"></i> Click vào để đọc thông báo</div>
+                        </div>
+                    </div>
+                </div>
+                <div id="bannerContent">
+                    <div style="max-height: 15px">
+                        <div class="slider"><i class="fa fa-play-circle fa-2" aria-hidden="true"></i> Banner 1</div>
+                        <div class="slider closed"><i class="fa fa-play-circle fa-2" aria-hidden="true"></i> Banner 2</div>
+                        <div class="slider closed"><i class="fa fa-play-circle fa-2" aria-hidden="true"></i> Banner 3</div>
+                    </div>
+                </div>
+                <div class="socialContents">
+                    <i class="fa fa-facebook socialContent"></i>
+                    <i class="fa fa-google-plus socialContent" aria-hidden="true"></i>
+                    <i class="fa fa-youtube socialContent" aria-hidden="true"></i>
+                    <i class="fa fa-search socialContent" aria-hidden="true"></i>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    @RenderBody()
+
+    <hr />
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4">
+                    <span class="copyright">COPYRIGHT &copy; BY PRODEV.VN 2016</span>
+                </div>
+                <div class="col-md-4">
+                    <ul class="list-inline social-buttons">
+                        <li>
+                            <a href="#"><i class="fa fa-twitter"></i></a>
+                        </li>
+                        <li>
+                            <a href="#"><i class="fa fa-facebook"></i></a>
+                        </li>
+                        <li>
+                            <a href="#"><i class="fa fa-linkedin"></i></a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+
+    </footer>
+</body>
+
+</html>
+
+
+
+<!-- Plugin JavaScript -->
+<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
+<!-- Theme JavaScript -->
+@Scripts.Render("~/Content/js/agency.js")
+@RenderSection("scripts", required: false)
