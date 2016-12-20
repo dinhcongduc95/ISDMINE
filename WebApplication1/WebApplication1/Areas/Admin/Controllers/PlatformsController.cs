@@ -35,6 +35,45 @@ namespace WebApplication1.Areas.Admin.Controllers
             return View(platform);
         }
 
+        public ActionResult ListAllCourses(long? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Platform platform = db.Platforms.Include(m => m.Courses).ToList().Find(m => m.PlatformId == id);
+            if (platform == null)
+            {
+                return HttpNotFound();
+            }
+            var allCourses = platform.Courses;
+            ViewBag.PlatformId = id;
+            return View(allCourses);
+        }
+
+        public ActionResult RemoveFromPlatform(long? id, long? platformId)
+        {
+            if (id == null || platformId == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Platform platform = db.Platforms.Include(m => m.Courses).ToList().Find(m => m.PlatformId == platformId);
+            if (platform == null)
+            {
+                return HttpNotFound();
+            }
+            var course = db.Courses.Find(id);
+            if (course == null)
+            {
+                return HttpNotFound();
+            }
+            platform.Courses.Remove(course);
+            db.Entry(platform).State = EntityState.Modified;
+            db.SaveChanges();
+            
+            return RedirectToAction("ListAllCourses", new {id = platformId});
+        }
+        
         // GET: Admin/Platforms/Create
         public ActionResult Create()
         {

@@ -6,6 +6,8 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using Kendo.Mvc.UI;
+using WebApplication1.Areas.Admin.Models.ViewModels;
 using WebApplication1.Models;
 
 namespace WebApplication1.Areas.Admin.Controllers
@@ -17,8 +19,7 @@ namespace WebApplication1.Areas.Admin.Controllers
         // GET: Admin/Enrolments
         public ActionResult Index()
         {
-            var enrolments = db.Enrolments.Include(e => e.Course).Include(e => e.User);
-            return View(enrolments.ToList());
+            return View(db.Enrolments.Include(m => m.Course).Include(m => m.User).ToList());
         }
 
         // GET: Admin/Enrolments/Details/5
@@ -28,7 +29,8 @@ namespace WebApplication1.Areas.Admin.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Enrolment enrolment = db.Enrolments.Find(id);
+            Enrolment enrolment =
+                db.Enrolments.Include(m => m.Course).Include(m => m.User).ToList().Find(m => m.EnrolmentId == id);
             if (enrolment == null)
             {
                 return HttpNotFound();
@@ -39,8 +41,6 @@ namespace WebApplication1.Areas.Admin.Controllers
         // GET: Admin/Enrolments/Create
         public ActionResult Create()
         {
-            ViewBag.CourseId = new SelectList(db.Courses, "CourseId", "Name");
-            ViewBag.UserId = new SelectList(db.Users, "Id", "HomeTown");
             return View();
         }
 
@@ -49,17 +49,41 @@ namespace WebApplication1.Areas.Admin.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "EnrolmentId,UserId,CourseId,CreateDate,EndDate,IsValid")] Enrolment enrolment)
+        public ActionResult Create([Bind(Include = "EnrolmentId,CreateDate,EndDate,IsValid")] Enrolment enrolment)
         {
             if (ModelState.IsValid)
             {
+                // Get course
+                var courseStr = Request.Form["CourseName"];
+                if (string.IsNullOrEmpty(courseStr))
+                {
+                    return RedirectToAction("Index");
+                }
+                var course = db.Courses.SingleOrDefault(m => m.Name.Equals(courseStr));
+                if (course == null)
+                {
+                    return RedirectToAction("Index");
+                }
+
+                // Get user
+                var userStr = Request.Form["Username"];
+                if (string.IsNullOrEmpty(userStr))
+                {
+                    return RedirectToAction("Index");
+                }
+                var user = db.Users.SingleOrDefault(m => m.UserName.Equals(userStr));
+                if (user == null)
+                {
+                    return RedirectToAction("Index");
+                }
+
+                enrolment.User = user;
+                enrolment.Course = course;
                 db.Enrolments.Add(enrolment);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            ViewBag.CourseId = new SelectList(db.Courses, "CourseId", "Name", enrolment.CourseId);
-            ViewBag.UserId = new SelectList(db.Users, "Id", "HomeTown", enrolment.UserId);
             return View(enrolment);
         }
 
@@ -70,13 +94,13 @@ namespace WebApplication1.Areas.Admin.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Enrolment enrolment = db.Enrolments.Find(id);
+                  
+            Enrolment enrolment =
+                db.Enrolments.Include(m => m.Course).Include(m => m.User).ToList().Find(m => m.EnrolmentId == id);
             if (enrolment == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.CourseId = new SelectList(db.Courses, "CourseId", "Name", enrolment.CourseId);
-            ViewBag.UserId = new SelectList(db.Users, "Id", "HomeTown", enrolment.UserId);
             return View(enrolment);
         }
 
@@ -85,16 +109,39 @@ namespace WebApplication1.Areas.Admin.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "EnrolmentId,UserId,CourseId,CreateDate,EndDate,IsValid")] Enrolment enrolment)
+        public ActionResult Edit([Bind(Include = "EnrolmentId,CreateDate,EndDate,IsValid")] Enrolment enrolment)
         {
             if (ModelState.IsValid)
             {
+                var courseStr = Request.Form["CourseName"];
+                if (string.IsNullOrEmpty(courseStr))
+                {
+                    return RedirectToAction("Index");
+                }
+                var course = db.Courses.SingleOrDefault(m => m.Name.Equals(courseStr));
+                if (course == null)
+                {
+                    return RedirectToAction("Index");
+                }
+
+                // Get user
+                var userStr = Request.Form["Username"];
+                if (string.IsNullOrEmpty(userStr))
+                {
+                    return RedirectToAction("Index");
+                }
+                var user = db.Users.SingleOrDefault(m => m.UserName.Equals(userStr));
+                if (user == null)
+                {
+                    return RedirectToAction("Index");
+                }
+
+                enrolment.User = user;
+                enrolment.Course = course;
                 db.Entry(enrolment).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.CourseId = new SelectList(db.Courses, "CourseId", "Name", enrolment.CourseId);
-            ViewBag.UserId = new SelectList(db.Users, "Id", "HomeTown", enrolment.UserId);
             return View(enrolment);
         }
 
@@ -105,7 +152,8 @@ namespace WebApplication1.Areas.Admin.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Enrolment enrolment = db.Enrolments.Find(id);
+            Enrolment enrolment =
+                db.Enrolments.Include(m => m.Course).Include(m => m.User).ToList().Find(m => m.EnrolmentId == id);
             if (enrolment == null)
             {
                 return HttpNotFound();
@@ -131,6 +179,30 @@ namespace WebApplication1.Areas.Admin.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
+        }
+
+        public ActionResult GetUsers([DataSourceRequest] DataSourceRequest request, string text)
+        {
+           var results = new List<UserViewModel>();
+            var test = db.Users.ToList();
+            results = db.Users.Select(m => new UserViewModel
+            {                
+                Username = m.UserName               
+            }).Where(m => m.Username.Contains(text)).ToList();
+
+            return Json(results, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult GetCourses([DataSourceRequest] DataSourceRequest request, string text)
+        {
+            var results = new List<CourseViewModel>();
+
+            results = db.Courses.Select(m => new CourseViewModel
+            {
+                Name = m.Name,
+            }).Where(m => m.Name.Contains(text)).ToList();
+
+            return Json(results, JsonRequestBehavior.AllowGet);
         }
     }
 }

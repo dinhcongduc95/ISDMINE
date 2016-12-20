@@ -5,20 +5,12 @@
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Details</h2>
+<h2>Details of course with id: @Model.CourseId</h2>
 
 <div>
     <h4>Course</h4>
     <hr />
     <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Platform.Name)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Platform.Name)
-        </dd>
-
         <dt>
             @Html.DisplayNameFor(model => model.Name)
         </dt>
@@ -28,11 +20,27 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Intrduction)
+            @Html.DisplayNameFor(model => model.Platform)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Intrduction)
+            @(Model.Platform != null?Model.Platform.Name:"")
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Level)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Level)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Introduction)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Introduction)
         </dd>
 
         <dt>
@@ -72,9 +80,17 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.ImageLink)
+           @if (string.IsNullOrEmpty(Model.ImageLink))
+           {
+            <img class="img-responsive" id="Thumbnail" src="http://web-vn.com/wp-content/uploads/2014/04/dummy-image-grey-e1398449111870.jpg" />
+           }
+           else
+           {
+            <img class="img-responsive" id="Thumbnail" src="@Url.Content(Model.ImageLink)" />
+           }
         </dd>
 
+        
     </dl>
 </div>
 <p>

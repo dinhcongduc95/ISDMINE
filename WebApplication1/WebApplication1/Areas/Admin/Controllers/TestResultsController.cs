@@ -6,6 +6,8 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using Kendo.Mvc.UI;
+using WebApplication1.Areas.Admin.Models.ViewModels;
 using WebApplication1.Models;
 
 namespace WebApplication1.Areas.Admin.Controllers
@@ -17,8 +19,7 @@ namespace WebApplication1.Areas.Admin.Controllers
         // GET: Admin/TestResults
         public ActionResult Index()
         {
-            var testResults = db.TestResults.Include(t => t.Test).Include(t => t.User);
-            return View(testResults.ToList());
+            return View(db.TestResults.Include(m => m.User).Include(m => m.Test).ToList());
         }
 
         // GET: Admin/TestResults/Details/5
@@ -28,7 +29,7 @@ namespace WebApplication1.Areas.Admin.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            TestResult testResult = db.TestResults.Find(id);
+            TestResult testResult = db.TestResults.Include(m => m.User).Include(m => m.Test).ToList().Find(m => m.TestResultId == id);
             if (testResult == null)
             {
                 return HttpNotFound();
@@ -39,8 +40,6 @@ namespace WebApplication1.Areas.Admin.Controllers
         // GET: Admin/TestResults/Create
         public ActionResult Create()
         {
-            ViewBag.TestId = new SelectList(db.Tests, "TestId", "Name");
-            ViewBag.UserId = new SelectList(db.Users, "Id", "HomeTown");
             return View();
         }
 
@@ -49,17 +48,41 @@ namespace WebApplication1.Areas.Admin.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "TestResultId,TestId,UserId,Mark,Passed")] TestResult testResult)
+        public ActionResult Create([Bind(Include = "TestResultId,Mark,Passed")] TestResult testResult)
         {
             if (ModelState.IsValid)
             {
+                // Get test
+                var testStr = Request.Form["TestName"];
+                if (string.IsNullOrEmpty(testStr))
+                {
+                    return RedirectToAction("Index");
+                }
+                var test = db.Tests.SingleOrDefault(m => m.Name.Equals(testStr));
+                if (test == null)
+                {
+                    return RedirectToAction("Index");
+                }
+
+                // Get user
+                var userStr = Request.Form["Username"];
+                if (string.IsNullOrEmpty(userStr))
+                {
+                    return RedirectToAction("Index");
+                }
+                var user = db.Users.SingleOrDefault(m => m.UserName.Equals(userStr));
+                if (user == null)
+                {
+                    return RedirectToAction("Index");
+                }
+
+                testResult.User = user;
+                testResult.Test = test;
                 db.TestResults.Add(testResult);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            ViewBag.TestId = new SelectList(db.Tests, "TestId", "Name", testResult.TestId);
-            ViewBag.UserId = new SelectList(db.Users, "Id", "HomeTown", testResult.UserId);
             return View(testResult);
         }
 
@@ -70,13 +93,11 @@ namespace WebApplication1.Areas.Admin.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            TestResult testResult = db.TestResults.Find(id);
+            TestResult testResult = db.TestResults.Include(m => m.User).Include(m => m.Test).ToList().Find(m => m.TestResultId == id);
             if (testResult == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.TestId = new SelectList(db.Tests, "TestId", "Name", testResult.TestId);
-            ViewBag.UserId = new SelectList(db.Users, "Id", "HomeTown", testResult.UserId);
             return View(testResult);
         }
 
@@ -85,16 +106,40 @@ namespace WebApplication1.Areas.Admin.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "TestResultId,TestId,UserId,Mark,Passed")] TestResult testResult)
+        public ActionResult Edit([Bind(Include = "TestResultId,Mark,Passed")] TestResult testResult)
         {
             if (ModelState.IsValid)
             {
+                // Get test
+                var testStr = Request.Form["TestName"];
+                if (string.IsNullOrEmpty(testStr))
+                {
+                    return RedirectToAction("Index");
+                }
+                var test = db.Tests.SingleOrDefault(m => m.Name.Equals(testStr));
+                if (test == null)
+                {
+                    return RedirectToAction("Index");
+                }
+
+                // Get user
+                var userStr = Request.Form["Username"];
+                if (string.IsNullOrEmpty(userStr))
+                {
+                    return RedirectToAction("Index");
+                }
+                var user = db.Users.SingleOrDefault(m => m.UserName.Equals(userStr));
+                if (user == null)
+                {
+                    return RedirectToAction("Index");
+                }
+
+                testResult.User = user;
+                testResult.Test = test;
                 db.Entry(testResult).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.TestId = new SelectList(db.Tests, "TestId", "Name", testResult.TestId);
-            ViewBag.UserId = new SelectList(db.Users, "Id", "HomeTown", testResult.UserId);
             return View(testResult);
         }
 
@@ -105,7 +150,7 @@ namespace WebApplication1.Areas.Admin.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            TestResult testResult = db.TestResults.Find(id);
+            TestResult testResult = db.TestResults.Include(m => m.User).Include(m => m.Test).ToList().Find(m => m.TestResultId == id);
             if (testResult == null)
             {
                 return HttpNotFound();
@@ -131,6 +176,28 @@ namespace WebApplication1.Areas.Admin.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
+        }
+
+        public ActionResult GetUsers([DataSourceRequest] DataSourceRequest request, string text)
+        {
+            var results = new List<UserViewModel>();          
+            results = db.Users.Select(m => new UserViewModel
+            {
+                Username = m.UserName
+            }).Where(m => m.Username.Contains(text)).ToList();
+
+            return Json(results, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult GetTests([DataSourceRequest] DataSourceRequest request, string text)
+        {
+            var results = new List<TestViewModel>();            
+            results = db.Tests.Select(m => new TestViewModel
+            {
+                Name = m.Name
+            }).Where(m => m.Name.Contains(text)).ToList();
+
+            return Json(results, JsonRequestBehavior.AllowGet);
         }
     }
 }

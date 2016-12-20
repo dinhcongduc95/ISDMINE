@@ -32,7 +32,8 @@
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.PlatformId }) |
             @Html.ActionLink("Details", "Details", new { id=item.PlatformId }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.PlatformId })
+            @Html.ActionLink("Delete", "Delete", new { id = item.PlatformId })|
+            @Html.ActionLink("Courses", "ListAllCourses", new { id = item.PlatformId }) 
         </td>
     </tr>
 }

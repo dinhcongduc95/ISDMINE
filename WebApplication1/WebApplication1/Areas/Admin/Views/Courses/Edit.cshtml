@@ -1,11 +1,12 @@
-﻿@model WebApplication1.Models.Course
+﻿@using Kendo.Mvc.UI
+@model WebApplication1.Models.Course
 
 @{
     ViewBag.Title = "Edit";
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Edit</h2>
+<h2>Edit course with id: @Model.CourseId</h2>
 
 @using (Html.BeginForm())
 {
@@ -26,10 +27,50 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.Intrduction, htmlAttributes: new { @class = "control-label col-md-2" })
+            <label class="control-label col-md-2" for="PlatformName">Platform</label>
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Intrduction, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Intrduction, "", new { @class = "text-danger" })
+                @(Html.Kendo().AutoComplete()
+                      .Name("PlatformName")
+                      .Value((Model.Platform != null) ? Model.Platform.Name : "")
+                      .DataTextField("Name")
+                      .Suggest(true)
+                      .MinLength(2)                    
+                      .DataSource(source =>
+                      {
+                          source.Read(read =>
+                          {
+                              read.Action("GetPlatforms", "Courses").Data("onAdditionalData");
+                          })
+                              .ServerFiltering(true);
+                      })
+                )
+                @Html.ValidationMessageFor(model => model.ImageLink, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Introduction, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <textarea type="text" name="Introduction" Id="Introduction"></textarea>
+                @Html.ValidationMessageFor(model => model.Introduction, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Level, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <div class="radio">
+                    <label><input type="radio" name="Level" value="Dễ" @(Model.Level.Equals("Dễ") ? "checked" : "")>Dễ</label>
+                </div>
+                <div class="radio">
+                    <label><input type="radio" name="Level" value="Trung bình" @(Model.Level.Equals("Trung bình") ? "checked" : "")>Trung bình</label>
+                </div>
+                <div class="radio">
+                    <label><input type="radio" name="Level" value="Khó" @(Model.Level.Equals("Khó") ? "checked" : "")>Khó</label>
+                </div>
+
+
+                @Html.ValidationMessageFor(model => model.Level, "", new { @class = "text-danger" })
             </div>
         </div>
 
@@ -52,7 +93,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.TimeLimit, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.TimeLimit, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.TimeLimit, new { htmlAttributes = new { @class = "k-textbox" } })
                 @Html.ValidationMessageFor(model => model.TimeLimit, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -60,26 +101,31 @@
         <div class="form-group">
             @Html.LabelFor(model => model.PassMark, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.PassMark, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.PassMark, new { htmlAttributes = new { @class = "k-textbox" } })
                 @Html.ValidationMessageFor(model => model.PassMark, "", new { @class = "text-danger" })
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.PlatformId, "PlatformId", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownList("PlatformId", null, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.PlatformId, "", new { @class = "text-danger" })
-            </div>
+            @if (string.IsNullOrEmpty(Model.ImageLink))
+                {
+                    <img class="img-responsive" id="Thumbnail" src="http://web-vn.com/wp-content/uploads/2014/04/dummy-image-grey-e1398449111870.jpg" />
+                }
+                else
+                {
+                    <img class="img-responsive" id="Thumbnail" src="@Url.Content(Model.ImageLink)" />
+                }
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.ImageLink, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.ImageLink, new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.ImageLink, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.ImageLink, "", new { @class = "text-danger" })
+                @Html.TextBoxFor(m => m.ImageLink, new { id = "ImageLink", @readonly = "", @class = "k-textbox" })
+                @Html.ValidationMessageFor(model => model.ImageLink, "", new { @class = "red-text" })
+                <a class="waves-effect waves-light btn" id="btnChooseImage">Chọn ảnh</a>
             </div>
-        </div>
+
+        </div>        
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
@@ -92,3 +138,16 @@
 <div>
     @Html.ActionLink("Back to List", "Index")
 </div>
+
+<script>
+    function onAdditionalData() {
+        return {
+            text: $("#PlatformName").val()
+        };
+    }
+
+    CKEDITOR.replace('Introduction');
+</script>
+
+<script src="@Url.Content("~/Content/ckfinder/ckfinder.js")"></script>
+<script src="@Url.Content("~/Areas/Admin/Scripts/ChooseImageScript.js")"></script>

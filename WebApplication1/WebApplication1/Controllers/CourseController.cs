@@ -19,7 +19,7 @@ namespace WebApplication1.Controllers
 
         public ActionResult Detail(int? id = 1)
         {
-            ViewBag.Lessions = db.Lessions.Where(m => m.CourseId == id).ToList();
+            
             ViewBag.CourseName = db.Courses.Find(id).Name;
             return View();
         }

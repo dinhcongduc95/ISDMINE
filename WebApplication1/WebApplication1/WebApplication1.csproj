@@ -64,6 +64,10 @@
     <Reference Include="ImageProcessor">
       <HintPath>..\packages\ImageProcessor.2.3.3.0\lib\net45\ImageProcessor.dll</HintPath>
     </Reference>
+    <Reference Include="Kendo.Mvc">
+      <HintPath>..\lib\KENDOUIMVC\2016.3.1118.545.Trial\Kendo.Mvc.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
       <Private>True</Private>
@@ -192,16 +196,19 @@
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
     <Compile Include="Areas\Admin\Controllers\CommentsController.cs" />
     <Compile Include="Areas\Admin\Controllers\CoursesController.cs" />
-    <Compile Include="Areas\Admin\Controllers\EmailsController.cs" />
     <Compile Include="Areas\Admin\Controllers\EnrolmentsController.cs" />
-    <Compile Include="Areas\Admin\Controllers\FileController.cs" />
-    <Compile Include="Areas\Admin\Controllers\HomeController.cs" />
+    <Compile Include="Areas\Admin\Controllers\FilesController.cs" />
     <Compile Include="Areas\Admin\Controllers\LessionsController.cs" />
     <Compile Include="Areas\Admin\Controllers\PlatformsController.cs" />
-    <Compile Include="Areas\Admin\Controllers\RatingsController.cs" />
     <Compile Include="Areas\Admin\Controllers\TestResultsController.cs" />
     <Compile Include="Areas\Admin\Controllers\TestsController.cs" />
+    <Compile Include="Areas\Admin\Controllers\UsersController.cs" />
     <Compile Include="Areas\Admin\Models\ViewModels\CourseViewModel.cs" />
+    <Compile Include="Areas\Admin\Models\ViewModels\EnrolmentViewModel.cs" />
+    <Compile Include="Areas\Admin\Models\ViewModels\LessionViewModel.cs" />
+    <Compile Include="Areas\Admin\Models\ViewModels\PlatformViewModel.cs" />
+    <Compile Include="Areas\Admin\Models\ViewModels\TestViewModel.cs" />
+    <Compile Include="Areas\Admin\Models\ViewModels\UserViewModel.cs" />
     <Compile Include="Business\AccessDeniedAuthorize.cs" />
     <Compile Include="Common\Constant.cs" />
     <Compile Include="Controllers\AccountController.cs" />
@@ -214,6 +221,34 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201612171451533_init.cs" />
+    <Compile Include="Migrations\201612171451533_init.Designer.cs">
+      <DependentUpon>201612171451533_init.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201612171655326_v5.cs" />
+    <Compile Include="Migrations\201612171655326_v5.Designer.cs">
+      <DependentUpon>201612171655326_v5.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201612180516185_v6.cs" />
+    <Compile Include="Migrations\201612180516185_v6.Designer.cs">
+      <DependentUpon>201612180516185_v6.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201612181043260_v7.cs" />
+    <Compile Include="Migrations\201612181043260_v7.Designer.cs">
+      <DependentUpon>201612181043260_v7.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201612181544154_v8.cs" />
+    <Compile Include="Migrations\201612181544154_v8.Designer.cs">
+      <DependentUpon>201612181544154_v8.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201612191542597_whoreadthisanymore.cs" />
+    <Compile Include="Migrations\201612191542597_whoreadthisanymore.Designer.cs">
+      <DependentUpon>201612191542597_whoreadthisanymore.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201612191603440_whoreadthisanymore2.cs" />
+    <Compile Include="Migrations\201612191603440_whoreadthisanymore2.Designer.cs">
+      <DependentUpon>201612191603440_whoreadthisanymore2.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Comment.cs" />
@@ -225,7 +260,6 @@
     <Compile Include="Models\EmailTemplate.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Platform.cs" />
-    <Compile Include="Models\Rating.cs" />
     <Compile Include="Models\Test.cs" />
     <Compile Include="Models\TestResult.cs" />
     <Compile Include="Models\ViewModels\CommentViewModel.cs" />
@@ -247,6 +281,7 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Areas\Admin\Scripts\ChooseImageScript.js" />
     <Content Include="CKFinderScripts\CHANGELOG.html" />
     <Content Include="CKFinderScripts\ckfinder.html" />
     <Content Include="CKFinderScripts\ckfinder.js" />
@@ -1582,7 +1617,6 @@
     <Content Include="Areas\Admin\Views\charts.cshtml" />
     <Content Include="Areas\Admin\Views\forms.cshtml" />
     <Content Include="Areas\Admin\Views\index-rtl.cshtml" />
-    <Content Include="Areas\Admin\Views\Home\index.cshtml" />
     <Content Include="Areas\Admin\Views\tables.cshtml" />
     <Content Include="Areas\Admin\Views\_ViewStart.cshtml" />
     <Content Include="Areas\Admin\Views\Shared\_Layout.cshtml" />
@@ -1640,11 +1674,35 @@
     <Content Include="CKFinderScripts\lang\ca.json" />
     <Content Include="CKFinderScripts\lang\bs.json" />
     <Content Include="CKFinderScripts\lang\bg.json" />
-    <Content Include="Areas\Admin\Views\Emails\Create.cshtml" />
-    <Content Include="Areas\Admin\Views\Emails\Delete.cshtml" />
-    <Content Include="Areas\Admin\Views\Emails\Details.cshtml" />
-    <Content Include="Areas\Admin\Views\Emails\Edit.cshtml" />
-    <Content Include="Areas\Admin\Views\Emails\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Courses\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\Courses\Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\Courses\Details.cshtml" />
+    <Content Include="Areas\Admin\Views\Courses\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\Courses\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Platforms\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\Platforms\Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\Platforms\Details.cshtml" />
+    <Content Include="Areas\Admin\Views\Platforms\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\Platforms\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Platforms\ListAllCourses.cshtml" />
+    <Content Include="Areas\Admin\Views\Courses\ListAllLessions.cshtml" />
+    <Content Include="Areas\Admin\Views\Lessions\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\Lessions\Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\Lessions\Details.cshtml" />
+    <Content Include="Areas\Admin\Views\Lessions\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\Lessions\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Enrolments\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\Enrolments\Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\Enrolments\Details.cshtml" />
+    <Content Include="Areas\Admin\Views\Enrolments\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\Enrolments\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Courses\ListAllEnrolments.cshtml" />
+    <Content Include="Areas\Admin\Views\Lessions\ListAllComments.cshtml" />
+    <Content Include="Areas\Admin\Views\Comments\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\Comments\Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\Comments\Details.cshtml" />
+    <Content Include="Areas\Admin\Views\Comments\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\Comments\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Tests\Create.cshtml" />
     <Content Include="Areas\Admin\Views\Tests\Delete.cshtml" />
     <Content Include="Areas\Admin\Views\Tests\Details.cshtml" />
@@ -1655,37 +1713,10 @@
     <Content Include="Areas\Admin\Views\TestResults\Details.cshtml" />
     <Content Include="Areas\Admin\Views\TestResults\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\TestResults\Index.cshtml" />
-    <Content Include="Areas\Admin\Views\Ratings\Create.cshtml" />
-    <Content Include="Areas\Admin\Views\Ratings\Delete.cshtml" />
-    <Content Include="Areas\Admin\Views\Ratings\Details.cshtml" />
-    <Content Include="Areas\Admin\Views\Ratings\Edit.cshtml" />
-    <Content Include="Areas\Admin\Views\Ratings\Index.cshtml" />
-    <Content Include="Areas\Admin\Views\Lessions\Create.cshtml" />
-    <Content Include="Areas\Admin\Views\Lessions\Delete.cshtml" />
-    <Content Include="Areas\Admin\Views\Lessions\Details.cshtml" />
-    <Content Include="Areas\Admin\Views\Lessions\Edit.cshtml" />
-    <Content Include="Areas\Admin\Views\Lessions\Index.cshtml" />
-    <Content Include="Areas\Admin\Views\Courses\Create.cshtml" />
-    <Content Include="Areas\Admin\Views\Courses\Delete.cshtml" />
-    <Content Include="Areas\Admin\Views\Courses\Details.cshtml" />
-    <Content Include="Areas\Admin\Views\Courses\Edit.cshtml" />
-    <Content Include="Areas\Admin\Views\Courses\Index.cshtml" />
-    <Content Include="Areas\Admin\Views\Enrolments\Create.cshtml" />
-    <Content Include="Areas\Admin\Views\Enrolments\Delete.cshtml" />
-    <Content Include="Areas\Admin\Views\Enrolments\Details.cshtml" />
-    <Content Include="Areas\Admin\Views\Enrolments\Edit.cshtml" />
-    <Content Include="Areas\Admin\Views\Enrolments\Index.cshtml" />
-    <Content Include="Areas\Admin\Views\Platforms\Create.cshtml" />
-    <Content Include="Areas\Admin\Views\Platforms\Delete.cshtml" />
-    <Content Include="Areas\Admin\Views\Platforms\Details.cshtml" />
-    <Content Include="Areas\Admin\Views\Platforms\Edit.cshtml" />
-    <Content Include="Areas\Admin\Views\Platforms\Index.cshtml" />
-    <Content Include="Areas\Admin\Views\Comments\Create.cshtml" />
-    <Content Include="Areas\Admin\Views\Comments\Delete.cshtml" />
-    <Content Include="Areas\Admin\Views\Comments\Details.cshtml" />
-    <Content Include="Areas\Admin\Views\Comments\Edit.cshtml" />
-    <Content Include="Areas\Admin\Views\Comments\Index.cshtml" />
-    <Content Include="Areas\Admin\Views\File\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Lessions\ListAllTests.cshtml" />
+    <Content Include="Areas\Admin\Views\Files\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Users\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Users\Delete.cshtml" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -1698,6 +1729,7 @@
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\kendo.modernizr.custom.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
@@ -1756,6 +1788,18 @@
     <Content Include="Views\Course\index.cshtml" />
     <Content Include="Views\Manage\_UserCourse.cshtml" />
     <Content Include="Views\Lession\Index.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\Currency.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\Date.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\DateTime.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\Email.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\EmailAddress.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\GridForeignKey.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\Integer.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\Number.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\Password.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\String.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\Time.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\Url.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -1774,6 +1818,29 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201612171451533_init.resx">
+      <DependentUpon>201612171451533_init.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201612171655326_v5.resx">
+      <DependentUpon>201612171655326_v5.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201612180516185_v6.resx">
+      <DependentUpon>201612180516185_v6.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201612181043260_v7.resx">
+      <DependentUpon>201612181043260_v7.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201612181544154_v8.resx">
+      <DependentUpon>201612181544154_v8.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201612191542597_whoreadthisanymore.resx">
+      <DependentUpon>201612191542597_whoreadthisanymore.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201612191603440_whoreadthisanymore2.resx">
+      <DependentUpon>201612191603440_whoreadthisanymore2.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
@@ -1801,6 +1868,7 @@
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>
+      <UserProperties UseCdnSupport="True" />
     </VisualStudio>
   </ProjectExtensions>
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

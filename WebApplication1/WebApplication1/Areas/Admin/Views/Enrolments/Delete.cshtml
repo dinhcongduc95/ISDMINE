@@ -13,19 +13,19 @@
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.Course.Name)
+            @Html.DisplayNameFor(model => model.User)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Course.Name)
+            @((Model.User != null) ? Model.User.UserName : "")
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.User.HomeTown)
+            @Html.DisplayNameFor(model => model.Course)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.User.HomeTown)
+            @((Model.Course != null) ? Model.Course.Name : "")
         </dd>
 
         <dt>

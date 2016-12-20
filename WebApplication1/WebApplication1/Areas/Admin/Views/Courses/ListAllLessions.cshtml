@@ -1,0 +1,46 @@
+﻿@model IEnumerable<WebApplication1.Models.Lession>
+@{
+    ViewBag.Title = "ListAllLessions";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<h2> @ViewBag.CourseName / All Lessions</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Description)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.YoutubeLink)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.YoutubeLink)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new {id = item.LesionId, controller = "Lessions"}) |
+                @Html.ActionLink("Details", "Details", new {id = item.LesionId, controller = "Lessions" }) |
+                @Html.ActionLink("Delete", "Delete", new {id = item.LesionId, controller = "Lessions" }) |
+                @Html.ActionLink("Remove", "RemoveLessionFromCourse", new {id = item.LesionId, courseId = ViewBag.CourseId})
+            </td>
+        </tr>
+    }
+</table>
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>

@@ -43,8 +43,8 @@ namespace WebApplication1.Controllers
 
             db.Comments.Add(new Comment
             {
-                UserId = User.Identity.GetUserId(),
-                LessionId = int.Parse(lessionId),
+                
+                
                 Content = commentContent
             });
             db.SaveChanges();

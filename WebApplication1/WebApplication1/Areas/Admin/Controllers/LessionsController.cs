@@ -6,6 +6,8 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using Kendo.Mvc.UI;
+using WebApplication1.Areas.Admin.Models.ViewModels;
 using WebApplication1.Models;
 
 namespace WebApplication1.Areas.Admin.Controllers
@@ -17,8 +19,7 @@ namespace WebApplication1.Areas.Admin.Controllers
         // GET: Admin/Lessions
         public ActionResult Index()
         {
-            var lessions = db.Lessions.Include(l => l.Course);
-            return View(lessions.ToList());
+            return View(db.Lessions.Include(m => m.Course).ToList());
         }
 
         // GET: Admin/Lessions/Details/5
@@ -28,7 +29,7 @@ namespace WebApplication1.Areas.Admin.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Lession lession = db.Lessions.Find(id);
+            Lession lession = db.Lessions.Include(m => m.Course).ToList().Find(m => m.LesionId == id);
             if (lession == null)
             {
                 return HttpNotFound();
@@ -39,7 +40,6 @@ namespace WebApplication1.Areas.Admin.Controllers
         // GET: Admin/Lessions/Create
         public ActionResult Create()
         {
-            ViewBag.CourseId = new SelectList(db.Courses, "CourseId", "Name");
             return View();
         }
 
@@ -48,16 +48,28 @@ namespace WebApplication1.Areas.Admin.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "LesionId,CourseId,Name,Description,YoutubeLink")] Lession lession)
+        public ActionResult Create([Bind(Include = "LesionId,Name,Description,YoutubeLink,ImageLink")] Lession lession)
         {
             if (ModelState.IsValid)
             {
+                var courseStr = Request.Form["CourseName"];
+                if (string.IsNullOrEmpty(courseStr))
+                {
+                    return RedirectToAction("Index");
+                }
+                var course = db.Courses.SingleOrDefault(m => m.Name.Equals(courseStr));
+                if (course == null)
+                {
+                    return RedirectToAction("Index");
+                }
+                course.Lessions.Add(lession);
+
                 db.Lessions.Add(lession);
+                db.Entry(course).State = EntityState.Modified;                
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            ViewBag.CourseId = new SelectList(db.Courses, "CourseId", "Name", lession.CourseId);
             return View(lession);
         }
 
@@ -68,12 +80,11 @@ namespace WebApplication1.Areas.Admin.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Lession lession = db.Lessions.Find(id);
+            Lession lession = db.Lessions.Include(m => m.Course).ToList().Find(m => m.LesionId == id);
             if (lession == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.CourseId = new SelectList(db.Courses, "CourseId", "Name", lession.CourseId);
             return View(lession);
         }
 
@@ -82,15 +93,26 @@ namespace WebApplication1.Areas.Admin.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "LesionId,CourseId,Name,Description,YoutubeLink")] Lession lession)
+        public ActionResult Edit([Bind(Include = "LesionId,Name,Description,YoutubeLink,ImageLink")] Lession lession)
         {
             if (ModelState.IsValid)
             {
+                var courseStr = Request.Form["CourseName"];
+                if (string.IsNullOrEmpty(courseStr))
+                {
+                    return RedirectToAction("Index");
+                }
+                var course = db.Courses.SingleOrDefault(m => m.Name.Equals(courseStr));
+                if (course == null)
+                {
+                    return RedirectToAction("Index");
+                }
+                course.Lessions.Add(lession);
                 db.Entry(lession).State = EntityState.Modified;
+                db.Entry(course).State = EntityState.Modified;                
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.CourseId = new SelectList(db.Courses, "CourseId", "Name", lession.CourseId);
             return View(lession);
         }
 
@@ -101,7 +123,7 @@ namespace WebApplication1.Areas.Admin.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Lession lession = db.Lessions.Find(id);
+            Lession lession = db.Lessions.Include(m => m.Course).ToList().Find(m => m.LesionId == id);
             if (lession == null)
             {
                 return HttpNotFound();
@@ -128,5 +150,53 @@ namespace WebApplication1.Areas.Admin.Controllers
             }
             base.Dispose(disposing);
         }
+
+        public ActionResult ListAllComments(long? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Lession lession = db.Lessions.Include(m => m.Comments).ToList().Find(m => m.LesionId == id);
+            if (lession == null)
+            {
+                return HttpNotFound();
+            }
+            var allComments = lession.Comments;
+            ViewBag.LessionId = id;
+            ViewBag.LessionName = lession.Name;
+            return View(allComments);
+        }
+
+        public ActionResult ListAllTests(long? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Lession lession = db.Lessions.Include(m => m.Comments).ToList().Find(m => m.LesionId == id);
+            if (lession == null)
+            {
+                return HttpNotFound();
+            }
+            var allTests = lession.Tests;
+            ViewBag.LessionId = id;
+            ViewBag.LessionName = lession.Name;
+            return View(allTests);
+        }
+
+        public ActionResult GetCourses([DataSourceRequest] DataSourceRequest request, string text)
+        {
+            var results = new List<CourseViewModel>();
+
+            results = db.Courses.Select(m => new CourseViewModel
+            {                
+                Name = m.Name,                
+            }).Where(m => m.Name.Contains(text)).ToList();
+
+            return Json(results, JsonRequestBehavior.AllowGet);
+        }
+
+        
     }
 }

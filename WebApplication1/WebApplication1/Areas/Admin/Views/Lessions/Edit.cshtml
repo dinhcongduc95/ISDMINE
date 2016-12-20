@@ -1,4 +1,5 @@
-﻿@model WebApplication1.Models.Lession
+﻿@using Kendo.Mvc.UI
+@model WebApplication1.Models.Lession
 
 @{
     ViewBag.Title = "Edit";
@@ -18,20 +19,36 @@
         @Html.HiddenFor(model => model.LesionId)
 
         <div class="form-group">
-            @Html.LabelFor(model => model.CourseId, "CourseId", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownList("CourseId", null, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.CourseId, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
             @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
             </div>
         </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-2" for="CourseName">Platform</label>
+            <div class="col-md-10">
+                @(Html.Kendo().AutoComplete()
+                      .Name("CourseName")
+                      .Value((Model.Course != null) ? Model.Course.Name : "")
+                      .DataTextField("Name")
+                      .Suggest(true)
+                      .MinLength(2)
+                      .DataSource(source =>
+                      {
+                          source.Read(read =>
+                          {
+                              read.Action("GetCourses", "Lessions").Data("onAdditionalData");
+                          })
+                              .ServerFiltering(true);
+                      })
+                )
+                @Html.ValidationMessageFor(model => model.ImageLink, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+
 
         <div class="form-group">
             @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-2" })
@@ -50,6 +67,27 @@
         </div>
 
         <div class="form-group">
+            @if (string.IsNullOrEmpty(Model.ImageLink))
+                {
+                <img class="img-responsive" id="Thumbnail" src="http://web-vn.com/wp-content/uploads/2014/04/dummy-image-grey-e1398449111870.jpg" />
+            }
+            else
+            {
+                <img class="img-responsive" id="Thumbnail" src="@Url.Content(Model.ImageLink)" />
+            }
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.ImageLink, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(m => m.ImageLink, new { id = "ImageLink", @readonly = "", @class = "k-textbox" })
+                @Html.ValidationMessageFor(model => model.ImageLink, "", new { @class = "red-text" })
+                <a class="waves-effect waves-light btn" id="btnChooseImage">Chọn ảnh</a>
+            </div>
+
+        </div>     
+
+        <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
                 <input type="submit" value="Save" class="btn btn-default" />
             </div>
@@ -60,3 +98,16 @@
 <div>
     @Html.ActionLink("Back to List", "Index")
 </div>
+
+<script>
+    function onAdditionalData() {
+        return {
+            text: $("#CourseName").val()
+        };
+    }
+
+    CKEDITOR.replace('Description');
+</script>
+
+<script src="@Url.Content("~/Content/ckfinder/ckfinder.js")"></script>
+<script src="@Url.Content("~/Areas/Admin/Scripts/ChooseImageScript.js")"></script>

@@ -9,7 +9,10 @@ namespace WebApplication1.Models
 {
     public class Platform
     {
-
+        public Platform()
+        {
+            Courses = new HashSet<Course>();
+        }
         [Key]
         public long PlatformId { get; set; }
 
@@ -18,7 +21,7 @@ namespace WebApplication1.Models
         [AllowHtml]
         public string Description { get; set; }
 
-        public virtual ICollection<Course> Courses { get; set; }
+        public ICollection<Course> Courses { get; set; }
 
     }
 }

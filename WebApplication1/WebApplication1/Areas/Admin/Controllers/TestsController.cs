@@ -6,6 +6,8 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using Kendo.Mvc.UI;
+using WebApplication1.Areas.Admin.Models.ViewModels;
 using WebApplication1.Models;
 
 namespace WebApplication1.Areas.Admin.Controllers
@@ -17,8 +19,7 @@ namespace WebApplication1.Areas.Admin.Controllers
         // GET: Admin/Tests
         public ActionResult Index()
         {
-            var tests = db.Tests.Include(t => t.Lession);
-            return View(tests.ToList());
+            return View(db.Tests.Include(m => m.Lession).ToList());
         }
 
         // GET: Admin/Tests/Details/5
@@ -28,7 +29,7 @@ namespace WebApplication1.Areas.Admin.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Test test = db.Tests.Find(id);
+            Test test = db.Tests.Include(m => m.Lession).ToList().Find(m => m.TestId == id);
             if (test == null)
             {
                 return HttpNotFound();
@@ -39,7 +40,6 @@ namespace WebApplication1.Areas.Admin.Controllers
         // GET: Admin/Tests/Create
         public ActionResult Create()
         {
-            ViewBag.LessionId = new SelectList(db.Lessions, "LesionId", "Name");
             return View();
         }
 
@@ -48,16 +48,27 @@ namespace WebApplication1.Areas.Admin.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "TestId,LessionId,Name,XmlContent,TimeLimit,PassMark")] Test test)
+        public ActionResult Create([Bind(Include = "TestId,Name,XmlContent,TimeLimit,PassMark")] Test test)
         {
             if (ModelState.IsValid)
             {
+                var lessionStr = Request.Form["LessionName"];
+                if (string.IsNullOrEmpty(lessionStr))
+                {
+                    return RedirectToAction("Index");
+                }
+                var lession = db.Lessions.SingleOrDefault(m => m.Name.Equals(lessionStr));
+                if (lession == null)
+                {
+                    return RedirectToAction("Index");
+                }
+                                
+                test.Lession = lession;
                 db.Tests.Add(test);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            ViewBag.LessionId = new SelectList(db.Lessions, "LesionId", "Name", test.LessionId);
             return View(test);
         }
 
@@ -68,12 +79,11 @@ namespace WebApplication1.Areas.Admin.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Test test = db.Tests.Find(id);
+            Test test = db.Tests.Include(m => m.Lession).ToList().Find(m => m.TestId == id);
             if (test == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.LessionId = new SelectList(db.Lessions, "LesionId", "Name", test.LessionId);
             return View(test);
         }
 
@@ -82,15 +92,26 @@ namespace WebApplication1.Areas.Admin.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "TestId,LessionId,Name,XmlContent,TimeLimit,PassMark")] Test test)
+        public ActionResult Edit([Bind(Include = "TestId,Name,XmlContent,TimeLimit,PassMark")] Test test)
         {
             if (ModelState.IsValid)
             {
+                var lessionStr = Request.Form["LessionName"];
+                if (string.IsNullOrEmpty(lessionStr))
+                {
+                    return RedirectToAction("Index");
+                }
+                var lession = db.Lessions.SingleOrDefault(m => m.Name.Equals(lessionStr));
+                if (lession == null)
+                {
+                    return RedirectToAction("Index");
+                }
+
+                test.Lession = lession;
                 db.Entry(test).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.LessionId = new SelectList(db.Lessions, "LesionId", "Name", test.LessionId);
             return View(test);
         }
 
@@ -101,7 +122,7 @@ namespace WebApplication1.Areas.Admin.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Test test = db.Tests.Find(id);
+            Test test = db.Tests.Include(m => m.Lession).ToList().Find(m => m.TestId == id);
             if (test == null)
             {
                 return HttpNotFound();
@@ -127,6 +148,18 @@ namespace WebApplication1.Areas.Admin.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
+        }
+
+        public ActionResult GetLessions([DataSourceRequest] DataSourceRequest request, string text)
+        {
+            var results = new List<LessionViewModel>();
+
+            results = db.Lessions.Select(m => new LessionViewModel
+            {
+                Name = m.Name
+            }).Where(m => m.Name.Contains(text)).ToList();
+
+            return Json(results, JsonRequestBehavior.AllowGet);
         }
     }
 }

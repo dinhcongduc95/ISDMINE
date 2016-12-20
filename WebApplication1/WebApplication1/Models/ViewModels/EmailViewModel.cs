@@ -20,7 +20,6 @@ namespace WebApplication1.Models.ViewModels
 
         [AllowHtml]
         public string HtmlContent { get; set; }
-
         
         public string UserId { get; set; }
 

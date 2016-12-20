@@ -1,543 +1,480 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="description" content="">
-        <meta name="author" content="">
-        <title>SB Admin - Bootstrap Admin Template</title>
-        <!-- Bootstrap Core CSS -->
-        @Styles.Render("~/Content/bootstrap/css/bootstrap.min.css")
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>SB Admin - Bootstrap Admin Template</title>
+    <!-- Bootstrap Core CSS -->
+    @Styles.Render("~/Content/bootstrap/css/bootstrap.min.css")
 
-        <!-- Custom CSS -->
-        @Scripts.Render("~/Content/sb-admin.css")"
-        <!-- Morris Charts CSS -->
+    <!-- Custom CSS -->
+    @Scripts.Render("~/Content/sb-admin.css")"
+    <!-- Morris Charts CSS -->
 
-        @Styles.Render("~/Content/sb-admin.css")
-        <!-- Custom Fonts -->
-        @Styles.Render("~/Content/font-awesome/css/font-awesome.min.css")
-        @Styles.Render("~/Content/ckeditor/contents.css")
-        
-        @Scripts.Render("~/Content/jquery/jquery.min.js")
-        
-        @Scripts.Render("~/Content/ckeditor/ckeditor.js")
+    @Styles.Render("~/Content/sb-admin.css")
+    <!-- Custom Fonts -->
+    @Styles.Render("~/Content/font-awesome/css/font-awesome.min.css")
 
-        <!-- Bootstrap Core JavaScript -->
-        @Scripts.Render("~/Content/bootstrap/js/bootstrap.min.js")
-        <!-- Morris Charts JavaScript -->
-        @Scripts.Render("~/Content/plugins-js/morris/raphael.min.js")
+    @Scripts.Render("~/Content/jquery/jquery.min.js")
 
-        @Scripts.Render("~/Content/plugins-js/morris/morris.min.js")
+    <!-- Bootstrap Core JavaScript -->
+    @Scripts.Render("~/Content/bootstrap/js/bootstrap.min.js")
+    <!-- Morris Charts JavaScript -->
+    <script src="@Url.Content("~/Content/ckeditor/ckeditor.js")"></script>
+    @RenderSection("scripts", false)
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <link href="https://kendo.cdn.telerik.com/2016.3.1118/styles/kendo.common-material.min.css" rel="stylesheet" type="text/css"/>
+    <link href="https://kendo.cdn.telerik.com/2016.3.1118/styles/kendo.mobile.all.min.css" rel="stylesheet" type="text/css"/>
+    <link href="https://kendo.cdn.telerik.com/2016.3.1118/styles/kendo.dataviz.min.css" rel="stylesheet" type="text/css"/>
+    <link href="https://kendo.cdn.telerik.com/2016.3.1118/styles/kendo.material.min.css" rel="stylesheet" type="text/css"/>
+    <link href="https://kendo.cdn.telerik.com/2016.3.1118/styles/kendo.dataviz.material.min.css" rel="stylesheet" type="text/css"/>
+    <script src="https://kendo.cdn.telerik.com/2016.3.1118/js/jquery.min.js"></script>
+    <script src="https://kendo.cdn.telerik.com/2016.3.1118/js/jszip.min.js"></script>
+    <script src="https://kendo.cdn.telerik.com/2016.3.1118/js/kendo.all.min.js"></script>
+    <script src="https://kendo.cdn.telerik.com/2016.3.1118/js/kendo.aspnetmvc.min.js"></script>
+    <script src="@Url.Content("~/Scripts/kendo.modernizr.custom.js")"></script>
+</head>
+<body>
+<div id="wrapper">
+<!-- Navigation -->
 
-        @Scripts.Render("~/Content/plugins-js/morris/morris-data.js")
+<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
 
-        @Scripts.Render("~/Content/js/admin.js")
+<!-- Brand and toggle get grouped for better mobile display -->
 
-        @RenderSection("scripts", false)
-        <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-        <!--[if lt IE 9]>
-            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-            <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-        <![endif]-->
-    </head>
-    <body>
-        <div id="wrapper">
-            <!-- Navigation -->
+<div class="navbar-header">
 
-            <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
 
-                <!-- Brand and toggle get grouped for better mobile display -->
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+    </button>
 
-                <div class="navbar-header">
+    <a class="navbar-brand" href="index.cshtml">Prodev VN</a>
 
-                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+</div>
 
-                        <span class="sr-only">Toggle navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
+<!-- Top Menu Items -->
 
-                    <a class="navbar-brand" href="index.cshtml">Prodev VN</a>
+<ul class="nav navbar-right top-nav">
+
+<li class="dropdown">
+
+    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+        <i class="fa fa-envelope"></i> <b class="caret"></b>
+    </a>
+
+    <ul class="dropdown-menu message-dropdown">
+
+        <li class="message-preview">
+
+            <a href="#">
+
+                <div class="media">
+
+                    <span class="pull-left">
+                                            <img class="media-object" src="" alt="">
+                                        </span>
+                    <div class="media-body">
+
+                        <h5 class="media-heading">
+                            <strong>John Smith</strong>
+
+                        </h5>
+
+                        <p class="small text-muted">
+                            <i class="fa fa-clock-o"></i> Yesterday at 4:32 PM
+                        </p>
+
+                        <p>Lorem ipsum dolor sit amet, consectetur...</p>
+
+                    </div>
 
                 </div>
 
-                <!-- Top Menu Items -->
+            </a>
 
-                <ul class="nav navbar-right top-nav">
-    
-                    <li class="dropdown">
+        </li>
 
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                            <i class="fa fa-envelope"></i> <b class="caret"></b>
-                        </a>
+        <li class="message-preview">
 
-                        <ul class="dropdown-menu message-dropdown">
+            <a href="#">
 
-                            <li class="message-preview">
+                <div class="media">
 
-                                <a href="#">
-
-                                    <div class="media">
-
-                                        <span class="pull-left">
-                                            <img class="media-object" src="http://placehold.it/50x50" alt="">
+                    <span class="pull-left">
+                                            <img class="media-object" src="" alt="">
                                         </span>
-                                        <div class="media-body">
+                    <div class="media-body">
 
-                                            <h5 class="media-heading">
-                                                <strong>John Smith</strong>
+                        <h5 class="media-heading">
+                            <strong>John Smith</strong>
 
-                                            </h5>
+                        </h5>
 
-                                            <p class="small text-muted">
-                                                <i class="fa fa-clock-o"></i> Yesterday at 4:32 PM
-                                            </p>
+                        <p class="small text-muted">
+                            <i class="fa fa-clock-o"></i> Yesterday at 4:32 PM
+                        </p>
 
-                                            <p>Lorem ipsum dolor sit amet, consectetur...</p>
+                        <p>Lorem ipsum dolor sit amet, consectetur...</p>
 
-                                        </div>
+                    </div>
 
-                                    </div>
+                </div>
 
-                                </a>
+            </a>
 
-                            </li>
+        </li>
 
-                            <li class="message-preview">
+        <li class="message-preview">
 
-                                <a href="#">
+            <a href="#">
 
-                                    <div class="media">
+                <div class="media">
 
-                                        <span class="pull-left">
-                                            <img class="media-object" src="http://placehold.it/50x50" alt="">
+                    <span class="pull-left">
+                                            <img class="media-object" src="" alt="">
                                         </span>
-                                        <div class="media-body">
+                    <div class="media-body">
 
-                                            <h5 class="media-heading">
-                                                <strong>John Smith</strong>
+                        <h5 class="media-heading">
+                            <strong>John Smith</strong>
 
-                                            </h5>
+                        </h5>
 
-                                            <p class="small text-muted">
-                                                <i class="fa fa-clock-o"></i> Yesterday at 4:32 PM
-                                            </p>
+                        <p class="small text-muted">
+                            <i class="fa fa-clock-o"></i> Yesterday at 4:32 PM
+                        </p>
 
-                                            <p>Lorem ipsum dolor sit amet, consectetur...</p>
+                        <p>Lorem ipsum dolor sit amet, consectetur...</p>
 
-                                        </div>
+                    </div>
 
-                                    </div>
+                </div>
 
-                                </a>
+            </a>
 
-                            </li>
+        </li>
 
-                            <li class="message-preview">
+        <li class="message-footer">
 
-                                <a href="#">
+            <a href="#">Read All New Messages</a>
 
-                                    <div class="media">
+        </li>
 
-                                        <span class="pull-left">
-                                            <img class="media-object" src="http://placehold.it/50x50" alt="">
-                                        </span>
-                                        <div class="media-body">
+    </ul>
 
-                                            <h5 class="media-heading">
-                                                <strong>John Smith</strong>
+</li>
 
-                                            </h5>
+<li class="dropdown">
 
-                                            <p class="small text-muted">
-                                                <i class="fa fa-clock-o"></i> Yesterday at 4:32 PM
-                                            </p>
+    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+        <i class="fa fa-bell"></i> <b class="caret"></b>
+    </a>
 
-                                            <p>Lorem ipsum dolor sit amet, consectetur...</p>
+    <ul class="dropdown-menu alert-dropdown">
 
-                                        </div>
+        <li>
 
-                                    </div>
+            <a href="#">Alert Name <span class="label label-default">Alert Badge</span></a>
 
-                                </a>
+        </li>
 
-                            </li>
+        <li>
 
-                            <li class="message-footer">
+            <a href="#">Alert Name <span class="label label-primary">Alert Badge</span></a>
 
-                                <a href="#">Read All New Messages</a>
+        </li>
 
-                            </li>
+        <li>
 
-                        </ul>
+            <a href="#">Alert Name <span class="label label-success">Alert Badge</span></a>
 
-                    </li>
+        </li>
 
-                    <li class="dropdown">
+        <li>
 
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                            <i class="fa fa-bell"></i> <b class="caret"></b>
-                        </a>
+            <a href="#">Alert Name <span class="label label-info">Alert Badge</span></a>
 
-                        <ul class="dropdown-menu alert-dropdown">
+        </li>
 
-                            <li>
+        <li>
 
-                                <a href="#">Alert Name <span class="label label-default">Alert Badge</span></a>
+            <a href="#">Alert Name <span class="label label-warning">Alert Badge</span></a>
 
-                            </li>
+        </li>
 
-                            <li>
+        <li>
 
-                                <a href="#">Alert Name <span class="label label-primary">Alert Badge</span></a>
+            <a href="#">Alert Name <span class="label label-danger">Alert Badge</span></a>
 
-                            </li>
+        </li>
 
-                            <li>
+        <li class="divider"></li>
 
-                                <a href="#">Alert Name <span class="label label-success">Alert Badge</span></a>
+        <li>
 
-                            </li>
+            <a href="#">View All</a>
 
-                            <li>
+        </li>
 
-                                <a href="#">Alert Name <span class="label label-info">Alert Badge</span></a>
+    </ul>
 
-                            </li>
+</li>
 
-                            <li>
+<li class="dropdown">
 
-                                <a href="#">Alert Name <span class="label label-warning">Alert Badge</span></a>
+    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> John Smith <b class="caret"></b></a>
 
-                            </li>
+    <ul class="dropdown-menu">
 
-                            <li>
+        <li>
 
-                                <a href="#">Alert Name <span class="label label-danger">Alert Badge</span></a>
+            <a href="#"><i class="fa fa-fw fa-user"></i> Profile</a>
 
-                            </li>
+        </li>
 
-                            <li class="divider"></li>
+        <li>
 
-                            <li>
+            <a href="#"><i class="fa fa-fw fa-envelope"></i> Inbox</a>
 
-                                <a href="#">View All</a>
+        </li>
 
-                            </li>
+        <li>
 
-                        </ul>
+            <a href="#"><i class="fa fa-fw fa-gear"></i> Settings</a>
 
-                    </li>
+        </li>
 
-                    <li class="dropdown">
+        <li class="divider"></li>
 
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> John Smith <b class="caret"></b></a>
+        <li>
 
-                        <ul class="dropdown-menu">
+            <a href="#"><i class="fa fa-fw fa-power-off"></i> Log Out</a>
 
-                            <li>
+        </li>
 
-                                <a href="#"><i class="fa fa-fw fa-user"></i> Profile</a>
+    </ul>
 
-                            </li>
+</li>
 
-                            <li>
+</ul>
 
-                                <a href="#"><i class="fa fa-fw fa-envelope"></i> Inbox</a>
+<!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
 
-                            </li>
+<div class="collapse navbar-collapse navbar-ex1-collapse">
 
-                            <li>
+<ul class="nav navbar-nav side-nav">
 
-                                <a href="#"><i class="fa fa-fw fa-gear"></i> Settings</a>
+<li class="active">
 
-                            </li>
+    <a href="~/Admin/Home/Index"><i class="fa fa-fw fa-dashboard"></i> Dashboard</a>
 
-                            <li class="divider"></li>
+</li>
 
-                            <li>
+<li>
 
-                                <a href="#"><i class="fa fa-fw fa-power-off"></i> Log Out</a>
+    <a href="javascript:;" data-toggle="collapse" data-target="#platformDrop"><i class="fa fa-fw fa-arrows-v"></i> Platforms <i class="fa fa-fw fa-caret-down"></i></a>
 
-                            </li>
+    <ul id="platformDrop" class="collapse">
+        <li>
 
-                        </ul>
+            <a href="~/Admin/Platforms/Index">List</a>
 
-                    </li>
+        </li>
 
-                </ul>
+        <li>
 
-                <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
+            <a href="~/Admin/Platforms/Create">Add</a>
 
-                <div class="collapse navbar-collapse navbar-ex1-collapse">
+        </li>        
 
-                    <ul class="nav navbar-nav side-nav">
+    </ul>
 
-                        <li class="active">
+</li>
 
-                            <a href="~/Admin/Home/Index"><i class="fa fa-fw fa-dashboard"></i> Dashboard</a>
+<li>
 
-                        </li>
+    <a href="javascript:;" data-toggle="collapse" data-target="#courseDrop"><i class="fa fa-fw fa-arrows-v"></i> Courses <i class="fa fa-fw fa-caret-down"></i></a>
+
+    <ul id="courseDrop" class="collapse">
+
+        <li>
+
+            <a href="~/Admin/Courses/Index">List</a>
+
+        </li>
+
+        <li>
+
+            <a href="~/Admin/Courses/Create">Add</a>
+
+        </li>        
+
+    </ul>
+
+</li>
+
+<li>
+
+    <a href="javascript:;" data-toggle="collapse" data-target="#enrolDrop"><i class="fa fa-fw fa-arrows-v"></i> Enrolments <i class="fa fa-fw fa-caret-down"></i></a>
+
+    <ul id="enrolDrop" class="collapse">
+
+        <li>
+
+            <a href="~/Admin/Enrolments/Index">List</a>
+
+        </li>
+        <li>
+
+            <a href="~/Admin/Enrolments/Create">Add</a>
+
+        </li>        
+
+    </ul>
+
+</li>
+
+<li>
+
+    <a href="javascript:;" data-toggle="collapse" data-target="#lessionDrop"><i class="fa fa-fw fa-arrows-v"></i> Lessions <i class="fa fa-fw fa-caret-down"></i></a>
+
+    <ul id="lessionDrop" class="collapse">
+
+        <li>
+
+            <a href="~/Admin/Lessions/Index">List</a>
+
+        </li>
+
+        <li>
+
+            <a href="~/Admin/Lessions/Create">Add</a>
+
+        </li>
+        
+    </ul>
+
+</li>
+
+<li>
+
+    <a href="javascript:;" data-toggle="collapse" data-target="#testDrop"><i class="fa fa-fw fa-arrows-v"></i> Tests <i class="fa fa-fw fa-caret-down"></i></a>
+
+    <ul id="testDrop" class="collapse">
+
+        <li>
+
+            <a href="~/Admin/Tests/Index">List</a>
+
+        </li>
+        <li>
+
+            <a href="~/Admin/Tests/Create">Add</a>
+
+        </li>        
+
+    </ul>
+
+</li>
+
+<li>
+
+    <a href="javascript:;" data-toggle="collapse" data-target="#testResultDrop"><i class="fa fa-fw fa-arrows-v"></i> Test Results <i class="fa fa-fw fa-caret-down"></i></a>
+
+    <ul id="testResultDrop" class="collapse">
+
+        <li>
+
+            <a href="~/Admin/TestResults/Index">List</a>
+
+        </li>
+        <li>
+
+            <a href="~/Admin/TestResults/Create">Add</a>
+
+        </li>
+
+    </ul>
+
+</li>
+
+<li>
+
+    <a href="javascript:;" data-toggle="collapse" data-target="#userDrop"><i class="fa fa-fw fa-arrows-v"></i> Users <i class="fa fa-fw fa-caret-down"></i></a>
+
+    <ul id="userDrop" class="collapse">
+
+        <li>
+
+            <a href="~/Admin/Users/Index">List</a>
+
+        </li>
+
+    </ul>
+
+</li>
+
+<li>
+
+    <a href="javascript:;" data-toggle="collapse" data-target="#commentDrop"><i class="fa fa-fw fa-arrows-v"></i> Comments <i class="fa fa-fw fa-caret-down"></i></a>
+
+    <ul id="commentDrop" class="collapse">
+
+        <li>
+
+            <a href="~/Admin/Comments/Index">List</a>
+
+        </li>
+        <li>
+
+            <a href="~/Admin/Comments/Create">Add</a>
+
+        </li>
        
-                        <li>
+    </ul>
 
-                            <a href="javascript:;" data-toggle="collapse" data-target="#courseDrop"><i class="fa fa-fw fa-arrows-v"></i> Courses <i class="fa fa-fw fa-caret-down"></i></a>
+</li>
 
-                            <ul id="courseDrop" class="collapse">
-                
-                                <li>
+<li>
 
-                                    <a href="~/Admin/Courses/Index">List</a>
+    <a href="~/Admin/Files/Index">File Management</a>
 
-                                </li>
+</li>
 
-                                <li>
 
-                                    <a href="~/Admin/Courses/Create">Add</a>
+</ul>
 
-                                </li>
+</div>
 
-                                <li>
+<!-- /.navbar-collapse -->
 
-                                    <a href="#">Remove</a>
+</nav>
 
-                                </li>
+<div id="page-wrapper">
 
-                            </ul>
 
-                        </li>
-        
-                        <li>
+    <div class="container-fluid">
+        @RenderBody()
+    </div>
+</div>
+</div>
+<!-- /#wrapper -->
+<!-- jQuery -->
 
-                            <a href="javascript:;" data-toggle="collapse" data-target="#userDrop"><i class="fa fa-fw fa-arrows-v"></i> Users <i class="fa fa-fw fa-caret-down"></i></a>
 
-                            <ul id="userDrop" class="collapse">
+</body>
 
-                                <li>
-
-                                    <a href="~/Admin/Users/Index">List</a>
-
-                                </li>
-
-                                <li>
-
-                                    <a href="#">Add</a>
-
-                                </li>
-
-                                <li>
-
-                                    <a href="#">Update</a>
-
-                                </li>
-
-                                <li>
-
-                                    <a href="#">Remove</a>
-
-                                </li>
-
-                            </ul>
-
-                        </li>
-        
-                        <li>
-
-                            <a href="javascript:;" data-toggle="collapse" data-target="#platformDrop"><i class="fa fa-fw fa-arrows-v"></i> Platforms <i class="fa fa-fw fa-caret-down"></i></a>
-
-                            <ul id="platformDrop" class="collapse">
-                                <li>
-
-                                    <a href="~/Admin/Platforms/Index">List</a>
-
-                                </li>
-
-                                <li>
-
-                                    <a href="~/Admin/Platforms/Create">Add</a>
-
-                                </li>
-
-                                <li>
-
-                                    <a href="~/Admin/Platforms/Update">Update</a>
-
-                                </li>
-
-                                <li>
-
-                                    <a href="~/Admin/Platforms/Delete">Remove</a>
-
-                                </li>
-
-                            </ul>
-
-                        </li>
-        
-                        <li>
-
-                            <a href="javascript:;" data-toggle="collapse" data-target="#testDrop"><i class="fa fa-fw fa-arrows-v"></i> Tests <i class="fa fa-fw fa-caret-down"></i></a>
-
-                            <ul id="testDrop" class="collapse">
-
-                                <li>
-
-                                    <a href="~/Admin/Tests/Index">List</a>
-
-                                </li>
-                                <li>
-
-                                    <a href="~/Admin/Tests/Create">Add</a>
-
-                                </li>
-
-                                <li>
-
-                                    <a href="~/Admin/Tests/Update">Update</a>
-
-                                </li>
-
-                                <li>
-
-                                    <a href="#">Remove</a>
-
-                                </li>
-
-                            </ul>
-
-                        </li>
-
-                        <li>
-
-                            <a href="javascript:;" data-toggle="collapse" data-target="#commentDrop"><i class="fa fa-fw fa-arrows-v"></i> Comments <i class="fa fa-fw fa-caret-down"></i></a>
-
-                            <ul id="commentDrop" class="collapse">
-
-                                <li>
-
-                                    <a href="~/Admin/Comments/Index">List</a>
-
-                                </li>
-                                <li>
-
-                                    <a href="~/Admin/Comments/Create">Add</a>
-
-                                </li>
-
-                                <li>
-
-                                    <a href="~/Admin/Comments/Update">Update</a>
-
-                                </li>
-
-                                <li>
-
-                                    <a href="#">Remove</a>
-
-                                </li>
-
-                            </ul>
-
-                        </li>    
-        
-                        <li>
-
-                            <a href="javascript:;" data-toggle="collapse" data-target="#ratingDrop"><i class="fa fa-fw fa-arrows-v"></i> Ratings <i class="fa fa-fw fa-caret-down"></i></a>
-
-                            <ul id="ratingDrop" class="collapse">
-
-                                <li>
-
-                                    <a href="~/Admin/Ratings/Index">List</a>
-
-                                </li>
-                                <li>
-
-                                    <a href="~/Admin/Ratings/Create">Add</a>
-
-                                </li>
-
-                                <li>
-
-                                    <a href="#">Update</a>
-
-                                </li>
-
-                                <li>
-
-                                    <a href="#">Remove</a>
-
-                                </li>
-
-                            </ul>
-
-                        </li>
-
-                    <li>
-
-                        <a href="javascript:;" data-toggle="collapse" data-target="#enrolDrop"><i class="fa fa-fw fa-arrows-v"></i> Enrolments <i class="fa fa-fw fa-caret-down"></i></a>
-
-                        <ul id="enrolDrop" class="collapse">
-
-                            <li>
-
-                                <a href="~/Admin/Enrolments/Index">List</a>
-
-                            </li>
-                            <li>
-
-                                <a href="~/Admin/Enrolments/Create">Add</a>
-
-                            </li>
-
-                            <li>
-
-                                <a href="#">Update</a>
-
-                            </li>
-
-                            <li>
-
-                                <a href="#">Remove</a>
-
-                            </li>
-
-                        </ul>
-
-                    </li>
-                        <li>
-
-                            <a href="~/Admin/File/Index">File Management</a>
-                          
-                        </li>
-
-                       
-
-                    </ul>
-
-                </div>
-
-                <!-- /.navbar-collapse -->
-
-            </nav>
-
-            <div id="page-wrapper">
-
-
-                <div class="container-fluid">
-                    @RenderBody()
-                </div>
-            </div>
-        </div>
-        <!-- /#wrapper -->
-        <!-- jQuery -->
-
-        <script lang="javascript">(function() {var pname = ( (document.title !='')? document.title : document.querySelector('h1').innerHTML );var ga = document.createElement('script'); ga.type = 'text/javascript';ga.src = '//live.vnpgroup.net/js/web_client_box.php?hash=511fdc320359de0b843969a9b0121a9d&data=eyJoYXNoIjoiMjdlNjcxNGE0ZDI1MzQ3MDAwZDEwNzkzZjFjZjcwMDIiLCJzc29faWQiOjQxOTU0OTd9&pname='+pname;var s = document.getElementsByTagName('script');s[0].parentNode.insertBefore(ga, s[0]);})();</script>	
-    </body>
-    
-    
 
 </html>

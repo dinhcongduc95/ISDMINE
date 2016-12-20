@@ -15,7 +15,7 @@ namespace WebApplication1.Models.ViewModels
 
         public string Name { get; set; }       
 
-        public string Intrduction { get; set; }
+        public string Introduction { get; set; }
 
         public double TuitionFee { get; set; }
 

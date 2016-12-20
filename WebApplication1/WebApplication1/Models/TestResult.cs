@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
@@ -11,21 +12,21 @@ namespace WebApplication1.Models
     {
         
         [Key]
-        public long TestResultId { get; set; }       
+        public long TestResultId { get; set; }
 
-        public long TestId { get; set; }
-
-        public string UserId { get; set; }
-
-        public long Mark { get; set; }
-
-        public Boolean Passed { get; set; }
-
-        [ForeignKey("UserId")]
-        public ApplicationUser User { get; set; }
-
-        [ForeignKey("TestId")]
+        [DisplayName("Bài giảng")]
         public Test Test { get; set; }
 
+        [DisplayName("Người dùng")]        
+        public ApplicationUser User { get; set; }
+
+        [DisplayName("Điểm số")]
+        [Required]
+        public long Mark { get; set; }
+
+        [DisplayName("Đã qua")]
+        [Required]
+        public bool Passed { get; set; }
+        
     }
 }

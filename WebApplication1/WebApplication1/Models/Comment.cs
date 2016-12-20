@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
@@ -11,18 +12,21 @@ namespace WebApplication1.Models
     {
 
         [Key]
-        public long CommentId { get; set; }
+        public long CommentId { get; set; }         
 
-        public string UserId { get; set; }
-
-        [ForeignKey("Lession")]
-        public long LessionId { get; set; }
-        public Lession Lession { get; set; }
-
+        [DisplayName("Nội dung")]
+        [Required]
         [MaxLength(500)]
         public string Content { get; set; }
 
-        [ForeignKey("UserId")]
+        [DisplayName("Sao")]
+        [Required]
+        public int Star { get; set; }
+
+        [DisplayName("Người dùng")]
         public ApplicationUser User { get; set; }
+
+        [DisplayName("Bài học")]        
+        public Lession Lession { get; set; }
     }
 }
