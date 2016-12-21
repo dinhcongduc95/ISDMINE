@@ -258,3 +258,8 @@ C:\Users\dinhc\Source\Repos\ISDMINE\WebApplication1\WebApplication1\obj\Debug\We
 C:\Users\dinhc\Source\Repos\ISDMINE\WebApplication1\WebApplication1\obj\Debug\WebApplication1.Migrations.v8.resources
 C:\Users\dinhc\Source\Repos\ISDMINE\WebApplication1\WebApplication1\obj\Debug\WebApplication1.Migrations.whoreadthisanymore.resources
 C:\Users\dinhc\Source\Repos\ISDMINE\WebApplication1\WebApplication1\obj\Debug\WebApplication1.Migrations.whoreadthisanymore2.resources
+C:\Users\dinhc\Source\Repos\ISDMINE\WebApplication1\WebApplication1\bin\Microsoft.AspNet.SignalR.Core.dll
+C:\Users\dinhc\Source\Repos\ISDMINE\WebApplication1\WebApplication1\bin\Microsoft.AspNet.SignalR.SystemWeb.dll
+C:\Users\dinhc\Source\Repos\ISDMINE\WebApplication1\WebApplication1\bin\Microsoft.AspNet.SignalR.Core.xml
+C:\Users\dinhc\Source\Repos\ISDMINE\WebApplication1\WebApplication1\bin\Microsoft.AspNet.SignalR.SystemWeb.xml
+C:\Users\dinhc\Source\Repos\ISDMINE\WebApplication1\WebApplication1\obj\Debug\WebApplication1.Migrations.updatev9.resources

@@ -107,8 +107,14 @@ namespace WebApplication1.Areas.Admin.Controllers
                     return RedirectToAction("Index");
                 }
 
-                test.Lession = lession;
-                db.Entry(test).State = EntityState.Modified;
+                var curTest = db.Tests.Find(test.TestId);
+                curTest.Name = test.Name;
+                curTest.PassMark = test.PassMark;
+                curTest.XmlContent = test.XmlContent;
+                curTest.Lession = lession;
+                curTest.TimeLimit = test.TimeLimit;
+                               
+                db.Entry(curTest).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }

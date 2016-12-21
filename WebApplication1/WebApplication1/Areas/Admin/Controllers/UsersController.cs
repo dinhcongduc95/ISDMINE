@@ -19,7 +19,8 @@ namespace WebApplication1.Areas.Admin.Controllers
             {
                 Username = m.UserName,
                 Email = m.Email,
-                Id = m.Id
+                Id = m.Id,
+                //IsAdmin = m.Roles.Any(mRole => mRole.RoleId.Equals()),
             }).ToList();
             return View(users);
         }

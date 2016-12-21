@@ -1,0 +1,86 @@
+﻿@model PagedList<MTBT.Web.Models.EntryTestResult>
+    @using MTBT.Web.Helpers
+    @{
+        ViewBag.Title = "KẾT QUẢ KIỂM TRA ĐẦU VÀO";
+        Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    }
+    
+
+    <table class="adminlist">
+        <thead>
+            <tr>
+                <th style="width: 5%">#</th>
+                <th style="width: 5%">
+                    @Html.CheckBox("chkSelectAll", false)
+                </th>
+                <th style="width: 20%">Học Viên</th>
+                <th style="width: 62%">Khóa Học</th>
+                <th style="width: 3%">Điểm Số</th>
+                <th style="width: 5%">Đã Qua</th>
+            </tr>
+        </thead>
+
+        @{
+            if (Model != null && Model.Any())
+            {
+                int rowNo = 1;
+                foreach (var item in Model.ToList())
+                {
+                    <tr>
+                        <td style="text-align: center">@rowNo</td>
+                        <td style="text-align: center">
+                            @Html.CheckBox("chkSelect", false, new { id = "chk_" + @item.Id, itemId = @item.Id })
+                        </td>
+                        <td>@item.UserId</td>
+                        <td>@item.CoureId</td>
+                        <td>@item.Mark</td>
+                        <td>@item.IsPass</td>
+                    </tr>
+                    rowNo += 1;
+                }
+            }
+        }
+
+        <tfoot>
+            <tr>
+                <td colspan="13">
+                    <div class="limit">
+                        Hiển thị #<select name="limit" id="limit" class="inputbox" size="1">
+                            <option value="5">5</option>
+                            <option value="10">10</option>
+                            <option value="15">15</option>
+                            <option value="20" selected="selected">20</option>
+                            <option value="25">25</option>
+                            <option value="30">30</option>
+                            <option value="50">50</option>
+                            <option value="100">100</option>
+                            <option value="0">Tất cả</option>
+                        </select>
+                    </div>
+                    <div class="pagination">
+                        @Html.Pager(Model, new PagerOptions
+                           {
+                               PageIndexParameterName = "id",
+                               ShowDisabledPagerItems = false,
+                               AlwaysShowFirstLastPageNumber = false,
+                               FirstPageText = "Đầu",
+                               LastPageText = "Cuối",
+                               PrevPageText = "Trước",
+                               NextPageText = "Sau",
+                               GoButtonText = "Đi đến",
+                               ShowGoButton = true
+                           }, new { })
+                    </div>
+                </td>
+            </tr>
+        </tfoot>
+    </table>
+    @Html.Hidden("controller", "EntryTest")
+    @Html.Hidden("action", "Index")
+    @Html.Hidden("ids", "")
+    @Html.Hidden("pageIndex", "1")
+    
+<script>
+    
+
+</script>

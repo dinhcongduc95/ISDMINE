@@ -1,0 +1,104 @@
+﻿@using MTBT.Web.Helpers
+<!DOCTYPE html>
+<html>
+<head>
+
+    <title>@Html.T("WEB_TITLE", (string)ViewBag.CurrentCulture, "PROFESSIONAL DEVELOPER")</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="Content-language" content="vi" />
+    <meta name="language" content="vietnamese" />
+    <meta name="author" content="More than better team" />
+    <meta name="copyright" content="More than better team" />
+
+    <link href="@Url.Content("~/Content/themes/lightweight/favicon.ico")" rel="icon" type="image/x-icon" />
+
+    <script src="@Url.Content("~/Scripts/jquery-2.1.0.min.js")" type="text/javascript"></script>
+
+    <!--bootstrap-->
+    <link href="@Url.Content("~/Content/bootstrap/css/bootstrap.min.css")" rel="stylesheet" />
+    <link href="@Url.Content("~/Content/bootstrap/css/bootstrap-responsive.min.css")" rel="stylesheet" />
+    <script src="@Url.Content("~/Content/bootstrap/js/bootstrap.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Content/bootstrap/js/bootstrap-slider.js")"></script>
+    <!--template style-->
+    <link href="@Url.Content("~/Content/site.min.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/Content/themes/lightweight/css/templates.min.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/Content/themes/lightweight/css/image-effect.css")" rel="stylesheet" type="text/css" />
+
+    <!--menu style-->
+    <link href="@Url.Content("~/Content/themes/lightweight/css/menu.min.css")" rel="stylesheet" type="text/css" />
+
+    <!--Roboto font-->
+    <link href='http://fonts.googleapis.com/css?family=Roboto+Condensed:300italic,400italic,400,300&subset=latin,vietnamese' rel='stylesheet' type='text/css'>
+
+    <!--iLightBox plugin-->
+    @*<script src="@Url.Content("~/Content/iLightBox/js/ilightbox.js")" type="text/javascript"></script>
+        <script src="@Url.Content("~/Content/iLightBox/js/jquery.mousewheel.js")" type="text/javascript"></script>
+        <link href="@Url.Content("~/Content/iLightBox/css/ilightbox.css")" rel="stylesheet" type="text/css" />*@
+
+    <!--FancyBox plugin-->
+    <script src="@Url.Content("~/Content/fancybox/source/jquery.fancybox.js?v=2.1.5")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Content/fancybox/lib/jquery.mousewheel-3.0.6.pack.js")" type="text/javascript"></script>
+    <link href="@Url.Content("~/Content/fancybox/source/jquery.fancybox.css?v=2.1.5")" rel="stylesheet" type="text/css" />
+
+    <!-- Add Button helper (this is optional) -->
+    <link rel="stylesheet" type="text/css" href="@Url.Content("~/Content/fancybox/source/helpers/jquery.fancybox-buttons.css?v=1.0.5")" />
+    <script type="text/javascript" src="@Url.Content("~/Content/fancybox/source/helpers/jquery.fancybox-buttons.js?v=1.0.5")"></script>
+
+    <!-- Add Thumbnail helper (this is optional) -->
+    <link rel="stylesheet" type="text/css" href="@Url.Content("~/Content/fancybox/source/helpers/jquery.fancybox-thumbs.css?v=1.0.7")" />
+    <script type="text/javascript" src="@Url.Content("~/Content/fancybox/source/helpers/jquery.fancybox-thumbs.js?v=1.0.7")"></script>
+
+    <!-- Add Media helper (this is optional) -->
+    <script type="text/javascript" src="@Url.Content("~/Content/fancybox/source/helpers/jquery.fancybox-media.js?v=1.0.6")"></script>
+
+    <!--superfish menu plugin-->
+    <link href="@Url.Content("~/Content/superfish/css/superfish.min.css")" media="screen" rel="stylesheet" />
+    <script src="@Url.Content("~/Content/superfish/js/hoverIntent.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Content/superfish/js/superfish.min.js")" type="text/javascript"></script>
+
+    <!--lazyload plugin-->
+    <script src="@Url.Content("~/Scripts/jquery.lazyload.min.js")" type="text/javascript"></script>
+
+    <!--cookies plugin-->
+    <script src="@Url.Content("~/Scripts/jquery.cookies.2.2.0.min.js")" type="text/javascript"></script>
+
+    <!--simply scroll-->
+    <script src="@Url.Content("~/Content/simplyScroll/jquery.simplyscroll.min.js")" type="text/javascript"></script>
+    <link href="@Url.Content("~/Content/simplyScroll/jquery.simplyscroll.min.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/Content/prodev-style/prodev-style.css")" rel="stylesheet" type="text/css" />
+
+    <!--jqx script-->
+    <link href="@Url.Content("~/Content/jqwidgets/jqx.base.css")" rel="stylesheet" />
+    <script src="@Url.Content("~/Content/jqwidgets/demos.js")"></script>
+    <script src="@Url.Content("~/Content/jqwidgets/jqxcore.js")"></script>
+    <script src="@Url.Content("~/Content/jqwidgets/jqxnavigationbar.js")"></script>
+
+    <!--SignalR script-->
+    <script src="@Url.Content("~/Scripts/jquery.signalR-1.2.2.min.js")"></script>
+
+    <!-- PRODEV SCRIPT-->
+    <script src="@Url.Content("~/Content/prodev-style/prodev.js")"></script>
+</head>
+<body onresize="resizeChange()" onload="resizeChange()">
+    <script type="text/javascript">
+        window.parent.document.body.style.zoom = 1 * 90 / 100;
+    </script>
+
+    <div class="container">
+        <div class="row">
+
+            <div class="row">
+                @RenderBody()
+                <div id="frmProgessBar" class="ProgressBar"></div>
+            </div>
+
+        </div>
+    </div>
+
+</body>
+</html>
+<link href="~/Content/themes/base/jquery.ui.all.css" rel="stylesheet" />
+<script src="~/Content/pirobox/js/jquery-ui-1.8.2.custom.min.js"></script>
+@RenderSection("scripts", false)

@@ -14,8 +14,7 @@ namespace WebApplication1.Controllers
         {
             ApplicationDbContext db = new ApplicationDbContext();
             
-            ViewBag.Title = "Homepage";
-            ViewBag.Message = "con điên"; 
+            ViewBag.Title = "Homepage";          
 
             return View();
         }

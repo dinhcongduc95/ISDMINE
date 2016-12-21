@@ -47,7 +47,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.XmlContent, new {@class = "control-label col-md-2"})
             <div class="col-md-10">
-                @Html.EditorFor(model => model.XmlContent, new {htmlAttributes = new {@class = "form-control"}})
+                <textarea name="XmlContent" id="XmlContent">@(Model.XmlContent ?? "")</textarea>
                 @Html.ValidationMessageFor(model => model.XmlContent, "", new {@class = "text-danger"})
             </div>
         </div>

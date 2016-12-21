@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
+﻿using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
-using System.Web;
 using System.Web.Mvc;
-using Kendo.Mvc.Extensions;
 using Kendo.Mvc.UI;
 using WebApplication1.Areas.Admin.Models.ViewModels;
 using WebApplication1.Models;
@@ -15,7 +11,7 @@ namespace WebApplication1.Areas.Admin.Controllers
 {
     public class CoursesController : Controller
     {
-        private ApplicationDbContext db = new ApplicationDbContext();
+        private readonly ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: Admin/Courses
         public ActionResult Index()
@@ -31,7 +27,7 @@ namespace WebApplication1.Areas.Admin.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Course course = db.Courses.Include(m => m.Platform).ToList().Find(c => c.CourseId == id);
+            var course = db.Courses.Include(m => m.Platform).ToList().Find(c => c.CourseId == id);
             if (course == null)
             {
                 return HttpNotFound();
@@ -50,7 +46,8 @@ namespace WebApplication1.Areas.Admin.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "CourseId,Name,Introduction,TuitionFee,EntryTestXml,TimeLimit,PassMark,ImageLink,Level")] Course course)
+        public ActionResult Create(
+            [Bind(Include = "CourseId,Name,Introduction,TuitionFee,EntryTestXml,TimeLimit,PassMark,ImageLink,Level")] Course course)
         {
             if (ModelState.IsValid)
             {
@@ -67,7 +64,7 @@ namespace WebApplication1.Areas.Admin.Controllers
                 platform.Courses.Add(course);
                 db.Courses.Add(course);
                 db.Entry(platform).State = EntityState.Modified;
-                
+
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
@@ -82,7 +79,7 @@ namespace WebApplication1.Areas.Admin.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Course course = db.Courses.Include(m => m.Platform).ToList().Find(c => c.CourseId == id);
+            var course = db.Courses.Include(m => m.Platform).ToList().Find(c => c.CourseId == id);
             if (course == null)
             {
                 return HttpNotFound();
@@ -95,7 +92,8 @@ namespace WebApplication1.Areas.Admin.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "CourseId,Name,Introduction,TuitionFee,EntryTestXml,TimeLimit,PassMark,ImageLink,Level")] Course course)
+        public ActionResult Edit(
+            [Bind(Include = "CourseId,Name,Introduction,TuitionFee,EntryTestXml,TimeLimit,PassMark,ImageLink,Level")] Course course)
         {
             if (ModelState.IsValid)
             {
@@ -110,31 +108,19 @@ namespace WebApplication1.Areas.Admin.Controllers
                     return RedirectToAction("Index");
                 }
                 var curCourse = db.Courses.Include(m => m.Platform).ToList().Find(m => m.CourseId == course.CourseId);
-                var curPlatform = curCourse.Platform;
-                if (curPlatform == null)
-                {
-                    platform.Courses.Add(curCourse);
-                    db.Entry(platform).State = EntityState.Modified;
 
-                    db.SaveChanges();
-                }
-                else
-                {
-                    if (!curPlatform.Equals(platform))
-                    {
-                        curPlatform.Courses.Remove(curCourse);
-                        db.Entry(curPlatform).State = EntityState.Modified;
-                        platform.Courses.Add(curCourse);
-                        db.Entry(platform).State = EntityState.Modified;
-                       
-                        db.SaveChanges();
-                    }
-                }
-
-                course.Platform = platform;
-                db.Entry(course).State = EntityState.Modified;
+                curCourse.EntryTestXml = course.EntryTestXml;
+                curCourse.ImageLink = course.ImageLink;
+                curCourse.Introduction = course.Introduction;
+                curCourse.Level = course.Level;
+                curCourse.Name = course.Name;
+                curCourse.PassMark = course.PassMark;
+                curCourse.TimeLimit = course.TimeLimit;
+                curCourse.TuitionFee = course.TuitionFee;
+                curCourse.Platform = platform;
 
                 db.SaveChanges();
+
                 return RedirectToAction("Index");
             }
             return View(course);
@@ -147,7 +133,7 @@ namespace WebApplication1.Areas.Admin.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Course course = db.Courses.Include(m => m.Platform).ToList().Find(c => c.CourseId == id);
+            var course = db.Courses.Include(m => m.Platform).ToList().Find(c => c.CourseId == id);
             if (course == null)
             {
                 return HttpNotFound();
@@ -160,7 +146,7 @@ namespace WebApplication1.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(long id)
         {
-            Course course = db.Courses.Find(id);
+            var course = db.Courses.Find(id);
             db.Courses.Remove(course);
             db.SaveChanges();
             return RedirectToAction("Index");
@@ -172,13 +158,13 @@ namespace WebApplication1.Areas.Admin.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Course course = db.Courses.Include(m => m.Lessions).ToList().Find(m => m.CourseId == id);
+            var course = db.Courses.Include(m => m.Lessions).ToList().Find(m => m.CourseId == id);
             if (course == null)
             {
                 return HttpNotFound();
             }
             var allCourses = course.Lessions;
-            ViewBag.CourseId = id;          
+            ViewBag.CourseId = id;
             ViewBag.CourseName = course.Name;
             return View(allCourses);
         }
@@ -189,7 +175,7 @@ namespace WebApplication1.Areas.Admin.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Course course = db.Courses.Include(m => m.Enrolments).ToList().Find(m => m.CourseId == id);
+            var course = db.Courses.Include(m => m.Enrolments).ToList().Find(m => m.CourseId == id);
             if (course == null)
             {
                 return HttpNotFound();
@@ -206,7 +192,7 @@ namespace WebApplication1.Areas.Admin.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Course course = db.Courses.Include(m => m.Lessions).ToList().Find(m => m.CourseId == courseId);
+            var course = db.Courses.Include(m => m.Lessions).ToList().Find(m => m.CourseId == courseId);
             if (course == null)
             {
                 return HttpNotFound();
@@ -220,9 +206,9 @@ namespace WebApplication1.Areas.Admin.Controllers
             db.Entry(course).State = EntityState.Modified;
             db.SaveChanges();
 
-            return RedirectToAction("ListAllLessions", new { id = courseId });
+            return RedirectToAction("ListAllLessions", new {id = courseId});
         }
-        
+
         public ActionResult GetPlatforms([DataSourceRequest] DataSourceRequest request, string text)
         {
             var results = new List<PlatformViewModel>();

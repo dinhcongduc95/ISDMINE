@@ -1,0 +1,297 @@
+﻿@using WebApplication1.Models
+@{ 
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    string msg = ViewBag.Message;
+}
+
+
+<!-- Header -->
+<header>
+    <div class="container">
+        <div class="intro-text">
+            <div class="row carousel-holder">
+                <div class="col-md-12">
+                    <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+                        <div class="carousel-inner">
+                            
+                            <div class="item active" node=1>
+                                <img class="slide-image" src="@Url.Content("~/Content/img/prodev_banner_1.png")" />
+                            </div>
+                            <div class="item" node=2>
+                                <img class="slide-image" src="@Url.Content("~/Content/img/prodev_banner_2.png")" alt="">
+                            </div>
+                            <div class="item" node=3>
+                                <img class="slide-image" src="http://placehold.it/800x300" alt="">
+                            </div>
+                        </div>
+                        <div style="height: 100px; margin: 10px auto;">
+							<a href="#carousel-example-generic" data-slide="prev">
+							<div class="slideButton" style="height: 120px; border: solid 1px gray; border-radius: 5px; float: left; padding: 50px 15px 50px 15px">
+								<span class="glyphicon glyphicon-chevron-left"></span>
+							</div>
+							</a>
+							<div style="margin: 10px;">
+								<div class="node" id="node1" style="margin-left: 25px;">
+									<i class="fa fa-play-circle fa-3x playBtn" aria-hidden="true"></i>
+                                    <img class="thumbnail-image activeNode" src="@Url.Content("~/Content/img/prodev_banner_1.png")" alt="" data-target="#carousel-example-generic" data-slide-to="0">			
+									<div class="thumbnail-label-slideshow blur">
+										<div class="thumbnail-label-div thumbnail-mover-1">
+											<h3 class="thumbnail-label">Slideshow 1 Title</h3>
+										</div>
+									</div>
+								</div>
+								<div class="node" id="node2">
+									<i class="fa fa-play-circle fa-3x playBtn" aria-hidden="true" style="opacity: 0"></i>
+									<img class="thumbnail-image" src="@Url.Content("~/Content/img/prodev_banner_2.png")" alt="" data-target="#carousel-example-generic" data-slide-to="1">
+									<div class="thumbnail-label-slideshow">
+										<div class="thumbnail-label-div">
+											<h3 class="thumbnail-label">Slideshow 2 Title</h3>
+										</div>
+									</div>
+								</div>
+								<div class="node" id="node3">
+									<i class="fa fa-play-circle fa-3x playBtn" aria-hidden="true" style="opacity: 0"></i>
+									<img class="thumbnail-image" src="http://placehold.it/800x300" alt="" data-target="#carousel-example-generic" data-slide-to="2">
+									<div class="thumbnail-label-slideshow">
+										<div class="thumbnail-label-div">
+											<h3 class="thumbnail-label">Slideshow 3 Title</h3>
+										</div>
+									</div>
+								</div>
+							</div>
+							<a href="#carousel-example-generic" data-slide="next">
+							<div class="slideButton" style="height: 120px; border: solid 1px gray; border-radius: 5px; float: right;  padding: 50px 15px 50px 15px">									
+									<span class="glyphicon glyphicon-chevron-right"></span>									
+							</div>
+							</a>
+						</div>
+                    </div>
+                </div>
+            </div>
+            <a  class="page-scroll btn btn-xl">KHOÁ HỌC OFFLINE</a>
+            <a  class="page-scroll btn btn-xl">KHOÁ HỌC ONLINE</a>
+			</div>
+    </div>
+</header>
+
+<!-- Services Section -->
+<section style="padding-top: 270px;">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 text-center">
+                <h2 class="section-heading">CÁC KHOÁ HỌC TẠI PRODEV.VN</h2>
+                <h3 class="section-subheading text-muted">Học với lập trình viên</h3>
+            </div>
+        </div>
+        <div class="row text-center">
+            <div class="col-md-4">
+				<a href="#portfolioModal1" class="page-scroll" data-toggle="modal">
+					<img  src="@Url.Content("~/Content/img/coban.png")" class="course-img"/>
+				</a>                               
+                <h4 class="service-heading">Khoá học cơ bản</h4>
+                <p class="text-muted">Các khoá học cơ bản gồm có C#.NET, PHP, JAVA, IOS, ANDROID và HTML Căn bản. Các khoá học này để chuẩn bị kiến thức cho các bạn học viên một cách vững chắc và rèn luyện kỹ năng thuật toán</p>
+            </div>
+            <div class="col-md-4">
+				<a href="#portfolioModal2" class="page-scroll" data-toggle="modal">
+					<img src="@Url.Content("~/Content/img/nangcao.png")" class="course-img"/>
+				</a>                                       
+                <h4 class="service-heading">Khoá học nâng cao</h4>
+                <p class="text-muted">Các khoá học nâng cao là những khoá học nối tiếp phần cơ bản, nhưng ở mức độ cao hơn như Lập trình hướng đối tượng (OOP), học sâu hơn về các thư viện của .NET, Java, PHP, Android, IOS.... Ở phần này học viên sẽ có một kỹ năng vượt trội hơn về lập trình, tư duy sâu sắc hơn và kỹ năng thuật toán toàn diện hơn.</p>
+            </div>
+            <div class="col-md-4">
+				<a href="#portfolioModal3" class="page-scroll" data-toggle="modal">
+					<img src="@Url.Content("~/Content/img/junior.png")" class="course-img"/>
+				</a>                  
+                <h4 class="service-heading">Khoá học Fresher - Junior Developer </h4>
+                <p class="text-muted">Các khoá học này đưa học viên từ trình độ cơ bản - nâng cao, lên trình độ của một người lập trình viên thực sự. Với những kỹ năng, kiến thức đã được rèn luyện ở mức độ cơ bản và nâng cao học viên có một nền tảng tốt để đột phá đến trình độ này, bắt đầu tạo ra những phần mềm, ứng dụng phục vụ doanh nghiệp, cá nhân, có khả năng tối ưu mã lệnh sâu sắc và phân tích nghiệp vụ ở mức trung bình (Junior) </p>
+            </div>
+        </div>
+    </div>
+</section>
+	
+<section id="about">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 text-center">
+                <h2 class="section-heading">About</h2>
+                <h3 class="section-subheading text-muted">Lorem ipsum dolor sit amet consectetur.</h3>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12">
+                <ul class="timeline">
+                    <li>
+                        <div class="timeline-image">
+                            <img class="img-circle img-responsive" src="@Url.Content("~/Content/img/about/1.jpg")" alt="">
+                        </div>
+                        <div class="timeline-panel">
+                            <div class="timeline-heading">
+                                <h4>2009-2011</h4>
+                                <h4 class="subheading">Our Humble Beginnings</h4>
+                            </div>
+                            <div class="timeline-body">
+                                <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sunt ut voluptatum eius sapiente, totam reiciendis temporibus qui quibusdam, recusandae sit vero unde, sed, incidunt et ea quo dolore laudantium consectetur!</p>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="timeline-inverted">
+                        <div class="timeline-image">
+                            <img class="img-circle img-responsive" src="@Url.Content("~/Content/img/about/2.jpg")" alt="">
+                        </div>
+                        <div class="timeline-panel">
+                            <div class="timeline-heading">
+                                <h4>March 2011</h4>
+                                <h4 class="subheading">An Agency is Born</h4>
+                            </div>
+                            <div class="timeline-body">
+                                <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sunt ut voluptatum eius sapiente, totam reiciendis temporibus qui quibusdam, recusandae sit vero unde, sed, incidunt et ea quo dolore laudantium consectetur!</p>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="timeline-image">
+                            <img class="img-circle img-responsive" src="@Url.Content("~/Content/img/about/3.jpg")" alt="">
+                        </div>
+                        <div class="timeline-panel">
+                            <div class="timeline-heading">
+                                <h4>December 2012</h4>
+                                <h4 class="subheading">Transition to Full Service</h4>
+                            </div>
+                            <div class="timeline-body">
+                                <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sunt ut voluptatum eius sapiente, totam reiciendis temporibus qui quibusdam, recusandae sit vero unde, sed, incidunt et ea quo dolore laudantium consectetur!</p>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="timeline-inverted">
+                        <div class="timeline-image">
+                            <img class="img-circle img-responsive" src="@Url.Content("~/Content/img/about/4.jpg")" alt="">
+                        </div>
+                        <div class="timeline-panel">
+                            <div class="timeline-heading">
+                                <h4>July 2014</h4>
+                                <h4 class="subheading">Phase Two Expansion</h4>
+                            </div>
+                            <div class="timeline-body">
+                                <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sunt ut voluptatum eius sapiente, totam reiciendis temporibus qui quibusdam, recusandae sit vero unde, sed, incidunt et ea quo dolore laudantium consectetur!</p>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="timeline-inverted">
+                        <div class="timeline-image">
+                            <h4>Be Part
+                                <br>Of Our
+                                <br>Story!</h4>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Portfolio Modals -->
+<!-- Use the modals below to showcase details about your portfolio projects! -->
+
+<!-- Portfolio Modal 1 -->
+<div class="portfolio-modal modal fade" id="portfolioModal1" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content modal-bg-3 ">
+            <div class="close-modal" data-dismiss="modal">
+                <div class="lr-white">
+                    <div class="rl-white">
+                    </div>
+                </div>
+            </div>
+            <div class="container" style="height: 692px">
+                <div class="row">
+                    <div class="col-lg-8 col-lg-offset-2">
+                        <div class="modal-body">
+                            <!-- Project Details Go Here -->
+                            <h2 class="modal-text-2">KHÓA HỌC CƠ BẢN</h2>
+								
+                            <p class="item-intro modal-text-1">Mọi thứ vĩ đại đều có những khởi đầu rất bình thường.</p>  																
+							<p class="modal-text-1">KHÓA LẬP TRÌNH C# CƠ BẢN</p>																
+							<p class="modal-text-1">KHÓA LẬP TRÌNH JAVA CƠ BẢN</p>
+							<p class="modal-text-1">KHÓA LẬP TRÌNH IOS/ANDROID CƠ BẢN</p>
+							<p class="modal-text-1">KHÓA LẬP TRÌNH HTML/CSS/JAVASCRIPT CƠ BẢN</p>
+							<p class="modal-text-1">KHÓA LẬP TRÌNH PHP CƠ BẢN</p>
+                                
+                                    
+                            <ul class="list-inline">
+                                <li class="modal-text-1">Date: July 2014</li>
+                                <li class="modal-text-1">Client: Round Icons</li>
+                                <li class="modal-text-1">Category: Graphic Design</li>
+                            </ul>
+                            <button type="button" class="btn btn-primary" data-dismiss="modal"><i class="fa fa-times"></i> Tìm hiểu thêm về các khóa học</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Portfolio Modal 2 -->
+<div class="portfolio-modal modal fade" id="portfolioModal2" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content modal-bg-1">
+            <div class="close-modal" data-dismiss="modal">
+                <div class="lr-white">
+                    <div class="rl-white">
+                    </div>
+                </div>
+            </div>
+            <div class="container" style="height: 692px">
+                <div class="row">
+                    <div class="col-lg-8 col-lg-offset-2">
+                        <div class="modal-body">
+                            <h2 class="modal-text-2">KHÓA HỌC NÂNG CAO</h2>
+                            <p class="item-intro modal-text-1">Trau dồi kĩ năng </p>
+                                
+                            <p class="modal-text-1">KHÓA LẬP TRÌNH C# NÂNG CAO</p>
+							<p class="modal-text-1">KHÓA LẬP TRÌNH JAVA NÂNG CAO</p>
+							<p class="modal-text-1">KHÓA LẬP TRÌNH IOS/ANDROID NÂNG CAO</p>
+							<p class="modal-text-1">KHÓA LẬP TRÌNH HTML/CSS/JAVASCRIPT NÂNG CAO</p>
+							<p class="modal-text-1">KHÓA LẬP TRÌNH PHP NÂNG CAO</p>
+                            <button type="button" class="btn btn-primary" data-dismiss="modal"><i class="fa fa-times"></i> Tìm hiểu thêm về các khóa học</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Portfolio Modal 3 -->
+<div class="portfolio-modal modal fade" id="portfolioModal3" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content modal-bg-4">
+            <div class="close-modal" data-dismiss="modal">
+                <div class="lr-white">
+                    <div class="rl-white">
+                    </div>
+                </div>
+            </div>
+            <div class="container" style="height: 692px">
+                <div class="row">
+                    <div class="col-lg-8 col-lg-offset-2">
+                        <div class="modal-body">
+                            <!-- Project Details Go Here -->
+                            <h2 class="modal-text-2">KHÓA HỌC FRESHER - JUNIOR</h2>
+                            <p class="item-intro modal-text-1">Sẵn sàng đương đầu với những thử thách trong môi trường thực tế</p>
+								
+                            <p class="modal-text-1">KHÓA LẬP TRÌNH C# FRESHER-JUNIOR</p>																
+							<p class="modal-text-1">KHÓA LẬP TRÌNH JAVA FRESHER-JUNIOR</p>
+							<p class="modal-text-1">KHÓA LẬP TRÌNH IOS/ANDROID FRESHER-JUNIOR</p>
+							<p class="modal-text-1">KHÓA LẬP TRÌNH HTML/CSS/JAVASCRIPT FRESHER-JUNIOR</p>
+							<p class="modal-text-1">KHÓA LẬP TRÌNH PHP FRESHER-JUNIOR</p>
+                                
+                            <p class="modal-text-1">You can download the PSD template in this portfolio sample item at <a href="http://freebiesxpress.com/gallery/treehouse-free-psd-web-template/">FreebiesXpress.com</a>.</p>
+                            <button type="button" class="btn btn-primary" data-dismiss="modal"><i class="fa fa-times"></i> Tìm hiểu thêm về các khóa học</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -107,9 +107,17 @@ namespace WebApplication1.Areas.Admin.Controllers
                 {
                     return RedirectToAction("Index");
                 }
-                course.Lessions.Add(lession);
-                db.Entry(lession).State = EntityState.Modified;
-                db.Entry(course).State = EntityState.Modified;                
+
+                var curLession = db.Lessions.Include(m => m.Course).ToList().Find(m => m.LesionId == lession.LesionId);
+
+                curLession.Description = lession.Description;
+                curLession.ImageLink = lession.ImageLink;
+                curLession.Name = lession.Name;
+                curLession.YoutubeLink = lession.YoutubeLink;
+                curLession.Course = course;
+                
+                db.Entry(curLession).State = EntityState.Modified;
+                                               
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }

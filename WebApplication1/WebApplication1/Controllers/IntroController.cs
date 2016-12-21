@@ -24,7 +24,10 @@ namespace WebApplication1.Controllers
 
         public ActionResult CourseList()
         {
-            ViewBag.Courses = db.Courses.ToList();
+            ViewBag.CourseEasy = db.Courses.Where(m => m.Level.Equals("Dễ")).ToList();
+            ViewBag.CourseMedium = db.Courses.Where(m => m.Level.Equals("Trung bình")).ToList();
+            ViewBag.CourseHard = db.Courses.Where(m => m.Level.Equals("Khó")).ToList();
+           
             ViewBag.Title = "Course List";
             return View();
         }

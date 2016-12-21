@@ -1,0 +1,98 @@
+﻿@using Kendo.Mvc.UI
+@model WebApplication1.Models.TestResult
+
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Create</h2>
+
+@using (Html.BeginForm()) 
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <h4>TestResult</h4>
+        <hr/>
+
+        <div class="form-group">
+            <label class="control-label col-md-2" for="Username">User</label>
+            <div class="col-md-10">
+                @(Html.Kendo().AutoComplete()
+                      .Name("Username")
+                      .DataTextField("Username")
+                      .Suggest(true)
+                      .MinLength(0)
+                      .DataSource(source =>
+                      {
+                          source.Read(read => { read.Action("GetUsers", "Enrolments").Data("onAdditionalData"); })
+                              .ServerFiltering(true);
+                      })
+                )
+                @Html.ValidationMessageFor(model => model.User, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-2" for="TestName">Test</label>
+            <div class="col-md-10">
+                @(Html.Kendo().AutoComplete()
+                      .Name("TestName")
+                      .DataTextField("Name")
+                      .Suggest(true)
+                      .MinLength(0)
+                      .DataSource(source =>
+                      {
+                          source.Read(read => { read.Action("GetTests", "TestResults").Data("onAdditionalData2"); })
+                              .ServerFiltering(true);
+                      })
+                )
+                @Html.ValidationMessageFor(model => model.Test, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.Mark, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Mark, new { htmlAttributes = new { @class = "k-textbox" } })
+                @Html.ValidationMessageFor(model => model.Mark, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Passed, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <div class="checkbox">
+                    @Html.EditorFor(model => model.Passed)
+                    @Html.ValidationMessageFor(model => model.Passed, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+<script>
+    function onAdditionalData() {
+        return {
+            text: $("#Username").val()
+        };
+    }
+
+    function onAdditionalData2() {
+        return {
+            text: $("#TestName").val()
+        };
+    }
+</script>

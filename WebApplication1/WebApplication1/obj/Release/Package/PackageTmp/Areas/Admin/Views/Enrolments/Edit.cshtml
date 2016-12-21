@@ -1,0 +1,117 @@
+﻿@using Kendo.Mvc.UI
+@model WebApplication1.Models.Enrolment
+
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Edit</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <h4>Enrolment</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.EnrolmentId)
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.CreateDate, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @(Html.Kendo().DatePicker()
+              .Name("CreateDate")
+              .Start(CalendarView.Year)
+              .Depth(CalendarView.Year)
+              .Format("MM/dd/yy")
+                )
+                @Html.ValidationMessageFor(model => model.CreateDate, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.EndDate, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @(Html.Kendo().DatePicker()
+              .Name("EndDate")
+              .Start(CalendarView.Year)
+              .Depth(CalendarView.Year)
+              .Format("MM/dd/yy")              
+                )
+                @Html.ValidationMessageFor(model => model.EndDate, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.IsValid, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <div class="checkbox">
+                    @Html.EditorFor(model => model.IsValid)
+                    @Html.ValidationMessageFor(model => model.IsValid, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-2" for="Username">User</label>
+            <div class="col-md-10">
+                @(Html.Kendo().AutoComplete()
+                      .Name("Username")
+                      .DataTextField("Username")
+                      .Suggest(true)
+                      .MinLength(0)
+                      .DataSource(source =>
+                      {
+                          source.Read(read => { read.Action("GetUsers", "Enrolments").Data("onAdditionalData"); })
+                              .ServerFiltering(true);
+                      })
+                )
+                @Html.ValidationMessageFor(model => model.User, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-2" for="CourseName">Course</label>
+            <div class="col-md-10">
+                @(Html.Kendo().AutoComplete()
+                      .Name("CourseName")
+                      .DataTextField("Name")
+                      .Suggest(true)
+                      .MinLength(0)
+                      .DataSource(source =>
+                      {
+                          source.Read(read => { read.Action("GetCourses", "Lessions").Data("onAdditionalData2"); })
+                              .ServerFiltering(true);
+                      })
+                )
+                @Html.ValidationMessageFor(model => model.Course, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Save" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+<script>
+    function onAdditionalData() {
+        return {
+            text: $("#Username").val()
+        };
+    }
+
+    function onAdditionalData2() {
+        return {
+            text: $("#CourseName").val()
+        };
+    }
+</script>

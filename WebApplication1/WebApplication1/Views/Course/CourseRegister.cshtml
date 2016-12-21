@@ -1,0 +1,84 @@
+﻿@model Course
+@using WebApplication1.Models
+
+@{
+    ViewBag.Title = "Detail";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+<!-- Page Content -->
+<div class="container" style="margin-top: 71px;">
+
+    <h2 class="text-center">Đăng kí khóa học</h2>
+    <!-- Heading Row -->
+    <div class="row">
+        
+    </div>
+    <!-- /.row -->
+
+    <hr>
+
+    <!-- Call to Action Well -->
+    <div class="row">
+        <div class="col-lg-6">
+            <div class="well text-center">
+                @Html.DisplayNameFor(m => m.Name)
+            </div>
+        </div>
+        <div class="col-lg-6">
+            <div class="well text-center">
+                @Html.DisplayFor(m => m.Name)
+            </div>
+        </div>
+        <!-- /.col-lg-12 -->
+    </div>
+    <!-- /.row -->
+    <div class="row">
+        <div class="col-lg-6">
+            <div class="well text-center">
+                @Html.DisplayNameFor(m => m.Platform)
+            </div>
+        </div>
+        <div class="col-lg-6">
+            <div class="well text-center">
+                @Html.DisplayFor(m => m.Platform.Name)
+            </div>
+        </div>
+        <!-- /.col-lg-12 -->
+    </div>
+    <div class="row">
+        <div class="col-lg-6">
+            <div class="well text-center">
+                @Html.DisplayNameFor(m => m.Level)
+            </div>
+        </div>
+        <div class="col-lg-6">
+            <div class="well text-center">
+                @Html.DisplayFor(m => m.Level)
+            </div>
+        </div>
+        <!-- /.col-lg-12 -->
+    </div>
+    <div class="row">
+        <div class="col-lg-12 text-center">
+            <h4>Đăng kí ngay ?</h4>
+        </div>
+        <div class="col-lg-12 text-center">
+           
+            @using (Html.BeginForm("CourseRegister", "Course", FormMethod.Post))
+            {
+                @Html.HiddenFor(m => m.CourseId)
+                @Html.ActionLink("Trở lại", "CourseList", new { controller = "Intro" }, new { @class = "btn btn-default" })
+                <button class="btn btn-success" type="submit">Đăng kí</button>
+            }                   
+        </div>
+        
+    </div>
+    
+
+    <hr>
+
+
+</div>

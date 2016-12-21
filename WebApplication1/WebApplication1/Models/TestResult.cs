@@ -14,7 +14,7 @@ namespace WebApplication1.Models
         [Key]
         public long TestResultId { get; set; }
 
-        [DisplayName("Bài giảng")]
+        [DisplayName("Bài kiểm tra")]
         public Test Test { get; set; }
 
         [DisplayName("Người dùng")]        

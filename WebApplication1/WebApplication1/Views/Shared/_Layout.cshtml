@@ -9,7 +9,7 @@
     <title>Agency - Start Bootstrap Theme</title>
     <!-- jQuery -->
     @Scripts.Render("~/Content/jquery/jquery.min.js")
-
+    <script src="@Url.Content("~/Content/ckeditor/ckeditor.js")"></script>
     <!-- Bootstrap Core JavaScript -->
     @Scripts.Render("~/Content/bootstrap/js/bootstrap.min.js")
     <!-- Bootstrap Core CSS -->
@@ -21,9 +21,10 @@
     <link href='https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
     <link href='https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700' rel='stylesheet' type='text/css'>
     <!-- Theme CSS -->
-    @Styles.Render("~/Content/agency.css")
-
-    @Styles.Render("~/Content/shop-homepage.css")
+        
+    <link href="@Url.Content("~/Content/agency.css")" rel="stylesheet" />
+    <link href="@Url.Content("~/Content/shop-homepage.css")" rel="stylesheet" />
+    
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -40,7 +41,14 @@
 	<script src="https://kendo.cdn.telerik.com/2016.3.1118/js/jszip.min.js"></script>
 	<script src="https://kendo.cdn.telerik.com/2016.3.1118/js/kendo.all.min.js"></script>
 	<script src="https://kendo.cdn.telerik.com/2016.3.1118/js/kendo.aspnetmvc.min.js"></script>
-	<script src="@Url.Content("~/Scripts/kendo.modernizr.custom.js")"></script>
+    <script src="@Url.Content("~/Scripts/kendo.modernizr.custom.js")"></script>
+    <link href="@Url.Content("~/Content/JQueryUI/themes/base/jquery.ui.all.css")" rel="stylesheet" />
+    <link href="/Content/ChatStyle.css" rel="stylesheet" />
+    <script src="/Scripts/ui/jquery.ui.core.js"></script>
+    <script src="/Scripts/ui/jquery.ui.widget.js"></script>
+    <script src="/Scripts/ui/jquery.ui.mouse.js"></script>
+    <script src="/Scripts/ui/jquery.ui.draggable.js"></script>
+    <script src="/Scripts/ui/jquery.ui.resizable.js"></script>
 </head>
 <body id="page-top" class="index">
     <div id="fb-root"></div>
@@ -76,7 +84,7 @@
                         @Html.ActionLink("KHÓA HỌC", "CourseList", "Intro", null, new { @class = "page-scroll" })
                     </li>
                     <li>
-                        <a class="page-scroll" href="#team">TUTORIAL</a>
+                        @Html.ActionLink("Tutorial", "Index", "Tutorials", null, new { @class = "page-scroll" })
                     </li>
                     <li>
                         @Html.Partial("~/Views/Shared/_LoginPartial.cshtml")
@@ -118,7 +126,57 @@
 
     @RenderBody()
 
-    <hr />
+    <div style="position: fixed; bottom: 1%; right: 1%;">        
+        <button id="chatBtn" class="btn btn-lg btn-success"><span class="glyphicon glyphicon-user" aria-hidden="true"></span> Trợ giúp</button>       
+    </div>
+
+    <div style="position: fixed; bottom: 0; right: 1%; display: none" id="chatDiv">
+        <div id="divContainer">
+            <div id="divLogin" class="login">
+                <div>
+                    Tên của bạn:<br />
+                    <input id="txtNickName" type="text" class="textBox" />
+                </div>
+                <div id="divButton">
+                    <input id="btnStartChat" type="button" class="btn btn-lg btn-success" value="Bắt đầu chat" />
+                </div>
+            </div>
+
+            <div id="divChat" class="chatRoom">
+                <div class="title">
+                    <div class="text-left">
+                        Chào bạn: [<span id="spanUser"></span>]
+                        <span class="glyphicon glyphicon-minus" style="cursor: pointer; float: right" id="doneBtn" aria-hidden="true"></span>                        
+                    </div>           
+                </div>
+                <div class="content">
+                    <div id="divusers" class="users">
+                    </div>
+                </div>
+            </div>
+
+            <input id="hdId" type="hidden" />
+            <input id="hdUserName"
+                   type="hidden" />
+            <input id="hdRole" value="Customer"
+                   type="hidden" />
+        </div>
+    </div>
+    <script>
+        $('#chatBtn')
+            .click(function() {
+                $(this).hide();
+                $('#chatDiv').show();
+            });
+
+        $('#doneBtn')
+            .click(function() {
+                $('#chatBtn').show();
+                $('#chatDiv').hide();
+            });
+
+    </script>
+<hr />
     <footer>
         <div class="container">
             <div class="row">
@@ -149,8 +207,62 @@
 
 
 
-<!-- Plugin JavaScript -->
-<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
 <!-- Theme JavaScript -->
 @Scripts.Render("~/Content/js/agency.js")
 @RenderSection("scripts", required: false)
+<script src="@Url.Content("~/Scripts/jquery.signalR-2.2.1.min.js")"></script>
+
+<!--Reference the autogenerated SignalR hub script. -->
+<script src="@Url.Content("/signalr/hubs")"></script>
+<script src="@Url.Content("~/Scripts/ChatClientSignalR.js")"></script>
+
+<script>
+    function createPrivateChatWindow(chatHub, userId, ctrId, userName) {
+      
+        var div = '<div id="' + ctrId + '" class="ui-widget-content draggable" rel="0">' +
+                   '<div class="header">' +
+                      '<div  style="float:right;">' +
+                          '<span id="imgDelete" class="glyphicon glyphicon-remove" style="cursor:pointer;"></span>' +
+                       '</div>' +
+
+                       '<span class="selText" rel="0">' + userName + '</span>' +
+                   '</div>' +
+                   '<div id="divMessage" class="messageArea">' +
+
+                   '</div>' +
+                   '<div class="buttonBar">' +
+                      '<input id="txtPrivateMessage" class="msgText" type="text"   />' +
+                      '<input id="btnSendMessage" class="btn btn-success" style="margin-left:5px" type="button" value="Send"   />' +
+                   '</div>' +
+                '</div>';
+
+        var $div = $(div);
+
+        // DELETE BUTTON IMAGE
+        $div.find('#imgDelete').click(function () {
+            $('#' + ctrId).remove();
+        });
+
+        // Send Button event
+        $div.find("#btnSendMessage").click(function () {
+
+            $textBox = $div.find("#txtPrivateMessage");
+            var msg = $textBox.val();
+            if (msg.length > 0) {
+                chatHub.server.sendPrivateMessage(userId, msg);
+                $textBox.val('');
+            }
+        });
+
+        // Text Box event
+        $div.find("#txtPrivateMessage").keypress(function (e) {
+            if (e.which == 13) {
+                $div.find("#btnSendMessage").click();
+            }
+        });
+
+        AddDivToContainer($div);
+
+    }
+
+</script>

@@ -68,6 +68,14 @@
       <HintPath>..\lib\KENDOUIMVC\2016.3.1118.545.Trial\Kendo.Mvc.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Microsoft.AspNet.SignalR.Core, Version=2.2.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.SignalR.Core.2.2.1\lib\net45\Microsoft.AspNet.SignalR.Core.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.SignalR.SystemWeb, Version=2.2.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.SignalR.SystemWeb.2.2.1\lib\net45\Microsoft.AspNet.SignalR.SystemWeb.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
       <Private>True</Private>
@@ -194,14 +202,17 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
+    <Compile Include="Areas\Admin\Controllers\ChatController.cs" />
     <Compile Include="Areas\Admin\Controllers\CommentsController.cs" />
     <Compile Include="Areas\Admin\Controllers\CoursesController.cs" />
     <Compile Include="Areas\Admin\Controllers\EnrolmentsController.cs" />
     <Compile Include="Areas\Admin\Controllers\FilesController.cs" />
+    <Compile Include="Areas\Admin\Controllers\HomeController.cs" />
     <Compile Include="Areas\Admin\Controllers\LessionsController.cs" />
     <Compile Include="Areas\Admin\Controllers\PlatformsController.cs" />
     <Compile Include="Areas\Admin\Controllers\TestResultsController.cs" />
     <Compile Include="Areas\Admin\Controllers\TestsController.cs" />
+    <Compile Include="Areas\Admin\Controllers\TutorialsController.cs" />
     <Compile Include="Areas\Admin\Controllers\UsersController.cs" />
     <Compile Include="Areas\Admin\Models\ViewModels\CourseViewModel.cs" />
     <Compile Include="Areas\Admin\Models\ViewModels\EnrolmentViewModel.cs" />
@@ -210,14 +221,19 @@
     <Compile Include="Areas\Admin\Models\ViewModels\TestViewModel.cs" />
     <Compile Include="Areas\Admin\Models\ViewModels\UserViewModel.cs" />
     <Compile Include="Business\AccessDeniedAuthorize.cs" />
+    <Compile Include="ChatHub\ChatHub.cs" />
+    <Compile Include="ChatHub\Models\MessageDetail.cs" />
+    <Compile Include="ChatHub\Models\UserDetail.cs" />
     <Compile Include="Common\Constant.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\CourseController.cs" />
     <Compile Include="Controllers\EnrolmentController.cs" />
+    <Compile Include="Controllers\TestsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\IntroController.cs" />
     <Compile Include="Controllers\LessionController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\TutorialsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -249,6 +265,10 @@
     <Compile Include="Migrations\201612191603440_whoreadthisanymore2.Designer.cs">
       <DependentUpon>201612191603440_whoreadthisanymore2.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201612211831330_updatev9.cs" />
+    <Compile Include="Migrations\201612211831330_updatev9.Designer.cs">
+      <DependentUpon>201612211831330_updatev9.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Comment.cs" />
@@ -262,6 +282,7 @@
     <Compile Include="Models\Platform.cs" />
     <Compile Include="Models\Test.cs" />
     <Compile Include="Models\TestResult.cs" />
+    <Compile Include="Models\Tutorial.cs" />
     <Compile Include="Models\ViewModels\CommentViewModel.cs" />
     <Compile Include="Models\ViewModels\CourseViewModel.cs" />
     <Compile Include="Models\ViewModels\EmailViewModel.cs" />
@@ -279,6 +300,10 @@
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
     <Compile Include="Startup.cs" />
+    <Compile Include="tesst\EntryTestResult.cs" />
+    <Compile Include="tesst\Enumeric.cs" />
+    <Compile Include="tesst\Question.cs" />
+    <Compile Include="tesst\Utilities.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\Admin\Scripts\ChooseImageScript.js" />
@@ -643,6 +668,7 @@
     <Content Include="Content\bootstrap\fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Content\bootstrap\js\bootstrap.js" />
     <Content Include="Content\bootstrap\js\bootstrap.min.js" />
+    <Content Include="Content\ChatStyle.css" />
     <Content Include="Content\ckeditor\adapters\jquery.js" />
     <Content Include="Content\ckeditor\build-config.js" />
     <Content Include="Content\ckeditor\ckeditor.js" />
@@ -1543,6 +1569,128 @@
     <Content Include="Content\img\team\1.jpg" />
     <Content Include="Content\img\team\2.jpg" />
     <Content Include="Content\img\team\3.jpg" />
+    <Content Include="Content\JQueryUI\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
+    <Content Include="Content\JQueryUI\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
+    <Content Include="Content\JQueryUI\themes\base\images\ui-bg_glass_55_fbf9ee_1x400.png" />
+    <Content Include="Content\JQueryUI\themes\base\images\ui-bg_glass_65_ffffff_1x400.png" />
+    <Content Include="Content\JQueryUI\themes\base\images\ui-bg_glass_75_dadada_1x400.png" />
+    <Content Include="Content\JQueryUI\themes\base\images\ui-bg_glass_75_e6e6e6_1x400.png" />
+    <Content Include="Content\JQueryUI\themes\base\images\ui-bg_glass_95_fef1ec_1x400.png" />
+    <Content Include="Content\JQueryUI\themes\base\images\ui-bg_highlight-soft_75_cccccc_1x100.png" />
+    <Content Include="Content\JQueryUI\themes\base\images\ui-icons_222222_256x240.png" />
+    <Content Include="Content\JQueryUI\themes\base\images\ui-icons_2e83ff_256x240.png" />
+    <Content Include="Content\JQueryUI\themes\base\images\ui-icons_454545_256x240.png" />
+    <Content Include="Content\JQueryUI\themes\base\images\ui-icons_888888_256x240.png" />
+    <Content Include="Content\JQueryUI\themes\base\images\ui-icons_cd0a0a_256x240.png" />
+    <Content Include="Content\JQueryUI\themes\base\jquery-ui.css" />
+    <Content Include="Content\JQueryUI\themes\base\jquery.ui.accordion.css" />
+    <Content Include="Content\JQueryUI\themes\base\jquery.ui.all.css" />
+    <Content Include="Content\JQueryUI\themes\base\jquery.ui.autocomplete.css" />
+    <Content Include="Content\JQueryUI\themes\base\jquery.ui.base.css" />
+    <Content Include="Content\JQueryUI\themes\base\jquery.ui.button.css" />
+    <Content Include="Content\JQueryUI\themes\base\jquery.ui.core.css" />
+    <Content Include="Content\JQueryUI\themes\base\jquery.ui.datepicker.css" />
+    <Content Include="Content\JQueryUI\themes\base\jquery.ui.dialog.css" />
+    <Content Include="Content\JQueryUI\themes\base\jquery.ui.menu.css" />
+    <Content Include="Content\JQueryUI\themes\base\jquery.ui.progressbar.css" />
+    <Content Include="Content\JQueryUI\themes\base\jquery.ui.resizable.css" />
+    <Content Include="Content\JQueryUI\themes\base\jquery.ui.selectable.css" />
+    <Content Include="Content\JQueryUI\themes\base\jquery.ui.slider.css" />
+    <Content Include="Content\JQueryUI\themes\base\jquery.ui.spinner.css" />
+    <Content Include="Content\JQueryUI\themes\base\jquery.ui.tabs.css" />
+    <Content Include="Content\JQueryUI\themes\base\jquery.ui.theme.css" />
+    <Content Include="Content\JQueryUI\themes\base\jquery.ui.tooltip.css" />
+    <Content Include="Content\JQueryUI\themes\base\minified\images\ui-bg_flat_0_aaaaaa_40x100.png" />
+    <Content Include="Content\JQueryUI\themes\base\minified\images\ui-bg_flat_75_ffffff_40x100.png" />
+    <Content Include="Content\JQueryUI\themes\base\minified\images\ui-bg_glass_55_fbf9ee_1x400.png" />
+    <Content Include="Content\JQueryUI\themes\base\minified\images\ui-bg_glass_65_ffffff_1x400.png" />
+    <Content Include="Content\JQueryUI\themes\base\minified\images\ui-bg_glass_75_dadada_1x400.png" />
+    <Content Include="Content\JQueryUI\themes\base\minified\images\ui-bg_glass_75_e6e6e6_1x400.png" />
+    <Content Include="Content\JQueryUI\themes\base\minified\images\ui-bg_glass_95_fef1ec_1x400.png" />
+    <Content Include="Content\JQueryUI\themes\base\minified\images\ui-bg_highlight-soft_75_cccccc_1x100.png" />
+    <Content Include="Content\JQueryUI\themes\base\minified\images\ui-icons_222222_256x240.png" />
+    <Content Include="Content\JQueryUI\themes\base\minified\images\ui-icons_2e83ff_256x240.png" />
+    <Content Include="Content\JQueryUI\themes\base\minified\images\ui-icons_454545_256x240.png" />
+    <Content Include="Content\JQueryUI\themes\base\minified\images\ui-icons_888888_256x240.png" />
+    <Content Include="Content\JQueryUI\themes\base\minified\images\ui-icons_cd0a0a_256x240.png" />
+    <Content Include="Content\JQueryUI\themes\base\minified\jquery-ui.min.css" />
+    <Content Include="Content\JQueryUI\themes\base\minified\jquery.ui.accordion.min.css" />
+    <Content Include="Content\JQueryUI\themes\base\minified\jquery.ui.autocomplete.min.css" />
+    <Content Include="Content\JQueryUI\themes\base\minified\jquery.ui.button.min.css" />
+    <Content Include="Content\JQueryUI\themes\base\minified\jquery.ui.core.min.css" />
+    <Content Include="Content\JQueryUI\themes\base\minified\jquery.ui.datepicker.min.css" />
+    <Content Include="Content\JQueryUI\themes\base\minified\jquery.ui.dialog.min.css" />
+    <Content Include="Content\JQueryUI\themes\base\minified\jquery.ui.menu.min.css" />
+    <Content Include="Content\JQueryUI\themes\base\minified\jquery.ui.progressbar.min.css" />
+    <Content Include="Content\JQueryUI\themes\base\minified\jquery.ui.resizable.min.css" />
+    <Content Include="Content\JQueryUI\themes\base\minified\jquery.ui.selectable.min.css" />
+    <Content Include="Content\JQueryUI\themes\base\minified\jquery.ui.slider.min.css" />
+    <Content Include="Content\JQueryUI\themes\base\minified\jquery.ui.spinner.min.css" />
+    <Content Include="Content\JQueryUI\themes\base\minified\jquery.ui.tabs.min.css" />
+    <Content Include="Content\JQueryUI\themes\base\minified\jquery.ui.theme.min.css" />
+    <Content Include="Content\JQueryUI\themes\base\minified\jquery.ui.tooltip.min.css" />
+    <Content Include="Content\JQueryUI\themes\ui-lightness\images\ui-bg_diagonals-thick_18_b81900_40x40.png" />
+    <Content Include="Content\JQueryUI\themes\ui-lightness\images\ui-bg_diagonals-thick_20_666666_40x40.png" />
+    <Content Include="Content\JQueryUI\themes\ui-lightness\images\ui-bg_flat_10_000000_40x100.png" />
+    <Content Include="Content\JQueryUI\themes\ui-lightness\images\ui-bg_glass_100_f6f6f6_1x400.png" />
+    <Content Include="Content\JQueryUI\themes\ui-lightness\images\ui-bg_glass_100_fdf5ce_1x400.png" />
+    <Content Include="Content\JQueryUI\themes\ui-lightness\images\ui-bg_glass_65_ffffff_1x400.png" />
+    <Content Include="Content\JQueryUI\themes\ui-lightness\images\ui-bg_gloss-wave_35_f6a828_500x100.png" />
+    <Content Include="Content\JQueryUI\themes\ui-lightness\images\ui-bg_highlight-soft_100_eeeeee_1x100.png" />
+    <Content Include="Content\JQueryUI\themes\ui-lightness\images\ui-bg_highlight-soft_75_ffe45c_1x100.png" />
+    <Content Include="Content\JQueryUI\themes\ui-lightness\images\ui-icons_222222_256x240.png" />
+    <Content Include="Content\JQueryUI\themes\ui-lightness\images\ui-icons_228ef1_256x240.png" />
+    <Content Include="Content\JQueryUI\themes\ui-lightness\images\ui-icons_ef8c08_256x240.png" />
+    <Content Include="Content\JQueryUI\themes\ui-lightness\images\ui-icons_ffd27a_256x240.png" />
+    <Content Include="Content\JQueryUI\themes\ui-lightness\images\ui-icons_ffffff_256x240.png" />
+    <Content Include="Content\JQueryUI\themes\ui-lightness\jquery-ui.css" />
+    <Content Include="Content\JQueryUI\themes\ui-lightness\jquery.ui.accordion.css" />
+    <Content Include="Content\JQueryUI\themes\ui-lightness\jquery.ui.all.css" />
+    <Content Include="Content\JQueryUI\themes\ui-lightness\jquery.ui.autocomplete.css" />
+    <Content Include="Content\JQueryUI\themes\ui-lightness\jquery.ui.base.css" />
+    <Content Include="Content\JQueryUI\themes\ui-lightness\jquery.ui.button.css" />
+    <Content Include="Content\JQueryUI\themes\ui-lightness\jquery.ui.core.css" />
+    <Content Include="Content\JQueryUI\themes\ui-lightness\jquery.ui.datepicker.css" />
+    <Content Include="Content\JQueryUI\themes\ui-lightness\jquery.ui.dialog.css" />
+    <Content Include="Content\JQueryUI\themes\ui-lightness\jquery.ui.menu.css" />
+    <Content Include="Content\JQueryUI\themes\ui-lightness\jquery.ui.progressbar.css" />
+    <Content Include="Content\JQueryUI\themes\ui-lightness\jquery.ui.resizable.css" />
+    <Content Include="Content\JQueryUI\themes\ui-lightness\jquery.ui.selectable.css" />
+    <Content Include="Content\JQueryUI\themes\ui-lightness\jquery.ui.slider.css" />
+    <Content Include="Content\JQueryUI\themes\ui-lightness\jquery.ui.spinner.css" />
+    <Content Include="Content\JQueryUI\themes\ui-lightness\jquery.ui.tabs.css" />
+    <Content Include="Content\JQueryUI\themes\ui-lightness\jquery.ui.theme.css" />
+    <Content Include="Content\JQueryUI\themes\ui-lightness\jquery.ui.tooltip.css" />
+    <Content Include="Content\JQueryUI\themes\ui-lightness\minified\images\ui-bg_diagonals-thick_18_b81900_40x40.png" />
+    <Content Include="Content\JQueryUI\themes\ui-lightness\minified\images\ui-bg_diagonals-thick_20_666666_40x40.png" />
+    <Content Include="Content\JQueryUI\themes\ui-lightness\minified\images\ui-bg_flat_10_000000_40x100.png" />
+    <Content Include="Content\JQueryUI\themes\ui-lightness\minified\images\ui-bg_glass_100_f6f6f6_1x400.png" />
+    <Content Include="Content\JQueryUI\themes\ui-lightness\minified\images\ui-bg_glass_100_fdf5ce_1x400.png" />
+    <Content Include="Content\JQueryUI\themes\ui-lightness\minified\images\ui-bg_glass_65_ffffff_1x400.png" />
+    <Content Include="Content\JQueryUI\themes\ui-lightness\minified\images\ui-bg_gloss-wave_35_f6a828_500x100.png" />
+    <Content Include="Content\JQueryUI\themes\ui-lightness\minified\images\ui-bg_highlight-soft_100_eeeeee_1x100.png" />
+    <Content Include="Content\JQueryUI\themes\ui-lightness\minified\images\ui-bg_highlight-soft_75_ffe45c_1x100.png" />
+    <Content Include="Content\JQueryUI\themes\ui-lightness\minified\images\ui-icons_222222_256x240.png" />
+    <Content Include="Content\JQueryUI\themes\ui-lightness\minified\images\ui-icons_228ef1_256x240.png" />
+    <Content Include="Content\JQueryUI\themes\ui-lightness\minified\images\ui-icons_ef8c08_256x240.png" />
+    <Content Include="Content\JQueryUI\themes\ui-lightness\minified\images\ui-icons_ffd27a_256x240.png" />
+    <Content Include="Content\JQueryUI\themes\ui-lightness\minified\images\ui-icons_ffffff_256x240.png" />
+    <Content Include="Content\JQueryUI\themes\ui-lightness\minified\jquery-ui.min.css" />
+    <Content Include="Content\JQueryUI\themes\ui-lightness\minified\jquery.ui.accordion.min.css" />
+    <Content Include="Content\JQueryUI\themes\ui-lightness\minified\jquery.ui.autocomplete.min.css" />
+    <Content Include="Content\JQueryUI\themes\ui-lightness\minified\jquery.ui.button.min.css" />
+    <Content Include="Content\JQueryUI\themes\ui-lightness\minified\jquery.ui.core.min.css" />
+    <Content Include="Content\JQueryUI\themes\ui-lightness\minified\jquery.ui.datepicker.min.css" />
+    <Content Include="Content\JQueryUI\themes\ui-lightness\minified\jquery.ui.dialog.min.css" />
+    <Content Include="Content\JQueryUI\themes\ui-lightness\minified\jquery.ui.menu.min.css" />
+    <Content Include="Content\JQueryUI\themes\ui-lightness\minified\jquery.ui.progressbar.min.css" />
+    <Content Include="Content\JQueryUI\themes\ui-lightness\minified\jquery.ui.resizable.min.css" />
+    <Content Include="Content\JQueryUI\themes\ui-lightness\minified\jquery.ui.selectable.min.css" />
+    <Content Include="Content\JQueryUI\themes\ui-lightness\minified\jquery.ui.slider.min.css" />
+    <Content Include="Content\JQueryUI\themes\ui-lightness\minified\jquery.ui.spinner.min.css" />
+    <Content Include="Content\JQueryUI\themes\ui-lightness\minified\jquery.ui.tabs.min.css" />
+    <Content Include="Content\JQueryUI\themes\ui-lightness\minified\jquery.ui.theme.min.css" />
+    <Content Include="Content\JQueryUI\themes\ui-lightness\minified\jquery.ui.tooltip.min.css" />
     <Content Include="Content\jquery\jquery.js" />
     <Content Include="Content\jquery\jquery.min.js" />
     <Content Include="Content\js\admin.js" />
@@ -1563,6 +1711,42 @@
     <Content Include="Content\plugins\morris.css" />
     <Content Include="Content\sb-admin.css" />
     <Content Include="Content\shop-homepage.css" />
+    <Content Include="Content\startbootstrap-creative-gh-pages\css\creative.css" />
+    <Content Include="Content\startbootstrap-creative-gh-pages\css\creative.min.css" />
+    <Content Include="Content\startbootstrap-creative-gh-pages\gulpfile.js" />
+    <Content Include="Content\startbootstrap-creative-gh-pages\img\header.jpg" />
+    <Content Include="Content\startbootstrap-creative-gh-pages\img\portfolio\fullsize\1.jpg" />
+    <Content Include="Content\startbootstrap-creative-gh-pages\img\portfolio\fullsize\2.jpg" />
+    <Content Include="Content\startbootstrap-creative-gh-pages\img\portfolio\fullsize\3.jpg" />
+    <Content Include="Content\startbootstrap-creative-gh-pages\img\portfolio\fullsize\4.jpg" />
+    <Content Include="Content\startbootstrap-creative-gh-pages\img\portfolio\fullsize\5.jpg" />
+    <Content Include="Content\startbootstrap-creative-gh-pages\img\portfolio\fullsize\6.jpg" />
+    <Content Include="Content\startbootstrap-creative-gh-pages\img\portfolio\thumbnails\1.jpg" />
+    <Content Include="Content\startbootstrap-creative-gh-pages\img\portfolio\thumbnails\2.jpg" />
+    <Content Include="Content\startbootstrap-creative-gh-pages\img\portfolio\thumbnails\3.jpg" />
+    <Content Include="Content\startbootstrap-creative-gh-pages\img\portfolio\thumbnails\4.jpg" />
+    <Content Include="Content\startbootstrap-creative-gh-pages\img\portfolio\thumbnails\5.jpg" />
+    <Content Include="Content\startbootstrap-creative-gh-pages\img\portfolio\thumbnails\6.jpg" />
+    <Content Include="Content\startbootstrap-creative-gh-pages\index.html" />
+    <Content Include="Content\startbootstrap-creative-gh-pages\js\creative.js" />
+    <Content Include="Content\startbootstrap-creative-gh-pages\js\creative.min.js" />
+    <Content Include="Content\startbootstrap-creative-gh-pages\vendor\bootstrap\css\bootstrap.css" />
+    <Content Include="Content\startbootstrap-creative-gh-pages\vendor\bootstrap\css\bootstrap.min.css" />
+    <Content Include="Content\startbootstrap-creative-gh-pages\vendor\bootstrap\fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Content\startbootstrap-creative-gh-pages\vendor\bootstrap\js\bootstrap.js" />
+    <Content Include="Content\startbootstrap-creative-gh-pages\vendor\bootstrap\js\bootstrap.min.js" />
+    <Content Include="Content\startbootstrap-creative-gh-pages\vendor\font-awesome\css\font-awesome.css" />
+    <Content Include="Content\startbootstrap-creative-gh-pages\vendor\font-awesome\css\font-awesome.min.css" />
+    <Content Include="Content\startbootstrap-creative-gh-pages\vendor\font-awesome\fonts\fontawesome-webfont.svg" />
+    <Content Include="Content\startbootstrap-creative-gh-pages\vendor\jquery\jquery.js" />
+    <Content Include="Content\startbootstrap-creative-gh-pages\vendor\jquery\jquery.min.js" />
+    <Content Include="Content\startbootstrap-creative-gh-pages\vendor\magnific-popup\jquery.magnific-popup.js" />
+    <Content Include="Content\startbootstrap-creative-gh-pages\vendor\magnific-popup\jquery.magnific-popup.min.js" />
+    <Content Include="Content\startbootstrap-creative-gh-pages\vendor\magnific-popup\magnific-popup.css" />
+    <Content Include="Content\startbootstrap-creative-gh-pages\vendor\scrollreveal\scrollreveal.js" />
+    <Content Include="Content\startbootstrap-creative-gh-pages\vendor\scrollreveal\scrollreveal.min.js" />
+    <Content Include="Content\TestContent\prodev-style.css" />
+    <Content Include="Content\TestContent\prodev.js" />
     <Content Include="Content\uploads\images\IMG_20160914_153723.jpg" />
     <Content Include="Content\uploads\images\Product-Promotion-Stage-lighting-Bacground.jpg" />
     <Content Include="Content\uploads\_thumbs\Images\IMG_20160914_153723.jpg" />
@@ -1717,14 +1901,70 @@
     <Content Include="Areas\Admin\Views\Files\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Users\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Users\Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\Home\Index.cshtml" />
+    <Content Include="Content\startbootstrap-creative-gh-pages\.gitignore" />
+    <Content Include="Content\startbootstrap-creative-gh-pages\less\creative.less" />
+    <Content Include="Content\startbootstrap-creative-gh-pages\less\mixins.less" />
+    <Content Include="Content\startbootstrap-creative-gh-pages\less\variables.less" />
+    <Content Include="Content\startbootstrap-creative-gh-pages\LICENSE" />
+    <Content Include="Content\startbootstrap-creative-gh-pages\package.json" />
+    <Content Include="Content\startbootstrap-creative-gh-pages\README.md" />
+    <Content Include="Content\startbootstrap-creative-gh-pages\vendor\bootstrap\fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Content\startbootstrap-creative-gh-pages\vendor\bootstrap\fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="Content\startbootstrap-creative-gh-pages\vendor\bootstrap\fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="Content\startbootstrap-creative-gh-pages\vendor\bootstrap\fonts\glyphicons-halflings-regular.woff2" />
+    <Content Include="Content\startbootstrap-creative-gh-pages\vendor\font-awesome\fonts\fontawesome-webfont.eot" />
+    <Content Include="Content\startbootstrap-creative-gh-pages\vendor\font-awesome\fonts\fontawesome-webfont.ttf" />
+    <Content Include="Content\startbootstrap-creative-gh-pages\vendor\font-awesome\fonts\fontawesome-webfont.woff" />
+    <Content Include="Content\startbootstrap-creative-gh-pages\vendor\font-awesome\fonts\fontawesome-webfont.woff2" />
+    <Content Include="Content\startbootstrap-creative-gh-pages\vendor\font-awesome\fonts\FontAwesome.otf" />
+    <Content Include="Content\startbootstrap-creative-gh-pages\vendor\font-awesome\less\animated.less" />
+    <Content Include="Content\startbootstrap-creative-gh-pages\vendor\font-awesome\less\bordered-pulled.less" />
+    <Content Include="Content\startbootstrap-creative-gh-pages\vendor\font-awesome\less\core.less" />
+    <Content Include="Content\startbootstrap-creative-gh-pages\vendor\font-awesome\less\fixed-width.less" />
+    <Content Include="Content\startbootstrap-creative-gh-pages\vendor\font-awesome\less\font-awesome.less" />
+    <Content Include="Content\startbootstrap-creative-gh-pages\vendor\font-awesome\less\icons.less" />
+    <Content Include="Content\startbootstrap-creative-gh-pages\vendor\font-awesome\less\larger.less" />
+    <Content Include="Content\startbootstrap-creative-gh-pages\vendor\font-awesome\less\list.less" />
+    <Content Include="Content\startbootstrap-creative-gh-pages\vendor\font-awesome\less\mixins.less" />
+    <Content Include="Content\startbootstrap-creative-gh-pages\vendor\font-awesome\less\path.less" />
+    <Content Include="Content\startbootstrap-creative-gh-pages\vendor\font-awesome\less\rotated-flipped.less" />
+    <Content Include="Content\startbootstrap-creative-gh-pages\vendor\font-awesome\less\screen-reader.less" />
+    <Content Include="Content\startbootstrap-creative-gh-pages\vendor\font-awesome\less\stacked.less" />
+    <Content Include="Content\startbootstrap-creative-gh-pages\vendor\font-awesome\less\variables.less" />
+    <Content Include="Content\startbootstrap-creative-gh-pages\vendor\font-awesome\scss\font-awesome.scss" />
+    <Content Include="Content\startbootstrap-creative-gh-pages\vendor\font-awesome\scss\_animated.scss" />
+    <Content Include="Content\startbootstrap-creative-gh-pages\vendor\font-awesome\scss\_bordered-pulled.scss" />
+    <Content Include="Content\startbootstrap-creative-gh-pages\vendor\font-awesome\scss\_core.scss" />
+    <Content Include="Content\startbootstrap-creative-gh-pages\vendor\font-awesome\scss\_fixed-width.scss" />
+    <Content Include="Content\startbootstrap-creative-gh-pages\vendor\font-awesome\scss\_icons.scss" />
+    <Content Include="Content\startbootstrap-creative-gh-pages\vendor\font-awesome\scss\_larger.scss" />
+    <Content Include="Content\startbootstrap-creative-gh-pages\vendor\font-awesome\scss\_list.scss" />
+    <Content Include="Content\startbootstrap-creative-gh-pages\vendor\font-awesome\scss\_mixins.scss" />
+    <Content Include="Content\startbootstrap-creative-gh-pages\vendor\font-awesome\scss\_path.scss" />
+    <Content Include="Content\startbootstrap-creative-gh-pages\vendor\font-awesome\scss\_rotated-flipped.scss" />
+    <Content Include="Content\startbootstrap-creative-gh-pages\vendor\font-awesome\scss\_screen-reader.scss" />
+    <Content Include="Content\startbootstrap-creative-gh-pages\vendor\font-awesome\scss\_stacked.scss" />
+    <Content Include="Content\startbootstrap-creative-gh-pages\vendor\font-awesome\scss\_variables.scss" />
+    <Content Include="Areas\Admin\Views\Chat\Index.cshtml" />
+    <Content Include="Views\Tests\_LayoutTest.cshtml" />
+    <Content Include="Areas\Admin\Views\Tutorials\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\Tutorials\Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\Tutorials\Details.cshtml" />
+    <Content Include="Areas\Admin\Views\Tutorials\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\Tutorials\Index.cshtml" />
+    <None Include="Properties\PublishProfiles\nope.pubxml" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="Scripts\ChatClientSignalR.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.signalR-2.2.1.js" />
+    <Content Include="Scripts\jquery.signalR-2.2.1.min.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
@@ -1733,14 +1973,24 @@
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
+    <Content Include="Scripts\ui\jquery.ui.core.js" />
+    <Content Include="Scripts\ui\jquery.ui.dialog.js" />
+    <Content Include="Scripts\ui\jquery.ui.draggable.js" />
+    <Content Include="Scripts\ui\jquery.ui.mouse.js" />
+    <Content Include="Scripts\ui\jquery.ui.resizable.js" />
+    <Content Include="Scripts\ui\jquery.ui.widget.js" />
     <Content Include="Scripts\_references.js" />
     <Content Include="Views\Enrolment\Enrol.cshtml" />
-    <Content Include="Views\Course\Detail.cshtml" />
+    <Content Include="Views\Course\Index.cshtml" />
     <Content Include="Views\Comments\Create.cshtml" />
     <Content Include="Views\Comments\Delete.cshtml" />
     <Content Include="Views\Comments\Details.cshtml" />
     <Content Include="Views\Comments\Edit.cshtml" />
     <Content Include="Views\Comments\Index.cshtml" />
+    <Content Include="Views\Course\CourseRegister.cshtml" />
+    <Content Include="Views\Course\YourCourse.cshtml" />
+    <Content Include="Views\Tests\Index.cshtml" />
+    <Content Include="Views\Tests\UserTest.cshtml" />
     <None Include="Views\Intro\CourseList.cshtml" />
     <None Include="Views\Intro\ClassSchedule.cshtml" />
     <Content Include="Web.config">
@@ -1785,7 +2035,6 @@
     <Content Include="Views\Account\Details.cshtml" />
     <Content Include="Views\Account\Edit.cshtml" />
     <Content Include="Views\Account\Index.cshtml" />
-    <Content Include="Views\Course\index.cshtml" />
     <Content Include="Views\Manage\_UserCourse.cshtml" />
     <Content Include="Views\Lession\Index.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\Currency.cshtml" />
@@ -1800,12 +2049,12 @@
     <Content Include="Views\Shared\EditorTemplates\String.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\Time.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\Url.cshtml" />
+    <Content Include="Views\Tutorials\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Content\uploads\files\" />
     <Folder Include="Content\uploads\flash\" />
-    <Folder Include="Models\Database\" />
     <Folder Include="Views\User\" />
   </ItemGroup>
   <ItemGroup>
@@ -1840,6 +2089,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201612191603440_whoreadthisanymore2.resx">
       <DependentUpon>201612191603440_whoreadthisanymore2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201612211831330_updatev9.resx">
+      <DependentUpon>201612211831330_updatev9.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

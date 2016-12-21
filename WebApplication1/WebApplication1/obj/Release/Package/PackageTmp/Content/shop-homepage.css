@@ -1,0 +1,388 @@
+/*!
+ * Start Bootstrap - Shop Homepage (http://startbootstrap.com/)
+ * Copyright 2013-2016 Start Bootstrap
+ * Licensed under MIT (https://github.com/BlackrockDigital/startbootstrap/blob/gh-pages/LICENSE)
+ */
+
+
+
+.slide-image {
+    width: 100%;
+}
+
+.thumbnail-image {
+	height: 85px;
+	width: 320px;
+}
+.carousel-holder {
+    margin-bottom: 30px;
+}
+
+.carousel-control,
+.item {
+    border-radius: 4px;
+}
+
+.playBtn {
+	position: absolute; 
+	margin: 39px 0 0px 142px; 
+	z-index: 2;
+	transition: all 2.0s linear;
+    -webkit-transition: all 0.3s linear;
+    -moz-transition: all 0.3s linear;
+    -ms-transition: all 0.3s linear;
+    -o-transition: all 0.3s linear;
+}
+
+.thumbnail-label-div{
+	height: 40px;
+	background-color: #FEC503;
+	overflow: hidden;
+}
+
+.thumbnail-label {
+	margin-top: 7px;
+	margin-left: 15px;
+}
+
+.thumbnail-label-slideshow {
+  background-color: #FEC503;
+  height: 40px;
+  margin: 0 auto;
+  position: relative;
+  overflow: hidden;
+  transform: translate3d(0, 0, 0);
+}
+
+.thumbnail-label-slideshow > div {
+  position: absolute;
+  top: 0;
+  left: 0;
+  transform: translate3d(0, 0, 0);
+}
+
+.thumbnail-label-slideshow .thumbnail-mover-1 {
+  animation: moveThumbnailLabel 20s linear infinite;
+}
+
+@keyframes moveThumbnailLabel {
+  80% { 
+    transform: translateX(80%); 
+	opacity: 1;
+  }
+  85%{
+	transform: translateX(100%); 
+	opacity: 0;
+  }
+  
+  95%{
+	transform: translateX(-100%);  
+	opacity: 0;
+  }
+  100% {
+	transform: translateX(0);  
+	opacity: 1;
+  }
+}
+
+.watermurk {
+	
+	position: absolute;
+	opacity: 0.85; 
+	background: #34bdf0;
+	color: white;
+	overflow: hidden;
+    height: 96px;
+    width: 166px;
+    text-align: center;
+   
+}
+	
+.course-img {
+	margin: 70px 0 70px 0;
+	width: 200px; 
+	height: 200px;
+	padding: 10px;
+	border: 2px solid;
+	border-radius:50%;
+	transition: all 2.0s linear;
+    -webkit-transition: all 0.3s linear;
+    -moz-transition: all 0.3s linear;
+    -ms-transition: all 0.3s linear;
+    -o-transition: all 0.3s linear;
+}
+.course-img:hover {
+	box-shadow: 0px 1px 37px #888888;
+	transition: all 2.0s linear;
+    -webkit-transition: all 0.3s linear;
+    -moz-transition: all 0.3s linear;
+    -ms-transition: all 0.3s linear;
+    -o-transition: all 0.3s linear;
+}
+
+.modal-img{
+	height: 225px;
+}
+
+
+
+/* Month header */
+.month {
+    height: 155px;
+	width: 434px;
+	overflow: hidden;
+    background: #1abc9c;
+}
+
+/* Month list */
+.month ul {
+    margin: 0;
+    padding: 0;
+}
+
+.month ul li {
+    color: white;
+    font-size: 20px;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+}
+
+/* Weekdays (Mon-Sun) */
+.weekdays {
+    padding: 10px 0;
+    background-color:#ddd;
+}
+
+.weekdays li {
+    display: inline-block;
+    width: 13.6%;
+    color: #666;
+    text-align: center;
+}
+
+/* Days (1-31) */
+.days {
+    padding: 10px 0;
+    background: #eee;
+    margin: 0;
+}
+
+.days li {
+    list-style-type: none;
+    display: inline-block;
+    width: 13.6%;
+    text-align: center;
+    margin-bottom: 5px;
+	margin-top: 5px;
+    font-size:12px;
+    color:#777;
+}
+
+/* Highlight the "current" day */
+.days .active {
+	cursor: pointer;
+    background: #1abc9c;
+    color: white !important
+}
+
+.days .active:hover {
+    background: #53DD7D;
+    color: white !important
+}
+
+.callendar-div {
+	opacity: 0;	
+	transition: all .2s ease-in-out;
+	transform: scale(0.5, 0.5);
+}
+
+.display-scale-up {
+	transform: scale(1,1);
+	opacity: 1;
+	transition: all .2s ease-in-out;
+}
+
+.display-scale-down {
+	transform: scale(1,1);
+	opacity: 1;
+	transition: all .2s ease-in-out;
+}
+
+.callendar-div ul {
+	list-style: none;
+}
+
+.callendar-header {
+    text-align: center;
+    background-image: url('img/callendar/default-bg-1.jpg');
+    background-size: cover;
+}
+
+.callendar-header-2 {
+    text-align: center;
+    background-image: url('img/callendar/default-bg-2.png');    
+    background-size: cover;
+}
+
+.callendar-header-3 {
+    text-align: center;
+    background-image: url('img/callendar/default-bg-3.jpg');    
+    background-size: cover;
+}
+
+.callendar-icon {
+	opacity: 0;	
+	transform: scale(7, 7);
+}
+
+.callendar-img{
+	width: 464px;
+	height: 155px !important 
+	
+}
+
+.img-circle-shadow:hover{
+	cursor: pointer;
+	box-shadow: 0px 1px 37px #888888;
+	transition: all 0.3s linear;
+    -webkit-transition: all 0.3s linear;
+    -moz-transition: all 0.3s linear;
+    -ms-transition: all 0.3s linear;
+    -o-transition: all 0.3s linear;
+}
+
+.shadow-cast {
+	box-shadow: 0px 1px 37px #888888;
+	transition: all 0.3s linear;
+    -webkit-transition: all 0.3s linear;
+    -moz-transition: all 0.3s linear;
+    -ms-transition: all 0.3s linear;
+    -o-transition: all 0.3s linear;
+}
+
+.activeDate:hover {
+	background: red;
+	cursor: pointer;
+}
+
+.days li .active-fresher {
+	cursor: pointer;
+    padding: 5px;
+	background: red;
+	color: white !important
+}
+
+.days li .active-nang-cao {
+	cursor: pointer;
+    padding: 5px;
+	background: yellow;
+	color: white !important
+}
+
+.days li .active-fresher:hover {
+    padding: 5px;
+    background: #53DD7D;
+    color: white !important
+}
+
+.days li .active-nang-cao:hover {
+    padding: 5px;
+    background: #53DD7D;
+    color: white !important
+}
+
+.callendar-header-date {
+	margin: 50px 0 50px 0;
+}
+
+.intro-course-header {
+	
+	text-transform: none;
+	background: #502B01;
+	color: white;
+	text-align:left;
+	height: 40px;
+	width: 100%;
+	padding: 10px 43px;
+	border-radius: 28px 0 0 0;
+	font-size: 15px;
+	
+}
+
+.intro-course-content {
+    background-image: url('img/course-bg-1.jpg');    
+    padding: 10px;
+    height: 180px;
+}
+
+.intro-course-text{
+	font-size: 9px;
+	font-size: 9px;
+}
+
+.modal-bg-1 {
+    background-image: url('img/modal-bg-1.png');
+    background-size: cover;
+}
+
+.modal-bg-2 {
+    background-image: url('img/modal-bg-2.png');
+    background-size: cover;
+}
+
+.modal-bg-3 {
+    background-image: url('img/modal-bg-3.png');
+    background-size: cover;
+}
+
+.modal-bg-4 {
+    background-image: url('img/modal-bg-4.png');
+    background-size: cover;
+}
+
+.modal-text-2 {
+	-webkit-filter: drop-shadow(2px 5px 7px #fee79a); /* Chrome, Safari, Opera */
+	filter: drop-shadow(2px 5px 7px #fee79a);
+	color: #fec503;
+}
+.modal-text-1 {
+	-webkit-filter: drop-shadow(2px 5px 7px white); /* Chrome, Safari, Opera */
+	filter: drop-shadow(2px 5px 7px white);
+	color: white;
+}
+
+.portfolio-modal .close-modal .lr-white {
+  height: 75px;
+  width: 1px;
+  margin-left: 35px;
+  background-color: white;
+  transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  /* IE 9 */
+  -webkit-transform: rotate(45deg);
+  /* Safari and Chrome */
+  z-index: 1051;
+}
+.portfolio-modal .close-modal .lr-white .rl-white {
+  height: 75px;
+  width: 1px;
+  background-color: white;
+  transform: rotate(90deg);
+  -ms-transform: rotate(90deg);
+  /* IE 9 */
+  -webkit-transform: rotate(90deg);
+  /* Safari and Chrome */
+  z-index: 1052;
+}
+
+#portfolioModal1::-webkit-scrollbar { 
+    display: none; 
+}
+
+#portfolioModal2::-webkit-scrollbar { 
+    display: none; 
+}
+
+#portfolioModal3::-webkit-scrollbar { 
+    display: none; 
+}

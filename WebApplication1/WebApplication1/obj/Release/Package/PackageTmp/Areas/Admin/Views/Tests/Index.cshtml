@@ -1,0 +1,58 @@
+﻿@model IEnumerable<WebApplication1.Models.Test>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Test Management</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Lession)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.XmlContent)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TimeLimit)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PassMark)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Name)
+        </td>
+        <td>
+            @((item.Lession != null) ? item.Lession.Name : "")
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.XmlContent)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TimeLimit)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PassMark)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.TestId }) |
+            @Html.ActionLink("Details", "Details", new { id=item.TestId }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.TestId })
+        </td>
+    </tr>
+}
+
+</table>

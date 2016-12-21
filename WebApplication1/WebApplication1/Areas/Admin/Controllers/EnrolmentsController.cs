@@ -136,9 +136,32 @@ namespace WebApplication1.Areas.Admin.Controllers
                     return RedirectToAction("Index");
                 }
 
-                enrolment.User = user;
-                enrolment.Course = course;
-                db.Entry(enrolment).State = EntityState.Modified;
+                //enrolment.User = user;
+                //enrolment.Course = course;
+
+                var curEnrolment = db.Enrolments.Include(m => m.User).Include(m => m.Course).ToList().Find(m => m.EnrolmentId == enrolment.EnrolmentId);
+                //var curCourse = curEnrolment.Course;
+                //var curUser = curEnrolment.User;
+
+                //if (curUser != user)
+                //{
+                //    curUser.Enrolments.Remove(curEnrolment);
+                //    db.Entry(curUser).State = EntityState.Modified;                                        
+                //}
+
+                //if (curCourse != course)
+                //{
+                //    curCourse.Enrolments.Remove(curEnrolment);
+                //    db.Entry(curCourse).State = EntityState.Modified;
+                //}
+
+                curEnrolment.CreateDate = enrolment.CreateDate;
+                curEnrolment.EndDate = enrolment.EndDate;
+                curEnrolment.IsValid = enrolment.IsValid;
+                curEnrolment.User = user;
+                curEnrolment.Course = course;
+                                
+                db.Entry(curEnrolment).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }

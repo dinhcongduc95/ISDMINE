@@ -1,0 +1,20 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<h2>File Management</h2>
+
+<div id="main">
+
+
+</div>
+<script src="@Url.Content("~/Content/ckfinder/ckfinder.js")"></script>
+<script>
+    var finder = new CKFinder();   
+    finder.language = 'vi';
+    finder.basePath = "/ckfinder/";
+    // Append CKFinder to <div id="container">
+    finder.appendTo("main");
+</script>
