@@ -1,17 +1,133 @@
 ﻿@{
-    ViewBag.Title = "Contact";
+    ViewBag.Title = "Thông liên hệ";
 }
-<h2>@ViewBag.Title.</h2>
-<h3>@ViewBag.Message</h3>
 
-<address>
-    One Microsoft Way<br />
-    Redmond, WA 98052-6399<br />
-    <abbr title="Phone">P:</abbr>
-    425.555.0100
-</address>
+<div class="container">
+    <h2>@ViewBag.Title.</h2>
+    <h3>@ViewBag.Message</h3>
 
-<address>
-    <strong>Support:</strong>   <a href="mailto:Support@example.com">Support@example.com</a><br />
-    <strong>Marketing:</strong> <a href="mailto:Marketing@example.com">Marketing@example.com</a>
-</address>
+    <address>
+        Công ty trách nhiệm hết hạn PRODEV.VN<br/>
+        Redmond, WA 98052-6399<br/>
+        <abbr title="Phone">P:</abbr>
+        425.555.0100
+    </address>
+
+    <address>
+        <strong>Hỗ trợ: </strong> <a href="mailto:Support@example.com">Support@example.com</a><br/>
+        <strong>Chăm sóc khách hàng:</strong> <a href="mailto:Marketing@example.com">Marketing@example.com</a>
+    </address>
+</div>
+
+
+<style>
+         /* Always set the map height explicitly to define the size of the div
+        * element that contains the map. */
+    #map { height: 100%; }
+    #map2 { height: 100%; }
+    #map3 { height: 100%; }
+    /* Optional: Makes the sample page fill the window. */
+
+    html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+    }
+</style>
+<h3 class="text-center">Cơ sở số 1: Đại Học Hà Nội</h3>
+<div id="map" class="container"></div>
+<h3 class="text-center">Cơ sở số 2: Đại Học Thương Mại</h3>
+<div id="map2" class="container"></div>
+<h3 class="text-center">Cơ sở số 3: Đại Học Thành Công</h3>
+<div id="map3" class="container"></div>
+<script>
+    var map;
+    var map2;
+    var map3;
+
+    function initMap() {
+        map = new google.maps.Map(document.getElementById('map'),
+        {
+            center: { lat: 20.9881393, lng: 105.7958723 },
+            zoom: 17
+        });
+
+        var infowindow = new google.maps.InfoWindow();
+        var service = new google.maps.places.PlacesService(map);
+
+        service.getDetails({
+            placeId: 'ChIJ5anc88esNTERZBAfR5dazzA'
+        }, function (place, status) {
+            if (status === google.maps.places.PlacesServiceStatus.OK) {
+                var marker = new google.maps.Marker({
+                    map: map,
+                    position: place.geometry.location
+                });
+                google.maps.event.addListener(marker, 'click', function () {
+                    infowindow.setContent('<div><strong>' + place.name + '</strong><br>' +
+                      'Place ID: ' + place.place_id + '<br>' +
+                      place.formatted_address + '</div>');
+                    infowindow.open(map, this);
+                });
+            }
+        });
+
+
+
+        map2 = new google.maps.Map(document.getElementById('map2'),
+       {
+           center: { lat: 21.0365415, lng: 105.7725255 },
+           zoom: 17
+       });
+
+
+        var infowindow2 = new google.maps.InfoWindow();
+        var service2 = new google.maps.places.PlacesService(map);
+
+        service2.getDetails({
+            placeId: 'ChIJLzk8FrZUNDERA221y_pkvx4'
+        }, function (place, status) {
+            if (status === google.maps.places.PlacesServiceStatus.OK) {
+                var marker = new google.maps.Marker({
+                    map: map2,
+                    position: place.geometry.location
+                });
+                google.maps.event.addListener(marker, 'click', function () {
+                    infowindow2.setContent('<div><strong>' + place.name + '</strong><br>' +
+                      'Place ID: ' + place.place_id + '<br>' +
+                      place.formatted_address + '</div>');
+                    infowindow.open(map2, this);
+                });
+            }
+        });
+
+
+        map3 = new google.maps.Map(document.getElementById('map3'),
+       {
+           center: { lat: 21.004612, lng: 105.8039587 },
+           zoom: 17
+       });
+
+        var infowindow3 = new google.maps.InfoWindow();
+        var service3 = new google.maps.places.PlacesService(map);
+
+        service3.getDetails({
+            placeId: 'ChIJrRNxSn6rNTER5HB5JsR3O2o'
+        }, function (place, status) {
+            if (status === google.maps.places.PlacesServiceStatus.OK) {
+                var marker = new google.maps.Marker({
+                    map: map3,
+                    position: place.geometry.location
+                });
+                google.maps.event.addListener(marker, 'click', function () {
+                    infowindow.setContent('<div><strong>' + place.name + '</strong><br>' +
+                      'Place ID: ' + place.place_id + '<br>' +
+                      place.formatted_address + '</div>');
+                    infowindow3.open(map3, this);
+                });
+            }
+        });
+    }
+</script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCqGt8YrMO40K2Rt25GtFbL9Mz6pClQMao&callback=initMap&libraries=places"
+        async defer></script>

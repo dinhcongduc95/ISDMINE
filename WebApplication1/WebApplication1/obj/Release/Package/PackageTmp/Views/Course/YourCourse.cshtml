@@ -1,0 +1,63 @@
+﻿@using WebApplication1.Models
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!-- Services Section -->
+
+
+<!-- Khoa Hoc Co Ban Section -->
+<section id="khoahoccoban" class="portfolio bg-light-gray">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 text-center">
+                <h2 class="section-heading">CÁC KHÓA HỌC ĐÃ ĐĂNG KÍ</h2>
+                <h3 class="section-subheading text-muted">Cập nhật thường xuyên</h3>
+            </div>
+        </div>
+        <div class="row">
+            @foreach (var item in (List<Enrolment>)ViewBag.Enrolments)
+            {
+                var course = item.Course;
+                <div class="col-md-4 col-sm-6 portfolio-item">
+                    <a href="../Course/Index?id=@course.CourseId" class="portfolio-link" data-toggle="modal">
+                        <div class="portfolio-hover">
+                            <div class="portfolio-hover-content">
+                                <i class="fa fa-plus fa-3x"></i>
+                            </div>
+                        </div>
+                        <div class="watermurk">
+                            <h3>
+                                @course.Name
+                            </h3>
+                        </div>
+                        <img class="modal-img img-responsive" style="width: 100%;" src="@Html.Raw(course.ImageLink)" alt="">
+                    </a>
+                    <div class="portfolio-caption">
+                        <h4>@course.Name</h4>
+                        <p class="text-muted">@course.TuitionFee $</p>
+                    </div>
+                </div>
+            }
+            
+            
+        </div>
+    </div>
+</section>
+
+
+<style>
+    .watermurk {
+
+    width: 100%;
+	position: absolute;
+	opacity: 0.85; 
+	background: green;
+	color: white;
+	overflow: hidden;
+    height: 62px;   
+    text-align: center;
+   
+}
+	
+</style>

@@ -228,6 +228,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\CourseController.cs" />
     <Compile Include="Controllers\EnrolmentController.cs" />
+    <Compile Include="Controllers\TestResultsController.cs" />
     <Compile Include="Controllers\TestsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\IntroController.cs" />
@@ -237,37 +238,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201612171451533_init.cs" />
-    <Compile Include="Migrations\201612171451533_init.Designer.cs">
-      <DependentUpon>201612171451533_init.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201612171655326_v5.cs" />
-    <Compile Include="Migrations\201612171655326_v5.Designer.cs">
-      <DependentUpon>201612171655326_v5.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201612180516185_v6.cs" />
-    <Compile Include="Migrations\201612180516185_v6.Designer.cs">
-      <DependentUpon>201612180516185_v6.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201612181043260_v7.cs" />
-    <Compile Include="Migrations\201612181043260_v7.Designer.cs">
-      <DependentUpon>201612181043260_v7.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201612181544154_v8.cs" />
-    <Compile Include="Migrations\201612181544154_v8.Designer.cs">
-      <DependentUpon>201612181544154_v8.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201612191542597_whoreadthisanymore.cs" />
-    <Compile Include="Migrations\201612191542597_whoreadthisanymore.Designer.cs">
-      <DependentUpon>201612191542597_whoreadthisanymore.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201612191603440_whoreadthisanymore2.cs" />
-    <Compile Include="Migrations\201612191603440_whoreadthisanymore2.Designer.cs">
-      <DependentUpon>201612191603440_whoreadthisanymore2.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201612211831330_updatev9.cs" />
-    <Compile Include="Migrations\201612211831330_updatev9.Designer.cs">
-      <DependentUpon>201612211831330_updatev9.cs</DependentUpon>
+    <Compile Include="Migrations\201612221925523_whoreadthis.cs" />
+    <Compile Include="Migrations\201612221925523_whoreadthis.Designer.cs">
+      <DependentUpon>201612221925523_whoreadthis.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -2050,6 +2023,7 @@
     <Content Include="Views\Shared\EditorTemplates\Time.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\Url.cshtml" />
     <Content Include="Views\Tutorials\Index.cshtml" />
+    <Content Include="Views\TestResults\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -2069,29 +2043,8 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201612171451533_init.resx">
-      <DependentUpon>201612171451533_init.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201612171655326_v5.resx">
-      <DependentUpon>201612171655326_v5.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201612180516185_v6.resx">
-      <DependentUpon>201612180516185_v6.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201612181043260_v7.resx">
-      <DependentUpon>201612181043260_v7.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201612181544154_v8.resx">
-      <DependentUpon>201612181544154_v8.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201612191542597_whoreadthisanymore.resx">
-      <DependentUpon>201612191542597_whoreadthisanymore.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201612191603440_whoreadthisanymore2.resx">
-      <DependentUpon>201612191603440_whoreadthisanymore2.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201612211831330_updatev9.resx">
-      <DependentUpon>201612211831330_updatev9.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201612221925523_whoreadthis.resx">
+      <DependentUpon>201612221925523_whoreadthis.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

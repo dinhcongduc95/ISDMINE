@@ -25,12 +25,12 @@
                                 <i class="fa fa-plus fa-3x"></i>
                             </div>
                         </div>
-                        <div class="water-mark">
+                        <div class="watermurk1">
                             <h3>
                                 @item.Name
                             </h3>
                         </div>
-                        <img class="modal-img img-responsive" src="@Html.Raw(item.ImageLink)" alt="">
+                        <img class="modal-img img-responsive" style="width:100%" src="@Html.Raw(item.ImageLink)" alt="">
                     </a>
                     <div class="portfolio-caption">
                         <h4>@item.Name</h4>
@@ -63,7 +63,7 @@
                                 <i class="fa fa-plus fa-3x"></i>
                             </div>
                         </div>
-                        <div class="watermurk">
+                        <div class="watermurk2">
                             <h3>
                                 @item.Name
                             </h3>
@@ -99,12 +99,12 @@
                             <i class="fa fa-plus fa-3x"></i>
                         </div>
                     </div>
-                    <div class="water-mark">
+                    <div class="watermurk3">
                         <h3>
                             @item.Name
                         </h3>
                     </div>
-                    <img class="modal-img img-responsive" src="@Html.Raw(item.ImageLink)" alt="">
+                    <img class="modal-img img-responsive" style="width:100%" src="@Html.Raw(item.ImageLink)" alt="">
                 </a>
                 <div class="portfolio-caption">
                     <h4>@item.Name</h4>
@@ -121,17 +121,41 @@
 
 
 <style>
-    .watermurk {
+     .watermurk1 {
 
     width: 100%;
 	position: absolute;
 	opacity: 0.85; 
-	background: #34bdf0;
+	background: yellowgreen;
 	color: white;
 	overflow: hidden;
     height: 62px;   
     text-align: center;
+    }
+
+     .watermurk2 {
+
+         width: 100%;
+         position: absolute;
+         opacity: 0.85; 
+         background: #34bdf0;
+         color: white;
+         overflow: hidden;
+         height: 62px;   
+         text-align: center;
    
-}
-	
+     }
+
+     .watermurk3 {
+
+         width: 100%;
+         position: absolute;
+         opacity: 0.85; 
+         background: crimson;
+         color: white;
+         overflow: hidden;
+         height: 62px;   
+         text-align: center;
+   
+     }
 </style>

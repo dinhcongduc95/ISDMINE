@@ -107,3 +107,8 @@ C:\Users\dinhc\Source\Repos\ISDMINE\WebApplication1\WebApplication1\obj\Release\
 C:\Users\dinhc\Source\Repos\ISDMINE\WebApplication1\WebApplication1\obj\Release\WebApplication1.csproj.GenerateResource.Cache
 C:\Users\dinhc\Source\Repos\ISDMINE\WebApplication1\WebApplication1\obj\Release\WebApplication1.dll
 C:\Users\dinhc\Source\Repos\ISDMINE\WebApplication1\WebApplication1\obj\Release\WebApplication1.pdb
+C:\Users\dinhc\Source\Repos\ISDMINE\WebApplication1\WebApplication1\bin\Microsoft.AspNet.SignalR.Core.dll
+C:\Users\dinhc\Source\Repos\ISDMINE\WebApplication1\WebApplication1\bin\Microsoft.AspNet.SignalR.SystemWeb.dll
+C:\Users\dinhc\Source\Repos\ISDMINE\WebApplication1\WebApplication1\bin\Microsoft.AspNet.SignalR.Core.xml
+C:\Users\dinhc\Source\Repos\ISDMINE\WebApplication1\WebApplication1\bin\Microsoft.AspNet.SignalR.SystemWeb.xml
+C:\Users\dinhc\Source\Repos\ISDMINE\WebApplication1\WebApplication1\obj\Release\WebApplication1.Migrations.updatev9.resources

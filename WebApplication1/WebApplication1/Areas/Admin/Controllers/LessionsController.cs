@@ -12,8 +12,10 @@ using WebApplication1.Models;
 
 namespace WebApplication1.Areas.Admin.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class LessionsController : Controller
     {
+        
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: Admin/Lessions

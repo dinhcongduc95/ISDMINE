@@ -1,0 +1,58 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+
+<h2>Chat room hỗ trợ người dùng</h2>
+
+<div style="position: absolute; bottom: 1%; right: 1%;">
+    <button id="chatBtn" class="btn btn-lg btn-success">
+        <span class="glyphicon glyphicon-user" aria-hidden="true"></span></button>
+</div>
+
+<div style="position: fixed; bottom: 0; right: 1%; display: none" id="chatDiv">
+    <div id="divContainer">
+        <div id="divLogin" class="login">
+            <div>
+                Tên của bạn:<br/>
+                <input id="txtNickName" type="text" class="textBox"/>
+            </div>
+            <div id="divButton">
+                <input id="btnStartChat" type="button" class="submitButton" value="Bắt đầu chat"/>
+            </div>
+        </div>
+
+        <div id="divChat" class="chatRoom">
+            <div class="title">
+                Chào bạn: [<span id="spanUser"></span>]
+                <span class="glyphicon glyphicon-remove" style="cursor: pointer; float: right" id="doneBtn" aria-hidden="true"></span>
+            </div>
+            <div class="content">
+                <div id="divusers" class="users">
+                </div>
+            </div>
+        </div>
+
+        <input id="hdId" type="hidden"/>
+        <input id="hdUserName"
+               type="hidden"/>
+        <input id="hdRole" value="Admin"
+               type="hidden"/>
+    </div>
+</div>
+<script>
+    $('#chatBtn')
+        .click(function() {
+            $(this).hide();
+            $('#chatDiv').show();
+        });
+
+    $('#doneBtn')
+        .click(function() {
+            $('#chatBtn').show();
+            $('#chatDiv').hide();
+        });
+
+</script>

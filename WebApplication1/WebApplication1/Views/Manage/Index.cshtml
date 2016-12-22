@@ -8,7 +8,7 @@
 
     <p class="text-success">@ViewBag.StatusMessage</p>
     <div>
-        <h4 class="text-center">Change your account settings</h4>
+        <h4 class="text-center"> Quản lí tài khoản </h4>
         <hr />
         
             <div class="row">
@@ -102,11 +102,16 @@
         <hr />
 
         <div class="row text-center">
-            <h4>Your Courses</h4>
+            <h4>Các khóa học của bạn</h4>
             @Html.ActionLink("Các khóa học của bạn", "YourCourse", new {controller = "Course"}, new {@class= "btn btn-warning btn-lg" })           
         </div>
 
-        <hr />
+        <hr/>
+
+        <div class="row text-center">
+            <h4>Các kết quả kiểm tra của bạn</h4>
+            @Html.ActionLink("Các khóa học của bạn", "I", new { controller = "TestResults" }, new { @class = "btn btn-warning btn-lg" })
+        </div>
     </div>
 
 </div>

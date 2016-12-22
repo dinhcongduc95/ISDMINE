@@ -9,6 +9,7 @@ using WebApplication1.Models;
 
 namespace WebApplication1.Areas.Admin.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class CoursesController : Controller
     {
         private readonly ApplicationDbContext db = new ApplicationDbContext();

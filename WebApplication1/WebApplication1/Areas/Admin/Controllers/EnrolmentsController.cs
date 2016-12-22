@@ -12,6 +12,7 @@ using WebApplication1.Models;
 
 namespace WebApplication1.Areas.Admin.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class EnrolmentsController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();

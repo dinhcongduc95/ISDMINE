@@ -74,18 +74,27 @@
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav navbar-right">
-                    <li @if (ViewBag.Title == "Homepage") { @Html.Raw("class='active'")  }>
+                    <li @if (ViewBag.Title == "Homepage")
+                        {
+                            @Html.Raw("class='active'")
+                        }>
                         @Html.ActionLink("HOME", "Index", "Home")
                     </li>
+                    <li @if (ViewBag.Title == "Thông liên hệ") { @Html.Raw("class='active'")   }>
+                        @Html.ActionLink("Liên hệ", "Contact", "Home")
+                    </li>
                     <li @if (ViewBag.Title == "Class Schedule") { @Html.Raw("class='active'")  }>
-                        @Html.ActionLink("SCHEDULE", "ClassSchedule", "Intro", null, new { @class = "page-scroll" })
+                        @Html.ActionLink("Lịch học", "ClassSchedule", "Intro", null, new { @class = "page-scroll" })
                     </li>
-                    <li @if (ViewBag.Title == "Course List") { @Html.Raw("class='active'")  }>
-                        @Html.ActionLink("KHÓA HỌC", "CourseList", "Intro", null, new { @class = "page-scroll" })
+                    <li @if (ViewBag.Title == "Course List")
+                        {
+                            @Html.Raw("class='active'")
+                        }>
+                        @Html.ActionLink("KHÓA HỌC", "CourseList", "Intro", null, new {@class = "page-scroll"})
                     </li>
-                    <li>
-                        @Html.ActionLink("Tutorial", "Index", "Tutorials", null, new { @class = "page-scroll" })
-                    </li>
+                    <li @if (ViewBag.Title == "Tutorials") { @Html.Raw("class='active'")   }>
+                        @Html.ActionLink("Tutorials", "Index", "Tutorials", null, new { @class = "page-scroll" })
+                    </li>                    
                     <li>
                         @Html.Partial("~/Views/Shared/_LoginPartial.cshtml")
                     </li>

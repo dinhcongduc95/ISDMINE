@@ -6,6 +6,7 @@ using System.Web.Mvc;
 
 namespace WebApplication1.Areas.Admin.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class FilesController : Controller
     {
         // GET: Admin/Files

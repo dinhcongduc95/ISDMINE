@@ -5,15 +5,13 @@
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
     Lession lession = ViewBag.Lession;
-    var comments = lession.Comments.ToList();
-    string userId = "";
+
+    var userId = "";
     if (User.Identity.IsAuthenticated)
     {
         userId = User.Identity.GetUserId();
     }
 }
-
-<h2>Index</h2>
 
 <!-- Header -->
 <header>
@@ -24,9 +22,9 @@
                     <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
                         <div class="carousel-inner">
 
-                            <div class="item active" node=1>
-                                <iframe width="1140" height="500"
-                                        src="@Html.Raw("https://www.youtube.com/embed/" + lession.YoutubeLink)">
+                            <div class="item active" node="1">
+                                <iframe width="100%" height="500"
+                                        src="@Html.Raw(lession.YoutubeLink)">
 
                                 </iframe>
                             </div>
@@ -37,59 +35,31 @@
                                 <img class="slide-image" src="http://placehold.it/800x300" alt="">
                             </div>*@
                         </div>
-                        <div style="height: 100px; margin: 10px auto;">
-                            <a href="#carousel-example-generic" data-slide="prev">
-                                <div class="slideButton" style="height: 120px; border: solid 1px gray; border-radius: 5px; float: left; padding: 50px 15px 50px 15px">
-                                    <span class="glyphicon glyphicon-chevron-left"></span>
-                                </div>
-                            </a>
-                            <div style="margin: 10px;">
-                                <div class="node" id="node1" style="margin-left: 25px;">
-                                    <i class="fa fa-play-circle fa-3x playBtn" aria-hidden="true"></i>
-                                    <img class="thumbnail-image activeNode" src="@Url.Content("~/Content/img/prodev_banner_1.png")" alt="" data-target="#carousel-example-generic" data-slide-to="0">
-                                    <div class="thumbnail-label-slideshow blur">
-                                        <div class="thumbnail-label-div thumbnail-mover-1">
-                                            <h3 class="thumbnail-label">Slideshow 1 Title</h3>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="node" id="node2">
-                                    <i class="fa fa-play-circle fa-3x playBtn" aria-hidden="true" style="opacity: 0"></i>
-                                    <img class="thumbnail-image" src="@Url.Content("~/Content/img/prodev_banner_2.png")" alt="" data-target="#carousel-example-generic" data-slide-to="1">
-                                    <div class="thumbnail-label-slideshow">
-                                        <div class="thumbnail-label-div">
-                                            <h3 class="thumbnail-label">Slideshow 2 Title</h3>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="node" id="node3">
-                                    <i class="fa fa-play-circle fa-3x playBtn" aria-hidden="true" style="opacity: 0"></i>
-                                    <img class="thumbnail-image" src="http://placehold.it/800x300" alt="" data-target="#carousel-example-generic" data-slide-to="2">
-                                    <div class="thumbnail-label-slideshow">
-                                        <div class="thumbnail-label-div">
-                                            <h3 class="thumbnail-label">Slideshow 3 Title</h3>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <a href="#carousel-example-generic" data-slide="next">
-                                <div class="slideButton" style="height: 120px; border: solid 1px gray; border-radius: 5px; float: right; padding: 50px 15px 50px 15px">
-                                    <span class="glyphicon glyphicon-chevron-right"></span>
-                                </div>
-                            </a>
-                        </div>
+
+
                     </div>
+                </div>
+                <div class="col-md-12 text-center">
+                    <h4 class="text-info">Các bài kiểm tra</h4>
+                    @if (ViewBag.Tests != null)
+                    {
+                        foreach (Test test in ViewBag.Tests)
+                        {
+                            <div class="col-md-4">
+                                @Html.ActionLink(test.Name, "UserTest", new {controller = "Tests", id = test.TestId}, new {@class = "btn btn-success"})
+                            </div>
+                        }
+                    }
                 </div>
             </div>
             <a class="page-scroll btn btn-xl">KHOÁ HỌC OFFLINE</a>
             <a class="page-scroll btn btn-xl">KHOÁ HỌC ONLINE</a>
         </div>
-    </div>
-
+    </div>   
 
 </header>
 
-<div class="container bootstrap snippet">
+<div class="container">
     <div class="row">
         <div class="col-md-12">
             <div class="blog-comment">
@@ -137,16 +107,18 @@
                 <ul class="comments" id="commentDiv">
                     @{
 
-                        var db = new ApplicationDbContext();
-                        foreach (var comment in comments)
-                        {
 
-                            var user = db.Users.Find(comment.UserId);
+                        foreach (Comment comment in ViewBag.Comments)
+                        {
                             <li class="clearfix">
                                 <img src="http://bootdey.com/img/Content/user_3.jpg" class="avatar" alt="">
                                 <div class="post-comments">
                                     <p class="meta">
-                                        Dec 20, 2016 <a href="#">@user.UserName</a> says : <i class="pull-right"><a commentId="@comment.CommentId" style="cursor: pointer"><small>Reply</small></a></i>
+                                        Dec 20, 2016 <a href="#">@comment.User.UserName</a> says : <i class="pull-right">
+                                            <a commentId="@comment.CommentId" style="cursor: pointer">
+                                                <small>Reply</small>
+                                            </a>
+                                        </i>
                                     </p>
                                     <p>
                                         @comment.Content
@@ -157,16 +129,30 @@
                                             <div class="col-md-6">
                                                 <div class="widget-area no-padding blank">
                                                     <div class="status-upload">
-                                                        <form>
-                                                            <textarea placeholder="Bài giảng có chất lượng ?" id="commentTxtArea"></textarea>
-                                                            <ul>
-                                                                <li><a title="" data-toggle="tooltip" data-placement="bottom" data-original-title="Audio"><i class="fa fa-music"></i></a></li>
-                                                                <li><a title="" data-toggle="tooltip" data-placement="bottom" data-original-title="Video"><i class="fa fa-video-camera"></i></a></li>
-                                                                <li><a title="" data-toggle="tooltip" data-placement="bottom" data-original-title="Sound Record"><i class="fa fa-microphone"></i></a></li>
-                                                                <li><a title="" data-toggle="tooltip" data-placement="bottom" data-original-title="Picture"><i class="fa fa-picture-o"></i></a></li>
-                                                            </ul>
-                                                            <button type="submit" class="btn btn-success green"><i class="fa fa-share"></i> Share</button>
-                                                        </form>
+                                                        <textarea placeholder="Bài giảng có chất lượng ?" id="commentTxtArea"></textarea>
+                                                        <ul>
+                                                            <li>
+                                                                <a title="" data-toggle="tooltip" data-placement="bottom" data-original-title="Audio">
+                                                                    <i class="fa fa-music"></i>
+                                                                </a>
+                                                            </li>
+                                                            <li>
+                                                                <a title="" data-toggle="tooltip" data-placement="bottom" data-original-title="Video">
+                                                                    <i class="fa fa-video-camera"></i>
+                                                                </a>
+                                                            </li>
+                                                            <li>
+                                                                <a title="" data-toggle="tooltip" data-placement="bottom" data-original-title="Sound Record">
+                                                                    <i class="fa fa-microphone"></i>
+                                                                </a>
+                                                            </li>
+                                                            <li>
+                                                                <a title="" data-toggle="tooltip" data-placement="bottom" data-original-title="Picture">
+                                                                    <i class="fa fa-picture-o"></i>
+                                                                </a>
+                                                            </li>
+                                                        </ul>
+                                                        <button class="btn btn-success green"><i class="fa fa-share"></i> Share</button>
                                                     </div><!-- Status Upload -->
                                                 </div><!-- Widget Area -->
                                             </div>
@@ -177,308 +163,311 @@
                             </li>
                         }
                     }
-
-                    <script>
-                        $("a").click(function() {
-                                var commentId = $(this).attr("commentId");
-                                if (commentId != null) {
-                                    $("#" + commentId).toggleClass("hidden");
-                                    $("#main_comment_rep").toggleClass("hidden");
-                                }
-                            });
-
-                        function ajaxComment() {
-                            $("#commentTxtArea").html("");
-                            var url = "https://localhost:44300/Lession/AddComment/";
-                            var content = $("#commentContent").val();
-                            var lessionId = $("#lessionId").attr("value");                            
-
-                            var request = $.ajax({
-                                url: url,
-                                type: "POST",
-                                data: { content: content, lessionId: lessionId},
-                                dataType: "json"
-                            });
-
-                            request.done(function(msg) {
-
-                                var htmlContent = '';
-                                htmlContent += '<li class="clearfix">'
-                                + '<img src="http://bootdey.com/img/Content/user_3.jpg" class="avatar" alt="">'
-                                + '<div class="post-comments">'
-                                    + '<p class="meta">'
-                                     + 'Dec 20, 2016 <a href="#">@User.Identity.Name</a> says : <i class="pull-right"><a commentId="'+ msg.commentId+'" style="cursor: pointer"><small>Reply</small></a></i>'
-                                    + '</p>'
-                                    + '<p>'
-                                        + msg.content
-                                    + '</p>'
-                                    + '<div class="container hidden" id="'+ msg.commentId +'">'
-                                        + '<div class="row">'
-
-                                            + '<div class="col-md-6">'
-                                                + '<div class="widget-area no-padding blank">'
-                                                    + '<div class="status-upload">'
-                                                        + '<form>'
-                                                            + '<textarea placeholder="What are you doing right now?"></textarea>'
-                                                            + '<ul>'
-                                                                + '<li><a title="" data-toggle="tooltip" data-placement="bottom" data-original-title="Audio"><i class="fa fa-music"></i></a></li>'
-                                                                + '<li><a title="" data-toggle="tooltip" data-placement="bottom" data-original-title="Video"><i class="fa fa-video-camera"></i></a></li>'
-                                                                + '<li><a title="" data-toggle="tooltip" data-placement="bottom" data-original-title="Sound Record"><i class="fa fa-microphone"></i></a></li>'
-                                                                + '<li><a title="" data-toggle="tooltip" data-placement="bottom" data-original-title="Picture"><i class="fa fa-picture-o"></i></a></li>'
-                                                            + '</ul>'
-                                                            + '<button type="submit" class="btn btn-success green"><i class="fa fa-share"></i> Share</button>'
-                                                        + '</form>'
-                                                    + '</div><!-- Status Upload -->'
-                                                + '</div><!-- Widget Area -->'
-                                            + '</div>'
-
-                                        + '</div>'
-                                    + '</div>'
-                                + '</div>'
-                            + '</li>';
-
-
-                                $('#commentDiv').append(htmlContent);
-                            });
-
-                            request.fail(function(textStatus) {
-                                alert("Request failed: " + textStatus);
-                            });
-                        }
-                    </script>
                 </ul>
-                <div class="container" id="main_comment_rep">
-                    <div class="row">
 
-                        <div class="col-md-8">
-                            <div class="widget-area no-padding blank">
-                                <div class="status-upload">
-                                <form>
-                                    <input type="hidden" id="lessionId" name="lessionId" value="@lession.LesionId">
-                                    <input type="hidden" id="userId" name="userId" value="@userId" />
-                                    <textarea name="commentContent" id="commentContent" placeholder="What are you thinking right now?"></textarea>
-                                    <ul>
-                                        <li><a title="" data-toggle="tooltip" data-placement="bottom" data-original-title="Audio"><i class="fa fa-music"></i></a></li>
-                                        <li><a title="" data-toggle="tooltip" data-placement="bottom" data-original-title="Video"><i class="fa fa-video-camera"></i></a></li>
-                                        <li><a title="" data-toggle="tooltip" data-placement="bottom" data-original-title="Sound Record"><i class="fa fa-microphone"></i></a></li>
-                                        <li><a title="" data-toggle="tooltip" data-placement="bottom" data-original-title="Picture"><i class="fa fa-picture-o"></i></a></li>
-                                    </ul>
-                                    <button onClick="ajaxComment()" class="btn btn-success green"><i class="fa fa-share"></i> Share</button>
-                                </form>
-                                </div><!-- Status Upload  -->
-                            </div><!-- Widget Area -->
-                        </div>
 
-                    </div>
-                </div>
             </div>
+        </div>
+    </div>
+    <div class="row" id="main_comment_rep">
+        <input type="hidden" id="lessionId" name="lessionId" value="@lession.LesionId">
+        <div class="col-lg-8 col-lg-offset-2">
+            <textarea name="commentContent" id="commentContent" placeholder="What are you thinking right now?"></textarea>
+        </div>
+        <div class="col-lg-12 text-center" style="margin-top: 10px">
+            <button id="btnComment" class="btn btn-success green"><i class="fa fa-share"></i> Share</button>
         </div>
     </div>
 </div>
 
 
-
 <style>
     .blog-comment::before,
-.blog-comment::after,
-.blog-comment-form::before,
-.blog-comment-form::after{
-    content: "";
-	display: table;
-	clear: both;
-}
+    .blog-comment::after,
+    .blog-comment-form::before,
+    .blog-comment-form::after {
+        clear: both;
+        content: "";
+        display: table;
+    }
 
-.blog-comment{
-    padding-left: 15%;
-	padding-right: 15%;
-}
+    .blog-comment {
+        padding-left: 15%;
+        padding-right: 15%;
+    }
 
-.blog-comment ul{
-	list-style-type: none;
-	padding: 0;
-}
+    .blog-comment ul {
+        list-style-type: none;
+        padding: 0;
+    }
 
-.blog-comment img{
-	opacity: 1;
-	filter: Alpha(opacity=100);
-	-webkit-border-radius: 4px;
-	   -moz-border-radius: 4px;
-	  	 -o-border-radius: 4px;
-			border-radius: 4px;
-}
+    .blog-comment img {
+        -moz-border-radius: 4px;
+        -o-border-radius: 4px;
+        -webkit-border-radius: 4px;
+        border-radius: 4px;
+        filter: Alpha(opacity=100);
+        opacity: 1;
+    }
 
-.blog-comment img.avatar {
-	position: relative;
-	float: left;
-	margin-left: 0;
-	margin-top: 0;
-	width: 65px;
-	height: 65px;
-}
+    .blog-comment img.avatar {
+        float: left;
+        height: 65px;
+        margin-left: 0;
+        margin-top: 0;
+        position: relative;
+        width: 65px;
+    }
 
-.blog-comment .post-comments{
-	border: 1px solid #eee;
-    margin-bottom: 20px;
-    margin-left: 85px;
-	margin-right: 0px;
-    padding: 10px 20px;
-    position: relative;
-    -webkit-border-radius: 4px;
-       -moz-border-radius: 4px;
-       	 -o-border-radius: 4px;
-    		border-radius: 4px;
-	background: #fff;
-	color: #6b6e80;
-	position: relative;
-}
+    .blog-comment .post-comments {
+        -moz-border-radius: 4px;
+        -o-border-radius: 4px;
+        -webkit-border-radius: 4px;
+        background: #fff;
+        border: 1px solid #eee;
+        border-radius: 4px;
+        color: #6b6e80;
+        margin-bottom: 20px;
+        margin-left: 85px;
+        margin-right: 0px;
+        padding: 10px 20px;
+        position: relative;
+        position: relative;
+    }
 
-.blog-comment .meta {
-	font-size: 13px;
-	color: #aaaaaa;
-	padding-bottom: 8px;
-	margin-bottom: 10px !important;
-	border-bottom: 1px solid #eee;
-}
+    .blog-comment .meta {
+        border-bottom: 1px solid #eee;
+        color: #aaaaaa;
+        font-size: 13px;
+        margin-bottom: 10px !important;
+        padding-bottom: 8px;
+    }
 
-.blog-comment ul.comments ul{
-	list-style-type: none;
-	padding: 0;
-	margin-left: 85px;
-}
+    .blog-comment ul.comments ul {
+        list-style-type: none;
+        margin-left: 85px;
+        padding: 0;
+    }
 
-.blog-comment-form{
-	padding-left: 15%;
-	padding-right: 15%;
-	padding-top: 40px;
-}
+    .blog-comment-form {
+        padding-left: 15%;
+        padding-right: 15%;
+        padding-top: 40px;
+    }
 
-.blog-comment h3,
-.blog-comment-form h3{
-	margin-bottom: 40px;
-	font-size: 26px;
-	line-height: 30px;
-	font-weight: 800;
-}
+    .blog-comment h3,
+    .blog-comment-form h3 {
+        font-size: 26px;
+        font-weight: 800;
+        line-height: 30px;
+        margin-bottom: 40px;
+    }
 
-.widget-area.blank {
-background: none repeat scroll 0 0 rgba(0, 0, 0, 0);
--webkit-box-shadow: none;
--moz-box-shadow: none;
--ms-box-shadow: none;
--o-box-shadow: none;
-box-shadow: none;
-}
-body .no-padding {
-padding: 0;
-}
-.widget-area {
-background-color: #fff;
--webkit-border-radius: 4px;
--moz-border-radius: 4px;
--ms-border-radius: 4px;
--o-border-radius: 4px;
-border-radius: 4px;
--webkit-box-shadow: 0 0 16px rgba(0, 0, 0, 0.05);
--moz-box-shadow: 0 0 16px rgba(0, 0, 0, 0.05);
--ms-box-shadow: 0 0 16px rgba(0, 0, 0, 0.05);
--o-box-shadow: 0 0 16px rgba(0, 0, 0, 0.05);
-box-shadow: 0 0 16px rgba(0, 0, 0, 0.05);
-float: left;
-margin-top: 30px;
-padding: 25px 30px;
-position: relative;
-width: 100%;
-}
-.status-upload {
-background: none repeat scroll 0 0 #f5f5f5;
--webkit-border-radius: 4px;
--moz-border-radius: 4px;
--ms-border-radius: 4px;
--o-border-radius: 4px;
-border-radius: 4px;
-float: left;
-width: 100%;
-}
-.status-upload form {
-float: left;
-width: 100%;
-}
-.status-upload form textarea {
-background: none repeat scroll 0 0 #fff;
-border: medium none;
--webkit-border-radius: 4px 4px 0 0;
--moz-border-radius: 4px 4px 0 0;
--ms-border-radius: 4px 4px 0 0;
--o-border-radius: 4px 4px 0 0;
-border-radius: 4px 4px 0 0;
-color: #777777;
-float: left;
-font-family: Lato;
-font-size: 14px;
-height: 142px;
-letter-spacing: 0.3px;
-padding: 20px;
-width: 100%;
-resize:vertical;
-outline:none;
-border: 1px solid #F2F2F2;
-}
+    .widget-area.blank {
+        -moz-box-shadow: none;
+        -ms-box-shadow: none;
+        -o-box-shadow: none;
+        -webkit-box-shadow: none;
+        background: none repeat scroll 0 0 rgba(0, 0, 0, 0);
+        box-shadow: none;
+    }
 
-.status-upload ul {
-float: left;
-list-style: none outside none;
-margin: 0;
-padding: 0 0 0 15px;
-width: auto;
-}
-.status-upload ul > li {
-float: left;
-}
-.status-upload ul > li > a {
--webkit-border-radius: 4px;
--moz-border-radius: 4px;
--ms-border-radius: 4px;
--o-border-radius: 4px;
-border-radius: 4px;
-color: #777777;
-float: left;
-font-size: 14px;
-height: 30px;
-line-height: 30px;
-margin: 10px 0 10px 10px;
-text-align: center;
--webkit-transition: all 0.4s ease 0s;
--moz-transition: all 0.4s ease 0s;
--ms-transition: all 0.4s ease 0s;
--o-transition: all 0.4s ease 0s;
-transition: all 0.4s ease 0s;
-width: 30px;
-cursor: pointer;
-}
-.status-upload ul > li > a:hover {
-background: none repeat scroll 0 0 #606060;
-color: #fff;
-}
-.status-upload form button {
-border: medium none;
--webkit-border-radius: 4px;
--moz-border-radius: 4px;
--ms-border-radius: 4px;
--o-border-radius: 4px;
-border-radius: 4px;
-color: #fff;
-float: right;
-font-family: Lato;
-font-size: 14px;
-letter-spacing: 0.3px;
-margin-right: 9px;
-margin-top: 9px;
-padding: 6px 15px;
-}
-.dropdown > a > span.green:before {
-border-left-color: #2dcb73;
-}
-.status-upload form button > i {
-margin-right: 7px;
-}
+    body .no-padding { padding: 0; }
+
+    .widget-area {
+        -moz-border-radius: 4px;
+        -moz-box-shadow: 0 0 16px rgba(0, 0, 0, 0.05);
+        -ms-border-radius: 4px;
+        -ms-box-shadow: 0 0 16px rgba(0, 0, 0, 0.05);
+        -o-border-radius: 4px;
+        -o-box-shadow: 0 0 16px rgba(0, 0, 0, 0.05);
+        -webkit-border-radius: 4px;
+        -webkit-box-shadow: 0 0 16px rgba(0, 0, 0, 0.05);
+        background-color: #fff;
+        border-radius: 4px;
+        box-shadow: 0 0 16px rgba(0, 0, 0, 0.05);
+        float: left;
+        margin-top: 30px;
+        padding: 25px 30px;
+        position: relative;
+        width: 100%;
+    }
+
+    .status-upload {
+        -moz-border-radius: 4px;
+        -ms-border-radius: 4px;
+        -o-border-radius: 4px;
+        -webkit-border-radius: 4px;
+        background: none repeat scroll 0 0 #f5f5f5;
+        border-radius: 4px;
+        float: left;
+        width: 100%;
+    }
+
+    .status-upload form {
+        float: left;
+        width: 100%;
+    }
+
+    .status-upload form textarea {
+        -moz-border-radius: 4px 4px 0 0;
+        -ms-border-radius: 4px 4px 0 0;
+        -o-border-radius: 4px 4px 0 0;
+        -webkit-border-radius: 4px 4px 0 0;
+        background: none repeat scroll 0 0 #fff;
+        border: medium none;
+        border: 1px solid #F2F2F2;
+        border-radius: 4px 4px 0 0;
+        color: #777777;
+        float: left;
+        font-family: Lato;
+        font-size: 14px;
+        height: 142px;
+        letter-spacing: 0.3px;
+        outline: none;
+        padding: 20px;
+        resize: vertical;
+        width: 100%;
+    }
+
+    .status-upload ul {
+        float: left;
+        list-style: none outside none;
+        margin: 0;
+        padding: 0 0 0 15px;
+        width: auto;
+    }
+
+    .status-upload ul > li { float: left; }
+
+    .status-upload ul > li > a {
+        -moz-border-radius: 4px;
+        -moz-transition: all 0.4s ease 0s;
+        -ms-border-radius: 4px;
+        -ms-transition: all 0.4s ease 0s;
+        -o-border-radius: 4px;
+        -o-transition: all 0.4s ease 0s;
+        -webkit-border-radius: 4px;
+        -webkit-transition: all 0.4s ease 0s;
+        border-radius: 4px;
+        color: #777777;
+        cursor: pointer;
+        float: left;
+        font-size: 14px;
+        height: 30px;
+        line-height: 30px;
+        margin: 10px 0 10px 10px;
+        text-align: center;
+        transition: all 0.4s ease 0s;
+        width: 30px;
+    }
+
+    .status-upload ul > li > a:hover {
+        background: none repeat scroll 0 0 #606060;
+        color: #fff;
+    }
+
+    .status-upload form button {
+        -moz-border-radius: 4px;
+        -ms-border-radius: 4px;
+        -o-border-radius: 4px;
+        -webkit-border-radius: 4px;
+        border: medium none;
+        border-radius: 4px;
+        color: #fff;
+        float: right;
+        font-family: Lato;
+        font-size: 14px;
+        letter-spacing: 0.3px;
+        margin-right: 9px;
+        margin-top: 9px;
+        padding: 6px 15px;
+    }
+
+    .dropdown > a > span.green:before { border-left-color: #2dcb73; }
+
+    .status-upload form button > i { margin-right: 7px; }
 </style>
+
+<script>
+    CKEDITOR.replace('commentContent');
+    $("a")
+        .click(function() {
+            var commentId = $(this).attr("commentId");
+            if (commentId != null) {
+                $("#" + commentId).toggleClass("hidden");
+                $("#main_comment_rep").toggleClass("hidden");
+            }
+        });
+
+    $("#btnComment")
+        .click(function(event) {
+            event.preventDefault();
+            ajaxComment();
+        });
+
+
+
+    function ajaxComment() {
+
+        $("#commentTxtArea").html("");
+        var url = "https://" + location.host + "/Lession/AddComment/";
+       
+        var content = escape(CKEDITOR.instances.commentContent.getData());
+        alert(content);
+        var lessionId = $("#lessionId").attr("value");
+
+        var request = $.ajax({
+            url: url,
+            type: "POST",
+            data: { content: content, lessionId: lessionId },
+            dataType: "json"
+        });
+
+        request.done(function(msg) {
+            alert("duck");
+            var htmlContent = '';
+            htmlContent += '<li class="clearfix">' +
+                '<img src="http://bootdey.com/img/Content/user_3.jpg" class="avatar" alt="">' +
+                '<div class="post-comments">' +
+                '<p class="meta">' +
+                'Dec 20, 2016 <a href="#">@User.Identity.Name</a> says : <i class="pull-right"><a commentId="' +
+                msg.commentId +
+                '" style="cursor: pointer"><small>Reply</small></a></i>' +
+                '</p>' +
+                '<p>' +
+                msg.content +
+                '</p>' +
+                '<div class="container hidden" id="' +
+                msg.commentId +
+                '">' +
+                '<div class="row">' +
+                '<div class="col-md-6">' +
+                '<div class="widget-area no-padding blank">' +
+                '<div class="status-upload">' +
+                '<textarea placeholder="What are you doing right now?"></textarea>' +
+                '<ul>' +
+                '<li><a title="" data-toggle="tooltip" data-placement="bottom" data-original-title="Audio"><i class="fa fa-music"></i></a></li>' +
+                '<li><a title="" data-toggle="tooltip" data-placement="bottom" data-original-title="Video"><i class="fa fa-video-camera"></i></a></li>' +
+                '<li><a title="" data-toggle="tooltip" data-placement="bottom" data-original-title="Sound Record"><i class="fa fa-microphone"></i></a></li>' +
+                '<li><a title="" data-toggle="tooltip" data-placement="bottom" data-original-title="Picture"><i class="fa fa-picture-o"></i></a></li>' +
+                '</ul>' +
+                '<button type="submit" class="btn btn-success green"><i class="fa fa-share"></i> Share</button>' +
+                '</div><!-- Status Upload -->' +
+                '</div><!-- Widget Area -->' +
+                '</div>' +
+                '</div>' +
+                '</div>' +
+                '</div>' +
+                '</li>';
+
+
+            $('#commentDiv').append(htmlContent);
+        });
+
+        request.fail(function(textStatus) {
+            alert("Request failed: " + textStatus);
+        });
+         
+    }
+</script>

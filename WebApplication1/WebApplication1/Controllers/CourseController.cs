@@ -111,5 +111,22 @@ namespace WebApplication1.Controllers
 
             return View();
         }
+
+        public ActionResult Unenrol(int id)
+        {
+            if (!User.Identity.IsAuthenticated)
+            {
+                return RedirectToAction("Login", "Account");
+            }
+            var userId = User.Identity.GetUserId();
+            var enrolment = db.Enrolments.Include(m => m.User).Include(m => m.Course).SingleOrDefault(m => m.User.Id.Equals(userId) && m.Course.CourseId == id);
+            if (enrolment != null)
+            {
+                db.Enrolments.Remove(enrolment);
+                db.SaveChanges();
+            }
+            
+            return RedirectToAction("CourseList", new { controller = "Intro"});
+        }
     }
 }

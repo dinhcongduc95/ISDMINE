@@ -61,7 +61,7 @@
             </div>
             <div class="row">
                 <div class="col-lg-6 text-right">
-                    @Html.ActionLink("Hủy đăng kí", "Unenrol", new {controller = "Course"}, new {@class= "btn btn-danger btn-lg" })                    
+                    @Html.ActionLink("Hủy đăng kí", "Unenrol", new {controller = "Course", id = course.CourseId}, new {@class= "btn btn-danger btn-lg" })                    
                 </div>
                 <div class="col-lg-6 text-left">
                     @Html.ActionLink("Kiểm tra đầu vào", "Unenrol", new { controller = "Course" }, new { @class = "btn btn-success btn-lg" })                    

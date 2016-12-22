@@ -41,6 +41,16 @@
     <script src="https://kendo.cdn.telerik.com/2016.3.1118/js/kendo.all.min.js"></script>
     <script src="https://kendo.cdn.telerik.com/2016.3.1118/js/kendo.aspnetmvc.min.js"></script>
     <script src="@Url.Content("~/Scripts/kendo.modernizr.custom.js")"></script>
+
+    <link href="@Url.Content("~/Content/JQueryUI/themes/base/jquery.ui.all.css")" rel="stylesheet"/>
+
+    <script src="/Scripts/ui/jquery.ui.core.js"></script>
+    <script src="/Scripts/ui/jquery.ui.widget.js"></script>
+    <script src="/Scripts/ui/jquery.ui.mouse.js"></script>
+    <script src="/Scripts/ui/jquery.ui.draggable.js"></script>
+    <script src="/Scripts/ui/jquery.ui.resizable.js"></script>
+
+    <link href="/Content/ChatStyle.css" rel="stylesheet"/>
 </head>
 <body>
 <div id="wrapper">
@@ -274,187 +284,208 @@
 
 <div class="collapse navbar-collapse navbar-ex1-collapse">
 
-<ul class="nav navbar-nav side-nav">
+    <ul class="nav navbar-nav side-nav">
 
-<li class="active">
+        <li class="active">
 
-    <a href="~/Admin/Home/Index"><i class="fa fa-fw fa-dashboard"></i> Dashboard</a>
-
-</li>
-
-<li>
-
-    <a href="javascript:;" data-toggle="collapse" data-target="#platformDrop"><i class="fa fa-fw fa-arrows-v"></i> Platforms <i class="fa fa-fw fa-caret-down"></i></a>
-
-    <ul id="platformDrop" class="collapse">
-        <li>
-
-            <a href="~/Admin/Platforms/Index">List</a>
+            <a href="~/Admin/Home/Index"><i class="fa fa-fw fa-dashboard"></i> Dashboard</a>
 
         </li>
 
         <li>
 
-            <a href="~/Admin/Platforms/Create">Add</a>
+            <a href="javascript:;" data-toggle="collapse" data-target="#platformDrop"><i class="fa fa-fw fa-arrows-v"></i> Platforms <i class="fa fa-fw fa-caret-down"></i></a>
 
-        </li>        
+            <ul id="platformDrop" class="collapse">
+                <li>
+
+                    <a href="~/Admin/Platforms/Index">List</a>
+
+                </li>
+
+                <li>
+
+                    <a href="~/Admin/Platforms/Create">Add</a>
+
+                </li>
+
+            </ul>
+
+        </li>
+
+        <li>
+
+            <a href="javascript:;" data-toggle="collapse" data-target="#courseDrop"><i class="fa fa-fw fa-arrows-v"></i> Courses <i class="fa fa-fw fa-caret-down"></i></a>
+
+            <ul id="courseDrop" class="collapse">
+
+                <li>
+
+                    <a href="~/Admin/Courses/Index">List</a>
+
+                </li>
+
+                <li>
+
+                    <a href="~/Admin/Courses/Create">Add</a>
+
+                </li>
+
+            </ul>
+
+        </li>
+
+        <li>
+
+            <a href="javascript:;" data-toggle="collapse" data-target="#enrolDrop"><i class="fa fa-fw fa-arrows-v"></i> Enrolments <i class="fa fa-fw fa-caret-down"></i></a>
+
+            <ul id="enrolDrop" class="collapse">
+
+                <li>
+
+                    <a href="~/Admin/Enrolments/Index">List</a>
+
+                </li>
+                <li>
+
+                    <a href="~/Admin/Enrolments/Create">Add</a>
+
+                </li>
+
+            </ul>
+
+        </li>
+
+        <li>
+
+            <a href="javascript:;" data-toggle="collapse" data-target="#lessionDrop"><i class="fa fa-fw fa-arrows-v"></i> Lessions <i class="fa fa-fw fa-caret-down"></i></a>
+
+            <ul id="lessionDrop" class="collapse">
+
+                <li>
+
+                    <a href="~/Admin/Lessions/Index">List</a>
+
+                </li>
+
+                <li>
+
+                    <a href="~/Admin/Lessions/Create">Add</a>
+
+                </li>
+
+            </ul>
+
+        </li>
+
+        <li>
+
+            <a href="javascript:;" data-toggle="collapse" data-target="#testDrop"><i class="fa fa-fw fa-arrows-v"></i> Tests <i class="fa fa-fw fa-caret-down"></i></a>
+
+            <ul id="testDrop" class="collapse">
+
+                <li>
+
+                    <a href="~/Admin/Tests/Index">List</a>
+
+                </li>
+                <li>
+
+                    <a href="~/Admin/Tests/Create">Add</a>
+
+                </li>
+
+            </ul>
+
+        </li>
+
+        <li>
+
+            <a href="javascript:;" data-toggle="collapse" data-target="#testResultDrop"><i class="fa fa-fw fa-arrows-v"></i> Test Results <i class="fa fa-fw fa-caret-down"></i></a>
+
+            <ul id="testResultDrop" class="collapse">
+
+                <li>
+
+                    <a href="~/Admin/TestResults/Index">List</a>
+
+                </li>
+                <li>
+
+                    <a href="~/Admin/TestResults/Create">Add</a>
+
+                </li>
+
+            </ul>
+
+        </li>
+
+        <li>
+
+            <a href="javascript:;" data-toggle="collapse" data-target="#userDrop"><i class="fa fa-fw fa-arrows-v"></i> Users <i class="fa fa-fw fa-caret-down"></i></a>
+
+            <ul id="userDrop" class="collapse">
+
+                <li>
+
+                    <a href="~/Admin/Users/Index">List</a>
+
+                </li>
+
+            </ul>
+
+        </li>
+
+        <li>
+
+            <a href="javascript:;" data-toggle="collapse" data-target="#commentDrop"><i class="fa fa-fw fa-arrows-v"></i> Comments <i class="fa fa-fw fa-caret-down"></i></a>
+
+            <ul id="commentDrop" class="collapse">
+
+                <li>
+
+                    <a href="~/Admin/Comments/Index">List</a>
+
+                </li>
+                <li>
+
+                    <a href="~/Admin/Comments/Create">Add</a>
+
+                </li>
+
+            </ul>
+
+        </li>
+
+        <li>
+
+            <a href="javascript:;" data-toggle="collapse" data-target="#tutorialDrop"><i class="fa fa-fw fa-arrows-v"></i> Tutorials <i class="fa fa-fw fa-caret-down"></i></a>
+
+            <ul id="tutorialDrop" class="collapse">
+
+                <li>
+
+                    <a href="~/Admin/Tutorials/Index">List</a>
+
+                </li>
+                <li>
+
+                    <a href="~/Admin/Tutorials/Create">Add</a>
+
+                </li>
+
+            </ul>
+
+        </li>
+
+        <li>
+
+            <a href="~/Admin/Files/Index">File Management</a>
+
+        </li>
+
 
     </ul>
-
-</li>
-
-<li>
-
-    <a href="javascript:;" data-toggle="collapse" data-target="#courseDrop"><i class="fa fa-fw fa-arrows-v"></i> Courses <i class="fa fa-fw fa-caret-down"></i></a>
-
-    <ul id="courseDrop" class="collapse">
-
-        <li>
-
-            <a href="~/Admin/Courses/Index">List</a>
-
-        </li>
-
-        <li>
-
-            <a href="~/Admin/Courses/Create">Add</a>
-
-        </li>        
-
-    </ul>
-
-</li>
-
-<li>
-
-    <a href="javascript:;" data-toggle="collapse" data-target="#enrolDrop"><i class="fa fa-fw fa-arrows-v"></i> Enrolments <i class="fa fa-fw fa-caret-down"></i></a>
-
-    <ul id="enrolDrop" class="collapse">
-
-        <li>
-
-            <a href="~/Admin/Enrolments/Index">List</a>
-
-        </li>
-        <li>
-
-            <a href="~/Admin/Enrolments/Create">Add</a>
-
-        </li>        
-
-    </ul>
-
-</li>
-
-<li>
-
-    <a href="javascript:;" data-toggle="collapse" data-target="#lessionDrop"><i class="fa fa-fw fa-arrows-v"></i> Lessions <i class="fa fa-fw fa-caret-down"></i></a>
-
-    <ul id="lessionDrop" class="collapse">
-
-        <li>
-
-            <a href="~/Admin/Lessions/Index">List</a>
-
-        </li>
-
-        <li>
-
-            <a href="~/Admin/Lessions/Create">Add</a>
-
-        </li>
-        
-    </ul>
-
-</li>
-
-<li>
-
-    <a href="javascript:;" data-toggle="collapse" data-target="#testDrop"><i class="fa fa-fw fa-arrows-v"></i> Tests <i class="fa fa-fw fa-caret-down"></i></a>
-
-    <ul id="testDrop" class="collapse">
-
-        <li>
-
-            <a href="~/Admin/Tests/Index">List</a>
-
-        </li>
-        <li>
-
-            <a href="~/Admin/Tests/Create">Add</a>
-
-        </li>        
-
-    </ul>
-
-</li>
-
-<li>
-
-    <a href="javascript:;" data-toggle="collapse" data-target="#testResultDrop"><i class="fa fa-fw fa-arrows-v"></i> Test Results <i class="fa fa-fw fa-caret-down"></i></a>
-
-    <ul id="testResultDrop" class="collapse">
-
-        <li>
-
-            <a href="~/Admin/TestResults/Index">List</a>
-
-        </li>
-        <li>
-
-            <a href="~/Admin/TestResults/Create">Add</a>
-
-        </li>
-
-    </ul>
-
-</li>
-
-<li>
-
-    <a href="javascript:;" data-toggle="collapse" data-target="#userDrop"><i class="fa fa-fw fa-arrows-v"></i> Users <i class="fa fa-fw fa-caret-down"></i></a>
-
-    <ul id="userDrop" class="collapse">
-
-        <li>
-
-            <a href="~/Admin/Users/Index">List</a>
-
-        </li>
-
-    </ul>
-
-</li>
-
-<li>
-
-    <a href="javascript:;" data-toggle="collapse" data-target="#commentDrop"><i class="fa fa-fw fa-arrows-v"></i> Comments <i class="fa fa-fw fa-caret-down"></i></a>
-
-    <ul id="commentDrop" class="collapse">
-
-        <li>
-
-            <a href="~/Admin/Comments/Index">List</a>
-
-        </li>
-        <li>
-
-            <a href="~/Admin/Comments/Create">Add</a>
-
-        </li>
-       
-    </ul>
-
-</li>
-
-<li>
-
-    <a href="~/Admin/Files/Index">File Management</a>
-
-</li>
-
-
-</ul>
 
 </div>
 
@@ -465,16 +496,118 @@
 <div id="page-wrapper">
 
 
-    <div class="container-fluid">
+    <div class="container-fluid" style="min-height: 1000px">
         @RenderBody()
+
     </div>
 </div>
 </div>
-<!-- /#wrapper -->
-<!-- jQuery -->
-
-
 </body>
 
 
 </html>
+<script src="@Url.Content("~/Scripts/ChatClientSignalR.js")"></script>
+<script src="@Url.Content("~/Scripts/jquery.signalR-2.2.1.min.js")"></script>
+
+<!--Reference the autogenerated SignalR hub script. -->
+<script src="@Url.Content("/signalr/hubs")"></script>
+<div style="position: fixed; bottom: 1%; right: 1%;">
+    <button id="chatBtn" class="btn btn-lg btn-success"><span class="glyphicon glyphicon-user" aria-hidden="true"></span> Khách hàng</button>
+</div>
+
+<div style="position: fixed; bottom: 0; right: 1%; display: none" id="chatDiv">
+    <div id="divContainer">
+        <div id="divLogin" class="login">
+            <div>
+                Tên của bạn:<br />
+                <input id="txtNickName" type="text" class="textBox" />
+            </div>
+            <div id="divButton">
+                <input id="btnStartChat" type="button" class="btn btn-lg btn-success" value="Bắt đầu chat" />
+            </div>
+        </div>
+
+        <div id="divChat" class="chatRoom">
+            <div class="title">
+                <div class="text-left">
+                    Chào bạn: [<span id="spanUser"></span>]
+                    <span class="glyphicon glyphicon-minus" style="cursor: pointer; float: right" id="doneBtn" aria-hidden="true"></span>
+                </div>
+            </div>
+            <div class="content">
+                <div id="divusers" class="users">
+                </div>
+            </div>
+        </div>
+
+        <input id="hdId" type="hidden" />
+        <input id="hdUserName"
+               type="hidden" />
+        <input id="hdRole" value="Admin"
+               type="hidden" />
+    </div>
+</div>
+<script>
+        $('#chatBtn')
+            .click(function() {
+                $(this).hide();
+                $('#chatDiv').show();
+            });
+
+        $('#doneBtn')
+            .click(function() {
+                $('#chatBtn').show();
+                $('#chatDiv').hide();
+            });
+
+</script>
+<script>
+    function createPrivateChatWindow(chatHub, userId, ctrId, userName) {
+        
+        var div = '<div id="' + ctrId + '" class="ui-widget-content draggable" rel="0">' +
+                   '<div class="header">' +
+                      '<div  style="float:right;">' +
+                          '<span id="imgDelete" class="glyphicon glyphicon-remove" style="cursor:pointer;"></span>' +
+                       '</div>' +
+
+                       '<span class="selText" rel="0">' + userName + '</span>' +
+                   '</div>' +
+                   '<div id="divMessage" class="messageArea">' +
+
+                   '</div>' +
+                   '<div class="buttonBar">' +
+                      '<input id="txtPrivateMessage" class="msgText" type="text"   />' +
+                      '<input id="btnSendMessage" class="submitButton button" type="button" value="Send"   />' +
+                   '</div>' +
+                '</div>';
+
+        var $div = $(div);
+
+        // DELETE BUTTON IMAGE
+        $div.find('#imgDelete').click(function () {
+            $('#' + ctrId).remove();
+        });
+
+        // Send Button event
+        $div.find("#btnSendMessage").click(function () {
+
+            $textBox = $div.find("#txtPrivateMessage");
+            var msg = $textBox.val();
+            if (msg.length > 0) {
+                chatHub.server.sendPrivateMessage(userId, msg);
+                $textBox.val('');
+            }
+        });
+
+        // Text Box event
+        $div.find("#txtPrivateMessage").keypress(function (e) {
+            if (e.which == 13) {
+                $div.find("#btnSendMessage").click();
+            }
+        });
+
+        AddDivToContainer($div);
+
+    }
+
+</script>

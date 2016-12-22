@@ -10,7 +10,7 @@
 <div class="demo-section k-content wide">
     @(Html.Kendo().Chart()
         .Name("chart")
-        .Title("Gross domestic product growth /GDP annual %/")
+        .Title("lượng học sinh qua các năm%/")
         .Legend(legend => legend
             .Position(ChartLegendPosition.Top)
         )
@@ -19,7 +19,7 @@
         )
         .Series(series =>
         {
-            series.Column(new double[] { 3.907, 7.943, 7.848, 9.284, 9.263, 9.801, 3.890, 8.238, 9.552, 6.855 }).Name("India");
+            series.Column(new double[] { 3.907, 7.943, 7.848, 9.284, 9.263, 9.801, 3.890, 8.238, 9.552, 6.855 }).Name("số học sinh");
             
         })
         .CategoryAxis(axis => axis

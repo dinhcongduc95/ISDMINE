@@ -1,0 +1,46 @@
+﻿@model IEnumerable<WebApplication1.Models.TestResult>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="container" style="margin-top: 100px">
+    <h2>Các kết quả bài kiểm tra của bạn</h2>
+
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.User)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Test)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Mark)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Passed)
+            </th>           
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @((item.User != null) ? item.User.UserName : "")
+                </td>
+                <td>
+                    @((item.Test != null) ? item.Test.Name : "")
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Mark)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Passed)
+                </td>                
+            </tr>
+        }
+
+    </table>
+</div>

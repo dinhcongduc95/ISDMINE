@@ -85,19 +85,7 @@
   }
 }
 
-.watermurk {
-	
-	position: absolute;
-	opacity: 0.85; 
-	background: #34bdf0;
-	color: white;
-	overflow: hidden;
-    height: 96px;
-    width: 166px;
-    text-align: center;
-   
-}
-	
+
 .course-img {
 	margin: 70px 0 70px 0;
 	width: 200px; 
